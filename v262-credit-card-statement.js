@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.6.3 - Borç ödeme yapısı ve değişken kredi kartı modeli */
+/* BS OFİS BÜTÇE V2.6.4 - Borç ödeme yapısı ve değişken kredi kartı modeli */
 (() => {
   if (window.__bsDebtPaymentStructureV263Loaded) return;
   window.__bsDebtPaymentStructureV263Loaded = true;
@@ -7,34 +7,17 @@
   const EPS = 0.005;
   const FIXED = 'Sabit';
   const VARIABLE = 'Değişken';
-  const LEGACY_VARIABLE_CARD_NAMES = new Set([
-    'başak ziraat kredi kartı asgari',
-    'ziraat bankası kredi kartı',
-    'işbank kredi kartı'
-  ]);
-
-  const normalizeName = value => String(value || '')
-    .trim()
-    .replace(/\s+/g, ' ')
-    .toLocaleLowerCase('tr-TR');
-
   const roundMoney = value => Math.round((+value || 0) * 100) / 100;
-
-  function legacyVariableCard(raw) {
-    const d = normalizeDebt(raw || {});
-    return LEGACY_VARIABLE_CARD_NAMES.has(normalizeName(d.name));
-  }
 
   function paymentStructure(raw) {
     const d = normalizeDebt(raw || {});
     const stored = String(d.custom?.odeme_yapisi || '').trim();
-    if (stored === FIXED || stored === VARIABLE) return stored;
-    return legacyVariableCard(d) ? VARIABLE : FIXED;
+    return stored === VARIABLE ? VARIABLE : FIXED;
   }
 
   function isVariableCard(raw) {
     const d = normalizeDebt(raw || {});
-    return paymentStructure(d) === VARIABLE && (d.type === 'Kredi Kartı' || legacyVariableCard(d));
+    return paymentStructure(d) === VARIABLE && d.type === 'Kredi Kartı';
   }
 
   function statementDate(raw) {
@@ -339,10 +322,6 @@
     const structureInput = structureBox.querySelector('[name="custom__odeme_yapisi"]');
     if (!typeInput || !structureInput) return;
 
-    if (legacyVariableCard(record) && typeInput.value !== 'Kredi Kartı') {
-      typeInput.value = 'Kredi Kartı';
-    }
-
     const applyMode = () => {
       const variableCard = structureInput.value === VARIABLE && typeInput.value === 'Kredi Kartı';
       const statementBox = ensureStatementFields(form, record);
@@ -438,6 +417,6 @@
   try {
     renderAll();
   } catch (error) {
-    console.error('V2.6.3 borç ödeme yapısı render hatası:', error);
+    console.error('V2.6.4 borç ödeme yapısı render hatası:', error);
   }
 })();
