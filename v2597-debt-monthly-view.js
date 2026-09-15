@@ -1,6 +1,6 @@
-/* BS OFİS BÜTÇE V2.5.9.7 - Borçlar aylık operasyon görünümü
+/* BS OFİS BÜTÇE V2.6.3 - Borçlar aylık operasyon görünümü
    Veri modelini değiştirmez. Mevcut ödeme/taksit motorunun ürettiği vade ve kısmi ödeme durumunu kullanır.
-   Varsayılan Aktif görünüm: gecikmiş + içinde bulunulan ay vadeli açık borçlar. Gelecek aylar Tümü filtresinde erişilebilir. */
+   Borç sunum modüllerini tek noktadan ve sıralı olarak yükler. */
 (() => {
   if(window.__bsDebtMonthlyViewV2597Loaded) return;
   window.__bsDebtMonthlyViewV2597Loaded = true;
@@ -118,5 +118,32 @@
     renderDebts = wrapped;
   }
 
+  function loadScript(src,marker,attr){
+    return new Promise((resolve,reject)=>{
+      if(marker && window[marker]) return resolve();
+      const existing = document.querySelector(`script[${attr}]`);
+      if(existing){
+        existing.addEventListener('load',resolve,{once:true});
+        existing.addEventListener('error',reject,{once:true});
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = src;
+      script.setAttribute(attr,'1');
+      script.addEventListener('load',resolve,{once:true});
+      script.addEventListener('error',()=>reject(new Error(`${src} yüklenemedi`)),{once:true});
+      document.body.appendChild(script);
+    });
+  }
+
+  async function loadDebtPresentationModules(){
+    await loadScript('./v2598-debt-card-status.js?v=263','__bsDebtCardStatusV2598Loaded','data-bs-debt-status');
+    await loadScript('./v262-credit-card-statement.js?v=263','__bsDebtPaymentStructureV263Loaded','data-bs-debt-structure');
+  }
+
   if(typeof renderDebts === 'function') renderDebts();
+
+  loadDebtPresentationModules().catch(error=>{
+    console.error('Borç modülü yükleme hatası:',error);
+  });
 })();
