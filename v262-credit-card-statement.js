@@ -1,10 +1,13 @@
-/* BS OFİS BÜTÇE V2.6.2.1 - Değişken kredi kartı ekstresi / asgari ödeme modeli */
+/* BS OFİS BÜTÇE V2.6.3 - Borç ödeme yapısı ve değişken kredi kartı modeli */
 (() => {
-  if (window.__bsCreditCardStatementV262Loaded) return;
+  if (window.__bsDebtPaymentStructureV263Loaded) return;
+  window.__bsDebtPaymentStructureV263Loaded = true;
   window.__bsCreditCardStatementV262Loaded = true;
 
   const EPS = 0.005;
-  const CARD_NAMES = new Set([
+  const FIXED = 'Sabit';
+  const VARIABLE = 'Değişken';
+  const LEGACY_VARIABLE_CARD_NAMES = new Set([
     'başak ziraat kredi kartı asgari',
     'ziraat bankası kredi kartı',
     'işbank kredi kartı'
@@ -17,24 +20,33 @@
 
   const roundMoney = value => Math.round((+value || 0) * 100) / 100;
 
-  function isCreditCardDebt(raw) {
-    if (!raw) return false;
-    const d = normalizeDebt(raw);
-    return CARD_NAMES.has(normalizeName(d.name));
+  function legacyVariableCard(raw) {
+    const d = normalizeDebt(raw || {});
+    return LEGACY_VARIABLE_CARD_NAMES.has(normalizeName(d.name));
+  }
+
+  function paymentStructure(raw) {
+    const d = normalizeDebt(raw || {});
+    const stored = String(d.custom?.odeme_yapisi || '').trim();
+    if (stored === FIXED || stored === VARIABLE) return stored;
+    return legacyVariableCard(d) ? VARIABLE : FIXED;
+  }
+
+  function isVariableCard(raw) {
+    const d = normalizeDebt(raw || {});
+    return paymentStructure(d) === VARIABLE && (d.type === 'Kredi Kartı' || legacyVariableCard(d));
   }
 
   function statementDate(raw) {
-    const d = normalizeDebt(raw);
-    return d.custom?.cc_statement_date || '';
+    return normalizeDebt(raw || {}).custom?.cc_statement_date || '';
   }
 
   function statementAmount(raw) {
-    const d = normalizeDebt(raw);
-    return Math.max(0, roundMoney(d.custom?.cc_statement_amount || 0));
+    return Math.max(0, roundMoney(normalizeDebt(raw || {}).custom?.cc_statement_amount || 0));
   }
 
   function paidForCurrentStatement(raw) {
-    const d = normalizeDebt(raw);
+    const d = normalizeDebt(raw || {});
     const start = statementDate(d);
     if (!start) return 0;
 
@@ -46,8 +58,8 @@
     );
   }
 
-  function cardSnapshot(raw) {
-    const d = normalizeDebt(raw);
+  function snapshot(raw) {
+    const d = normalizeDebt(raw || {});
     const statement = statementAmount(d);
     const minimum = Math.max(0, roundMoney(d.minimum));
     const paid = paidForCurrentStatement(d);
@@ -62,21 +74,17 @@
     let label = 'Ekstre bilgisi girin';
     let badge = 'orange';
 
-    if (!hasStatement) {
-      label = 'Ekstre bilgisi girin';
-      badge = 'orange';
-    } else if (statement > EPS && paid + EPS >= statement) {
+    if (hasStatement && paid + EPS >= statement) {
       label = 'Ekstre ödendi';
       badge = 'green';
-    } else if (minimum > EPS && paid + EPS >= minimum) {
+    } else if (hasStatement && minimum > EPS && paid + EPS >= minimum) {
       label = 'Asgari ödendi · borç devrediyor';
       badge = 'green';
-    } else if (minimum > EPS && overdue) {
+    } else if (hasStatement && minimum > EPS && overdue) {
       label = 'Asgari ödeme gecikti';
       badge = 'red';
-    } else if (minimum > EPS) {
+    } else if (hasStatement && minimum > EPS) {
       label = 'Asgari bekleniyor';
-      badge = 'orange';
     }
 
     return {
@@ -94,48 +102,48 @@
     };
   }
 
-  window.bsIsCreditCardDebt = isCreditCardDebt;
-  window.bsCreditCardSnapshot = cardSnapshot;
+  window.bsDebtPaymentStructure = paymentStructure;
+  window.bsIsCreditCardDebt = isVariableCard;
+  window.bsCreditCardSnapshot = snapshot;
 
-  if (typeof window.currentInstallmentRemaining === 'function' && !window.currentInstallmentRemaining.__bsCreditCardV262) {
-    const originalCurrentInstallmentRemainingV262 = window.currentInstallmentRemaining;
-    const wrappedCurrentInstallmentRemainingV262 = function(raw) {
-      if (isCreditCardDebt(raw)) {
-        const snapshot = cardSnapshot(raw);
-        return snapshot.hasStatement ? snapshot.minimumRemaining : 0;
+  if (typeof window.currentInstallmentRemaining === 'function' && !window.currentInstallmentRemaining.__bsPaymentStructureV263) {
+    const original = window.currentInstallmentRemaining;
+    const wrapped = function(raw) {
+      if (isVariableCard(raw)) {
+        const s = snapshot(raw);
+        return s.hasStatement ? s.minimumRemaining : 0;
       }
-      return originalCurrentInstallmentRemainingV262(raw);
+      return original(raw);
     };
-    wrappedCurrentInstallmentRemainingV262.__bsCreditCardV262 = true;
-    window.currentInstallmentRemaining = wrappedCurrentInstallmentRemainingV262;
+    wrapped.__bsPaymentStructureV263 = true;
+    window.currentInstallmentRemaining = wrapped;
   }
 
   function injectStyle() {
-    if (document.getElementById('bs-credit-card-v262-style')) return;
+    if (document.getElementById('bs-debt-payment-structure-v263-style')) return;
     const style = document.createElement('style');
-    style.id = 'bs-credit-card-v262-style';
+    style.id = 'bs-debt-payment-structure-v263-style';
     style.textContent = `
       .bs-cc-card .bs-cc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin-top:3px}
       .bs-cc-card .bs-cc-subline{display:block;margin-top:4px;color:#64748b}
-      .bs-cc-statement-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-      .bs-cc-statement-fields label{min-width:0}
-      @media (max-width:640px){.bs-cc-statement-fields{grid-template-columns:1fr}}
+      .bs-debt-structure-fields,.bs-cc-statement-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .bs-debt-structure-fields label,.bs-cc-statement-fields label{min-width:0}
+      @media (max-width:640px){.bs-debt-structure-fields,.bs-cc-statement-fields{grid-template-columns:1fr}}
     `;
     document.head.appendChild(style);
   }
 
-  const originalDebtCardV262 = debtCard;
+  const originalDebtCard = debtCard;
   debtCard = function(raw) {
     const d = normalizeDebt(raw);
-    if (!isCreditCardDebt(d)) return originalDebtCardV262(raw);
+    if (!isVariableCard(d)) return originalDebtCard(raw);
 
-    const s = cardSnapshot(d);
+    const s = snapshot(d);
     const owner = d.custom?.debt_owner || '';
     const dueText = d.dueDate
       ? parseDate(d.dueDate).toLocaleDateString('tr-TR')
       : 'Son ödeme tarihi girilmedi';
-
-    const statementText = s.statement > EPS
+    const statementText = s.hasStatement
       ? `Ekstre ${money(s.statement)} · Ödenen ${money(s.paid)} · Kalan ${money(s.statementRemaining)}`
       : 'Ekstre bekleniyor';
 
@@ -145,7 +153,7 @@
           <strong>${esc(d.name)}</strong>
           <small class="bs-cc-meta">
             ${owner ? `<span>${esc(owner)}</span><span>·</span>` : ''}
-            <span>Kredi Kartı</span>
+            <span>Kredi Kartı · ${VARIABLE}</span>
             <span class="badge ${esc(s.badge)}">${esc(s.label)}</span>
           </small>
           <small class="bs-cc-subline">${esc(statementText)}</small>
@@ -158,12 +166,9 @@
     `;
   };
 
-  function restoreCreditCardCardsAfterLegacyDecorators() {
+  function restoreVariableCards() {
     const byId = new Map(
-      state.debts
-        .map(normalizeDebt)
-        .filter(isCreditCardDebt)
-        .map(d => [String(d.id), d])
+      state.debts.map(normalizeDebt).filter(isVariableCard).map(d => [String(d.id), d])
     );
 
     document.querySelectorAll('#debtList [data-debt]').forEach(card => {
@@ -176,27 +181,26 @@
     });
   }
 
-  if (typeof renderDebts === 'function' && !renderDebts.__bsCreditCardV262) {
-    const originalRenderDebtsV262 = renderDebts;
-    const wrappedRenderDebtsV262 = function(...args) {
-      const result = originalRenderDebtsV262.apply(this, args);
-      restoreCreditCardCardsAfterLegacyDecorators();
+  if (typeof renderDebts === 'function' && !renderDebts.__bsPaymentStructureV263) {
+    const original = renderDebts;
+    const wrapped = function(...args) {
+      const result = original.apply(this, args);
+      restoreVariableCards();
       return result;
     };
-    wrappedRenderDebtsV262.__bsCreditCardV262 = true;
-    renderDebts = wrappedRenderDebtsV262;
+    wrapped.__bsPaymentStructureV263 = true;
+    renderDebts = wrapped;
   }
 
-  const originalDueItemsV262 = dueItems;
+  const originalDueItems = dueItems;
   dueItems = function() {
-    const regular = originalDueItemsV262().filter(x => !isCreditCardDebt(x));
+    const regular = originalDueItems().filter(x => !isVariableCard(x));
     const now = parseDate(todayISO());
-
     const cards = activeDebts()
-      .filter(isCreditCardDebt)
+      .filter(isVariableCard)
       .filter(d => d.dueDate)
       .map(d => {
-        const s = cardSnapshot(d);
+        const s = snapshot(d);
         if (!s.hasStatement || s.minimumRemaining <= EPS) return null;
         const date = parseDate(d.dueDate);
         return {
@@ -212,44 +216,49 @@
     return [...regular, ...cards].sort((a, b) => a.date - b.date);
   };
 
-  const originalMonthlyDebtLoadV262 = monthlyDebtLoad;
+  const originalMonthlyDebtLoad = monthlyDebtLoad;
   monthlyDebtLoad = function() {
     const current = monthKey();
     return activeDebts().reduce((sum, d) => {
-      if (!isCreditCardDebt(d)) return sum + (+d.minimum || 0);
-      const s = cardSnapshot(d);
+      if (!isVariableCard(d)) return sum + (+d.minimum || 0);
+      const s = snapshot(d);
       if (!s.hasStatement || !d.dueDate || !d.dueDate.startsWith(current)) return sum;
       return sum + (+d.minimum || 0);
     }, 0);
   };
-  monthlyDebtLoad.__bsCreditCardV262 = true;
-  monthlyDebtLoad.__previous = originalMonthlyDebtLoadV262;
+  monthlyDebtLoad.__bsPaymentStructureV263 = true;
+  monthlyDebtLoad.__previous = originalMonthlyDebtLoad;
 
-  const originalApplyPaymentPlanV262 = applyPaymentPlan;
+  const originalApplyPaymentPlan = applyPaymentPlan;
   applyPaymentPlan = function(raw, paymentDate, ...rest) {
-    if (!isCreditCardDebt(raw)) {
-      return originalApplyPaymentPlanV262(raw, paymentDate, ...rest);
-    }
-
+    if (!isVariableCard(raw)) return originalApplyPaymentPlan(raw, paymentDate, ...rest);
     raw.status = 'active';
     raw.updatedAt = new Date().toISOString();
     return raw;
   };
-  applyPaymentPlan.__bsCreditCardV262 = true;
+  applyPaymentPlan.__bsPaymentStructureV263 = true;
 
-  const originalParseCustomValuesV262 = parseCustomValues;
+  const originalParseCustomValues = parseCustomValues;
   parseCustomValues = function(fd, module, oldCustom = {}) {
-    const out = originalParseCustomValuesV262(fd, module, oldCustom);
+    const out = originalParseCustomValues(fd, module, oldCustom);
     if (module !== 'debts') return out;
 
-    if ('cc_statement_date' in fd) {
-      out.cc_statement_date = fd.cc_statement_date || '';
+    if ('custom__odeme_yapisi' in fd) {
+      out.odeme_yapisi = fd.custom__odeme_yapisi === VARIABLE ? VARIABLE : FIXED;
     }
-    if ('cc_statement_amount' in fd) {
-      out.cc_statement_amount = fd.cc_statement_amount === ''
-        ? ''
-        : Math.max(0, roundMoney(fd.cc_statement_amount));
+
+    if (out.odeme_yapisi === VARIABLE) {
+      if ('cc_statement_date' in fd) out.cc_statement_date = fd.cc_statement_date || '';
+      if ('cc_statement_amount' in fd) {
+        out.cc_statement_amount = fd.cc_statement_amount === ''
+          ? ''
+          : Math.max(0, roundMoney(fd.cc_statement_amount));
+      }
+    } else {
+      delete out.cc_statement_date;
+      delete out.cc_statement_amount;
     }
+
     return out;
   };
 
@@ -261,15 +270,37 @@
       node = document.createTextNode('');
       label.prepend(node);
     }
-    node.textContent = `
-        ${text}
-        `;
+    node.textContent = `\n        ${text}\n        `;
   }
 
   function setFieldVisible(form, name, visible) {
     const input = form.querySelector(`[name="${name}"]`);
     const label = input?.closest('label');
     if (label) label.style.display = visible ? '' : 'none';
+  }
+
+  function ensureStructureField(form, record) {
+    let box = form.querySelector('#bsDebtPaymentStructureFields');
+    if (box) return box;
+
+    box = document.createElement('div');
+    box.id = 'bsDebtPaymentStructureFields';
+    box.className = 'bs-debt-structure-fields';
+    const value = paymentStructure(record || {});
+    box.innerHTML = `
+      <label>
+        Ödeme yapısı
+        <select name="custom__odeme_yapisi" required>
+          <option value="${FIXED}" ${value === FIXED ? 'selected' : ''}>${FIXED}</option>
+          <option value="${VARIABLE}" ${value === VARIABLE ? 'selected' : ''}>${VARIABLE}</option>
+        </select>
+      </label>
+    `;
+
+    const typeLabel = form.querySelector('[name="type"]')?.closest('label');
+    if (typeLabel) typeLabel.after(box);
+    else form.querySelector('#recordFields')?.prepend(box);
+    return box;
   }
 
   function ensureStatementFields(form, record) {
@@ -279,11 +310,9 @@
     box = document.createElement('div');
     box.id = 'bsCreditCardStatementFields';
     box.className = 'bs-cc-statement-fields';
-
     const d = record ? normalizeDebt(record) : null;
     const dateValue = d?.custom?.cc_statement_date || '';
     const amountValue = d?.custom?.cc_statement_amount ?? '';
-
     box.innerHTML = `
       <label>
         Ekstre kesim tarihi
@@ -297,7 +326,7 @@
 
     const minimumLabel = form.querySelector('[name="minimum"]')?.closest('label');
     if (minimumLabel) minimumLabel.before(box);
-    else form.querySelector('#recordFields')?.prepend(box);
+    else form.querySelector('#recordFields')?.append(box);
     return box;
   }
 
@@ -306,48 +335,47 @@
     if (!form || form.querySelector('[name="module"]')?.value !== 'debts') return;
 
     const typeInput = form.querySelector('[name="type"]');
-    const nameInput = form.querySelector('[name="name"]');
-    if (!typeInput) return;
+    const structureBox = ensureStructureField(form, record);
+    const structureInput = structureBox.querySelector('[name="custom__odeme_yapisi"]');
+    if (!typeInput || !structureInput) return;
 
-    const recognizedByName = record && CARD_NAMES.has(normalizeName(normalizeDebt(record).name));
-    if (recognizedByName && typeInput.value !== 'Kredi Kartı') {
+    if (legacyVariableCard(record) && typeInput.value !== 'Kredi Kartı') {
       typeInput.value = 'Kredi Kartı';
     }
 
     const applyMode = () => {
-      const currentName = nameInput?.value || normalizeDebt(record || {}).name || '';
-      const card = CARD_NAMES.has(normalizeName(currentName));
-      const box = ensureStatementFields(form, record);
-      box.style.display = card ? '' : 'none';
+      const variableCard = structureInput.value === VARIABLE && typeInput.value === 'Kredi Kartı';
+      const statementBox = ensureStatementFields(form, record);
+      statementBox.style.display = variableCard ? '' : 'none';
 
-      setFieldVisible(form, 'original', !card);
-      setFieldVisible(form, 'balance', !card);
-      setFieldVisible(form, 'rate', !card);
-      setFieldVisible(form, 'frequency', !card);
-      setFieldVisible(form, 'custom__remaining_installments', !card);
-      setFieldVisible(form, 'custom__next_payment_after_current', !card);
+      setFieldVisible(form, 'original', !variableCard);
+      setFieldVisible(form, 'balance', !variableCard);
+      setFieldVisible(form, 'rate', !variableCard);
+      setFieldVisible(form, 'frequency', !variableCard);
+      setFieldVisible(form, 'custom__remaining_installments', !variableCard);
+      setFieldVisible(form, 'custom__next_payment_after_current', !variableCard);
 
       const minInput = form.querySelector('[name="minimum"]');
       const dueInput = form.querySelector('[name="dueDate"]');
-      setLabelText(minInput, card ? 'Asgari ödeme' : fieldLabel('debts', 'minimum'));
-      setLabelText(dueInput, card ? 'Son ödeme tarihi' : fieldLabel('debts', 'dueDate'));
+      setLabelText(minInput, variableCard ? 'Asgari ödeme' : fieldLabel('debts', 'minimum'));
+      setLabelText(dueInput, variableCard ? 'Son ödeme tarihi' : fieldLabel('debts', 'dueDate'));
 
       const title = document.querySelector('#recordDialogTitle');
       if (title) {
-        title.textContent = card
+        title.textContent = variableCard
           ? (record?.id ? 'Kredi Kartı Ekstresini Güncelle' : 'Yeni Kredi Kartı')
-          : (record?.id ? 'Kaydı Düzenle' : 'Yeni Borçlar');
+          : (record?.id ? 'Kaydı Düzenle' : 'Yeni Borç');
       }
     };
 
     typeInput.addEventListener('change', applyMode);
-    nameInput?.addEventListener('input', applyMode);
+    structureInput.addEventListener('change', applyMode);
     applyMode();
   }
 
-  const originalOpenRecordDialogV262 = openRecordDialog;
+  const originalOpenRecordDialog = openRecordDialog;
   openRecordDialog = function(module, record = null) {
-    const result = originalOpenRecordDialogV262(module, record);
+    const result = originalOpenRecordDialog(module, record);
     if (module === 'debts') configureDebtForm(record);
     return result;
   };
@@ -359,16 +387,19 @@
     return row;
   }
 
-  const originalShowDetailV262 = showDetail;
+  const originalShowDetail = showDetail;
   showDetail = function(module, record) {
-    originalShowDetailV262(module, record);
-    if (module !== 'debts' || !isCreditCardDebt(record)) return;
+    originalShowDetail(module, record);
+    if (module !== 'debts') return;
 
     const d = normalizeDebt(record);
-    const s = cardSnapshot(d);
     const grid = document.querySelector('#detailContent .detail-grid');
     if (!grid) return;
 
+    grid.prepend(makeDetailRow('Ödeme yapısı', esc(paymentStructure(d)), 'bs-payment-structure-row'));
+    if (!isVariableCard(d)) return;
+
+    const s = snapshot(d);
     grid.querySelector('.bs-debt-balance-row')?.remove();
 
     const hideLabels = new Set([
@@ -390,9 +421,9 @@
 
     const rows = [
       makeDetailRow('Ekstre kesim tarihi', statementDate(d) ? parseDate(statementDate(d)).toLocaleDateString('tr-TR') : '—', 'bs-cc-detail-row'),
-      makeDetailRow('Ekstre tutarı', s.statement > EPS ? money(s.statement) : '—', 'bs-cc-detail-row'),
+      makeDetailRow('Ekstre tutarı', s.hasStatement ? money(s.statement) : '—', 'bs-cc-detail-row'),
       makeDetailRow('Bu ekstre ödendi', money(s.paid), 'bs-cc-detail-row'),
-      makeDetailRow('Kalan ekstre', s.statement > EPS ? money(s.statementRemaining) : '—', 'bs-cc-detail-row'),
+      makeDetailRow('Kalan ekstre', s.hasStatement ? money(s.statementRemaining) : '—', 'bs-cc-detail-row'),
       makeDetailRow('Asgari durum', esc(s.label), 'bs-cc-detail-row')
     ];
 
@@ -407,6 +438,6 @@
   try {
     renderAll();
   } catch (error) {
-    console.error('V2.6.2 kredi kartı modeli render hatası:', error);
+    console.error('V2.6.3 borç ödeme yapısı render hatası:', error);
   }
 })();
