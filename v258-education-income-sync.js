@@ -41,6 +41,10 @@
       return { skipped: 'no-session' };
     }
 
+    if (!cloud?.key) {
+      return { skipped: 'no-finance-publishable-key' };
+    }
+
     const now = Date.now();
     if (!force && mode === 'sync' && now - lastAttemptAt < MIN_INTERVAL_MS) {
       return { skipped: 'throttled' };
@@ -56,6 +60,7 @@
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${session.access_token}`,
+          'X-Finance-Publishable-Key': cloud.key,
         },
         body: JSON.stringify({ mode, paymentId }),
       });
