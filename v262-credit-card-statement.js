@@ -99,7 +99,10 @@
   if (typeof window.currentInstallmentRemaining === 'function' && !window.currentInstallmentRemaining.__bsCreditCardV262) {
     const originalCurrentInstallmentRemainingV262 = window.currentInstallmentRemaining;
     const wrappedCurrentInstallmentRemainingV262 = function(raw) {
-      if (isCreditCardDebt(raw)) return cardSnapshot(raw).minimumRemaining;
+      if (isCreditCardDebt(raw)) {
+        const snapshot = cardSnapshot(raw);
+        return snapshot.hasStatement ? snapshot.minimumRemaining : 0;
+      }
       return originalCurrentInstallmentRemainingV262(raw);
     };
     wrappedCurrentInstallmentRemainingV262.__bsCreditCardV262 = true;
