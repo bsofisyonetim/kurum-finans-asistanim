@@ -6,7 +6,8 @@
   const EPS = 0.005;
   const CARD_NAMES = new Set([
     'başak ziraat kredi kartı asgari',
-    'ziraat bankası kredi kartı'
+    'ziraat bankası kredi kartı',
+    'işbank kredi kartı'
   ]);
 
   const normalizeName = value => String(value || '')
