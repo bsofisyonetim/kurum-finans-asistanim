@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.6.2 - Değişken kredi kartı ekstresi / asgari ödeme modeli */
+/* BS OFİS BÜTÇE V2.6.2.1 - Değişken kredi kartı ekstresi / asgari ödeme modeli */
 (() => {
   if (window.__bsCreditCardStatementV262Loaded) return;
   window.__bsCreditCardStatementV262Loaded = true;
@@ -20,7 +20,7 @@
   function isCreditCardDebt(raw) {
     if (!raw) return false;
     const d = normalizeDebt(raw);
-    return d.type === 'Kredi Kartı' || CARD_NAMES.has(normalizeName(d.name));
+    return CARD_NAMES.has(normalizeName(d.name));
   }
 
   function statementDate(raw) {
@@ -261,7 +261,9 @@
       node = document.createTextNode('');
       label.prepend(node);
     }
-    node.textContent = `\n        ${text}\n        `;
+    node.textContent = `
+        ${text}
+        `;
   }
 
   function setFieldVisible(form, name, visible) {
@@ -304,6 +306,7 @@
     if (!form || form.querySelector('[name="module"]')?.value !== 'debts') return;
 
     const typeInput = form.querySelector('[name="type"]');
+    const nameInput = form.querySelector('[name="name"]');
     if (!typeInput) return;
 
     const recognizedByName = record && CARD_NAMES.has(normalizeName(normalizeDebt(record).name));
@@ -312,7 +315,8 @@
     }
 
     const applyMode = () => {
-      const card = typeInput.value === 'Kredi Kartı' || recognizedByName;
+      const currentName = nameInput?.value || normalizeDebt(record || {}).name || '';
+      const card = CARD_NAMES.has(normalizeName(currentName));
       const box = ensureStatementFields(form, record);
       box.style.display = card ? '' : 'none';
 
@@ -329,10 +333,15 @@
       setLabelText(dueInput, card ? 'Son ödeme tarihi' : fieldLabel('debts', 'dueDate'));
 
       const title = document.querySelector('#recordDialogTitle');
-      if (title && card) title.textContent = record?.id ? 'Kredi Kartı Ekstresini Güncelle' : 'Yeni Kredi Kartı';
+      if (title) {
+        title.textContent = card
+          ? (record?.id ? 'Kredi Kartı Ekstresini Güncelle' : 'Yeni Kredi Kartı')
+          : (record?.id ? 'Kaydı Düzenle' : 'Yeni Borçlar');
+      }
     };
 
     typeInput.addEventListener('change', applyMode);
+    nameInput?.addEventListener('input', applyMode);
     applyMode();
   }
 
