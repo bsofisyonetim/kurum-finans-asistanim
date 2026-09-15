@@ -6,7 +6,7 @@
   if (window.__bsEducationIncomeSyncV258Loaded) return;
   window.__bsEducationIncomeSyncV258Loaded = true;
 
-  const ENDPOINT = 'https://igmtuouhdozkgwmdxlme.supabase.co/functions/v1/finans-gelir-sync-v18';
+  const ENDPOINT = 'https://uspuewnaxqttaazeqmsd.supabase.co/functions/v1/finans-gelir-sync-v2';
   const EDUCATION_SOURCE = 'BS Eğitim Yönetimi / Supabase tahsilatlar';
   const MIN_INTERVAL_MS = 60 * 1000;
   let lastAttemptAt = 0;
