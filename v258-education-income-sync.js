@@ -6,7 +6,7 @@
   if (window.__bsEducationIncomeSyncV258Loaded) return;
   window.__bsEducationIncomeSyncV258Loaded = true;
 
-  const ENDPOINT = 'https://igmtuouhdozkgwmdxlme.supabase.co/functions/v1/finans-gelir-sync-v18';
+  const ENDPOINT = 'https://uspuewnaxqttaazeqmsd.supabase.co/functions/v1/finans-gelir-sync-v2';
   const EDUCATION_SOURCE = 'BS Eğitim Yönetimi / Supabase tahsilatlar';
   const MIN_INTERVAL_MS = 60 * 1000;
   let lastAttemptAt = 0;
@@ -41,6 +41,10 @@
       return { skipped: 'no-session' };
     }
 
+    if (!cloud?.key) {
+      return { skipped: 'no-finance-publishable-key' };
+    }
+
     const now = Date.now();
     if (!force && mode === 'sync' && now - lastAttemptAt < MIN_INTERVAL_MS) {
       return { skipped: 'throttled' };
@@ -56,6 +60,7 @@
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${session.access_token}`,
+          'X-Finance-Publishable-Key': cloud.key,
         },
         body: JSON.stringify({ mode, paymentId }),
       });
