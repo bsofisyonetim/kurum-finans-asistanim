@@ -55,12 +55,16 @@
     const due = d.dueDate || '';
     const today = parseDate(todayISO());
     const dueDate = due ? parseDate(due) : null;
-    const overdue = !!(dueDate && today > dueDate && minimumRemaining > EPS);
+    const hasStatement = !!(statementDate(d) && statement > EPS);
+    const overdue = !!(hasStatement && dueDate && today > dueDate && minimumRemaining > EPS);
 
     let label = 'Ekstre bilgisi girin';
     let badge = 'orange';
 
-    if (statement > EPS && paid + EPS >= statement) {
+    if (!hasStatement) {
+      label = 'Ekstre bilgisi girin';
+      badge = 'orange';
+    } else if (statement > EPS && paid + EPS >= statement) {
       label = 'Ekstre ödendi';
       badge = 'green';
     } else if (minimum > EPS && paid + EPS >= minimum) {
@@ -82,6 +86,7 @@
       statementRemaining,
       minimumRemaining,
       due,
+      hasStatement,
       overdue,
       label,
       badge
@@ -142,8 +147,8 @@
           <small class="bs-cc-subline">${esc(statementText)}</small>
         </div>
         <div class="amount">
-          ${s.minimum > EPS ? money(s.minimum) : 'Asgari girilecek'}
-          <small>Asgari · ${esc(dueText)}</small>
+          ${s.hasStatement && s.minimum > EPS ? money(s.minimum) : 'Asgari girilecek'}
+          <small>${s.hasStatement ? `Asgari · ${esc(dueText)}` : 'Ekstre girilince hesaplanır'}</small>
         </div>
       </article>
     `;
@@ -188,7 +193,7 @@
       .filter(d => d.dueDate)
       .map(d => {
         const s = cardSnapshot(d);
-        if (s.minimumRemaining <= EPS) return null;
+        if (!s.hasStatement || s.minimumRemaining <= EPS) return null;
         const date = parseDate(d.dueDate);
         return {
           ...d,
@@ -208,7 +213,8 @@
     const current = monthKey();
     return activeDebts().reduce((sum, d) => {
       if (!isCreditCardDebt(d)) return sum + (+d.minimum || 0);
-      if (!d.dueDate || !d.dueDate.startsWith(current)) return sum;
+      const s = cardSnapshot(d);
+      if (!s.hasStatement || !d.dueDate || !d.dueDate.startsWith(current)) return sum;
       return sum + (+d.minimum || 0);
     }, 0);
   };
