@@ -91,6 +91,16 @@
   window.bsIsCreditCardDebt = isCreditCardDebt;
   window.bsCreditCardSnapshot = cardSnapshot;
 
+  if (typeof window.currentInstallmentRemaining === 'function' && !window.currentInstallmentRemaining.__bsCreditCardV262) {
+    const originalCurrentInstallmentRemainingV262 = window.currentInstallmentRemaining;
+    const wrappedCurrentInstallmentRemainingV262 = function(raw) {
+      if (isCreditCardDebt(raw)) return cardSnapshot(raw).minimumRemaining;
+      return originalCurrentInstallmentRemainingV262(raw);
+    };
+    wrappedCurrentInstallmentRemainingV262.__bsCreditCardV262 = true;
+    window.currentInstallmentRemaining = wrappedCurrentInstallmentRemainingV262;
+  }
+
   function injectStyle() {
     if (document.getElementById('bs-credit-card-v262-style')) return;
     const style = document.createElement('style');
@@ -138,6 +148,35 @@
       </article>
     `;
   };
+
+  function restoreCreditCardCardsAfterLegacyDecorators() {
+    const byId = new Map(
+      state.debts
+        .map(normalizeDebt)
+        .filter(isCreditCardDebt)
+        .map(d => [String(d.id), d])
+    );
+
+    document.querySelectorAll('#debtList [data-debt]').forEach(card => {
+      const d = byId.get(String(card.dataset.debt || ''));
+      if (!d) return;
+      const holder = document.createElement('div');
+      holder.innerHTML = debtCard(d).trim();
+      const fresh = holder.firstElementChild;
+      if (fresh) card.replaceWith(fresh);
+    });
+  }
+
+  if (typeof renderDebts === 'function' && !renderDebts.__bsCreditCardV262) {
+    const originalRenderDebtsV262 = renderDebts;
+    const wrappedRenderDebtsV262 = function(...args) {
+      const result = originalRenderDebtsV262.apply(this, args);
+      restoreCreditCardCardsAfterLegacyDecorators();
+      return result;
+    };
+    wrappedRenderDebtsV262.__bsCreditCardV262 = true;
+    renderDebts = wrappedRenderDebtsV262;
+  }
 
   const originalDueItemsV262 = dueItems;
   dueItems = function() {
