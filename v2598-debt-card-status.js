@@ -168,11 +168,4 @@
   }
 
   if(typeof renderDebts === 'function') renderDebts();
-
-  if(!window.__bsCreditCardStatementV262Loaded && !document.querySelector('script[data-bs-v262-credit-card]')){
-    const script = document.createElement('script');
-    script.src = './v262-credit-card-statement.js?v=262';
-    script.dataset.bsV262CreditCard = '1';
-    document.body.appendChild(script);
-  }
 })();
