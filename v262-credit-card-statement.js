@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.6.6 - Aylık borç hesapları ve değişken kredi kartı modeli */
+/* BS OFİS BÜTÇE V2.6.7 - Ödeme motoru doğrulaması ve değişken kredi kartı güvenliği */
 (() => {
   if (window.__bsDebtPaymentStructureV263Loaded) return;
   window.__bsDebtPaymentStructureV263Loaded = true;
@@ -288,9 +288,67 @@
   monthlyDebtLoad.__bsPaymentStructureV263 = true;
   monthlyDebtLoad.__previous = originalMonthlyDebtLoad;
 
+  const VARIABLE_UNDO_CUSTOM_KEYS = [
+    'remaining_installments',
+    'current_installment_paid',
+    'next_payment_after_current',
+    'next_payment_source',
+    'balance_source'
+  ];
+
+  function captureVariableCardUndo(raw) {
+    const d = normalizeDebt(raw || {});
+    const source = d.custom || {};
+    const customPresent = [];
+    const customValues = {};
+
+    VARIABLE_UNDO_CUSTOM_KEYS.forEach(key => {
+      if (!Object.prototype.hasOwnProperty.call(source, key)) return;
+      customPresent.push(key);
+      customValues[key] = clone(source[key]);
+    });
+
+    return {
+      version: 3,
+      minimum: roundMoney(d.minimum),
+      dueDate: d.dueDate || '',
+      balance: Math.max(0, roundMoney(d.balance)),
+      status: d.status || 'active',
+      customPresent,
+      customValues
+    };
+  }
+
+  function resolveVariablePaymentRecord(raw, paymentDate, explicitAmount, paymentRecord) {
+    if (paymentRecord) return paymentRecord;
+    if (explicitAmount != null) return null;
+
+    const debtId = normalizeDebt(raw || {}).id;
+    for (let i = state.payments.length - 1; i >= 0; i--) {
+      const p = normalizePayment(state.payments[i]);
+      if (p.debtId === debtId && p.date === paymentDate) return state.payments[i];
+    }
+    return null;
+  }
+
+  function ensureVariableCardUndo(raw, paymentDate, explicitAmount, paymentRecord) {
+    const target = resolveVariablePaymentRecord(raw, paymentDate, explicitAmount, paymentRecord);
+    if (!target) return;
+
+    const custom = {...(target.custom || target.ozel_alanlar || {})};
+    if (!custom.payment_undo_v240 && !custom.payment_undo_v239 && !custom.payment_undo_v238) {
+      custom.payment_undo_v240 = captureVariableCardUndo(raw);
+    }
+    target.custom = custom;
+  }
+
   const originalApplyPaymentPlan = applyPaymentPlan;
-  applyPaymentPlan = function(raw, paymentDate, ...rest) {
-    if (!isVariableCard(raw)) return originalApplyPaymentPlan(raw, paymentDate, ...rest);
+  applyPaymentPlan = function(raw, paymentDate, explicitAmount = null, paymentRecord = null) {
+    if (!isVariableCard(raw)) {
+      return originalApplyPaymentPlan(raw, paymentDate, explicitAmount, paymentRecord);
+    }
+
+    ensureVariableCardUndo(raw, paymentDate, explicitAmount, paymentRecord);
     raw.status = 'active';
     raw.updatedAt = new Date().toISOString();
     return raw;
@@ -540,6 +598,6 @@
   try {
     renderAll();
   } catch (error) {
-    console.error('V2.6.6 aylık borç hesabı render hatası:', error);
+    console.error('V2.6.7 ödeme motoru render hatası:', error);
   }
 })();
