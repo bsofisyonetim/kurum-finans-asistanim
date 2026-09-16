@@ -262,7 +262,6 @@
       ['./v2585-payment-owner-label.js?v=2586','__bsPaymentOwnerLabelV2586Loaded'],
       ['./v2587-debt-owner-colors.js?v=2587','__bsDebtOwnerColorsV2587Loaded'],
       ['./v230-mobile-dialog.js?v=2571','__bsV235MobileDialogLoaded'],
-      ['./v234-shell-lock.js?v=257','__bsV234ShellLockLoaded'],
       ['./payment-editor-v240.js?v=240','__bsPaymentEditorV240Loaded'],
       ['./v2595-atomic-payment-create.js?v=2595','__bsAtomicPaymentCreateV2595Loaded'],
       ['./v2597-debt-monthly-view.js?v=269','__bsDebtMonthlyViewV2597Loaded'],
