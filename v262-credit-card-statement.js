@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.6.5 - Borç formu ve ödeme yapısı sadeleştirmesi */
+/* BS OFİS BÜTÇE V2.6.6 - Aylık borç hesapları ve değişken kredi kartı modeli */
 (() => {
   if (window.__bsDebtPaymentStructureV263Loaded) return;
   window.__bsDebtPaymentStructureV263Loaded = true;
@@ -53,6 +53,12 @@
     const dueDate = due ? parseDate(due) : null;
     const hasStatement = !!(statementDate(d) && statement > EPS);
     const overdue = !!(hasStatement && dueDate && today > dueDate && minimumRemaining > EPS);
+    const carryover = !!(
+      hasStatement &&
+      minimum > EPS &&
+      paid + EPS >= minimum &&
+      paid + EPS < statement
+    ) ? statementRemaining : 0;
 
     let label = 'Ekstre bilgisi girin';
     let badge = 'orange';
@@ -77,6 +83,7 @@
       paid,
       statementRemaining,
       minimumRemaining,
+      carryover,
       due,
       hasStatement,
       overdue,
@@ -127,8 +134,9 @@
     const dueText = d.dueDate
       ? parseDate(d.dueDate).toLocaleDateString('tr-TR')
       : 'Son ödeme tarihi girilmedi';
+    const remainingLabel = s.carryover > EPS ? 'Devreden borç' : 'Kalan ekstre';
     const statementText = s.hasStatement
-      ? `Ekstre ${money(s.statement)} · Ödenen ${money(s.paid)} · Kalan ${money(s.statementRemaining)}`
+      ? `Ekstre ${money(s.statement)} · Ödenen ${money(s.paid)} · ${remainingLabel} ${money(s.statementRemaining)}`
       : 'Ekstre bekleniyor';
 
     return `
@@ -200,15 +208,82 @@
     return [...regular, ...cards].sort((a, b) => a.date - b.date);
   };
 
+  function addMonthlyPlannedAmount(map, current, date, amount) {
+    const key = String(date || '');
+    const value = Math.max(0, roundMoney(amount));
+    if (!key.startsWith(current) || value <= EPS) return;
+    map.set(key, Math.max(map.get(key) || 0, value));
+  }
+
+  function fixedMonthlyAmount(raw, current) {
+    const d = normalizeDebt(raw || {});
+    const plannedByDate = new Map();
+
+    try {
+      const rows = typeof window.bsDebtInstallmentPlan === 'function'
+        ? window.bsDebtInstallmentPlan(d)
+        : [];
+      if (Array.isArray(rows)) {
+        rows.forEach(row => {
+          addMonthlyPlannedAmount(
+            plannedByDate,
+            current,
+            row?.date,
+            row?.planned ?? row?.amount
+          );
+        });
+      }
+    } catch (_error) {}
+
+    state.payments
+      .map(normalizePayment)
+      .filter(p => p.debtId === d.id)
+      .forEach(p => {
+        const meta = p.custom || {};
+        addMonthlyPlannedAmount(
+          plannedByDate,
+          current,
+          meta.installment_due_date,
+          meta.installment_amount_at_payment
+        );
+      });
+
+    if (plannedByDate.size) {
+      return roundMoney([...plannedByDate.values()].reduce((sum, amount) => sum + amount, 0));
+    }
+
+    if (d.status === 'closed') return 0;
+    if (!d.dueDate) {
+      return d.frequency === 'monthly'
+        ? Math.max(0, roundMoney(d.minimum))
+        : 0;
+    }
+    if (d.dueDate.startsWith(current)) {
+      return Math.max(0, roundMoney(d.minimum));
+    }
+    return 0;
+  }
+
+  function monthlyPlannedAmount(raw, current = monthKey()) {
+    const d = normalizeDebt(raw || {});
+    if (isVariableCard(d)) {
+      const s = snapshot(d);
+      if (!s.hasStatement || !d.dueDate || !d.dueDate.startsWith(current)) return 0;
+      return Math.max(0, roundMoney(s.minimum));
+    }
+    return fixedMonthlyAmount(d, current);
+  }
+
+  window.bsDebtMonthlyPlannedAmount = monthlyPlannedAmount;
+
   const originalMonthlyDebtLoad = monthlyDebtLoad;
   monthlyDebtLoad = function() {
     const current = monthKey();
-    return activeDebts().reduce((sum, d) => {
-      if (!isVariableCard(d)) return sum + (+d.minimum || 0);
-      const s = snapshot(d);
-      if (!s.hasStatement || !d.dueDate || !d.dueDate.startsWith(current)) return sum;
-      return sum + (+d.minimum || 0);
-    }, 0);
+    return roundMoney(
+      state.debts
+        .map(normalizeDebt)
+        .reduce((sum, d) => sum + monthlyPlannedAmount(d, current), 0)
+    );
   };
   monthlyDebtLoad.__bsPaymentStructureV263 = true;
   monthlyDebtLoad.__previous = originalMonthlyDebtLoad;
@@ -450,7 +525,7 @@
       makeDetailRow('Ekstre kesim tarihi', statementDate(d) ? parseDate(statementDate(d)).toLocaleDateString('tr-TR') : '—', 'bs-cc-detail-row'),
       makeDetailRow('Ekstre tutarı', s.hasStatement ? money(s.statement) : '—', 'bs-cc-detail-row'),
       makeDetailRow('Bu ekstre ödendi', money(s.paid), 'bs-cc-detail-row'),
-      makeDetailRow('Kalan ekstre', s.hasStatement ? money(s.statementRemaining) : '—', 'bs-cc-detail-row'),
+      makeDetailRow(s.carryover > EPS ? 'Devreden borç' : 'Kalan ekstre', s.hasStatement ? money(s.statementRemaining) : '—', 'bs-cc-detail-row'),
       makeDetailRow('Asgari durum', esc(s.label), 'bs-cc-detail-row')
     ];
 
@@ -465,6 +540,6 @@
   try {
     renderAll();
   } catch (error) {
-    console.error('V2.6.5 borç formu render hatası:', error);
+    console.error('V2.6.6 aylık borç hesabı render hatası:', error);
   }
 })();
