@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.5.9.7 - Merkezi uyumluluk ve başlangıç katmanı */
+/* BS OFİS BÜTÇE V2.6.9 - Merkezi uyumluluk ve başlangıç katmanı */
 (() => {
   if(window.__bsCoreCompatLoaded) return;
   window.__bsCoreCompatLoaded = true;
@@ -265,7 +265,9 @@
       ['./v234-shell-lock.js?v=257','__bsV234ShellLockLoaded'],
       ['./payment-editor-v240.js?v=240','__bsPaymentEditorV240Loaded'],
       ['./v2595-atomic-payment-create.js?v=2595','__bsAtomicPaymentCreateV2595Loaded'],
-      ['./v2597-debt-monthly-view.js?v=2597','__bsDebtMonthlyViewV2597Loaded'],
+      ['./v2597-debt-monthly-view.js?v=269','__bsDebtMonthlyViewV2597Loaded'],
+      ['./v2598-debt-card-status.js?v=269','__bsDebtCardStatusV2598Loaded'],
+      ['./v262-credit-card-statement.js?v=269','__bsDebtPaymentStructureV263Loaded'],
       ['./v241-payment-modal-scroll-lock.js?v=241','__bsV241PaymentModalScrollLockLoaded'],
       ['./v242-payment-save-ui.js?v=242','__bsV242PaymentSaveUiLoaded'],
       ['./v244-monthly-report.js?v=244','__bsMonthlyReportV244Loaded'],
@@ -276,7 +278,7 @@
       try{
         await loadScript(src,marker);
       }catch(error){
-        console.error('V259.7 opsiyonel modül yükleme hatası:',error);
+        console.error('V2.6.9 opsiyonel modül yükleme hatası:',error);
       }
     }
   }
