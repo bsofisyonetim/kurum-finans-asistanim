@@ -1,7 +1,7 @@
-/* BS OFİS BÜTÇE V2.5.9.4 - Eğitim Supabase -> Finans gelir senkronu
+/* BS OFİS BÜTÇE V2.7.0 - Eğitim Supabase -> Finans gelir senkronu
    Kaynak: BS Eğitim Yönetimi Supabase tahsilatlar.
    01.08.2026 öncesi Finans'a aktarılmaz. Dağıtım ve yazma sunucu tarafında doğrulanır.
-   V259.4: Eğitim kaynaklı otomatik gelirler istemci tarafından yeniden yazılamaz. */
+   V270: İlk bulut yenilemesi tamamlanmadan eski yerel finans tutarları gösterilmez. */
 (() => {
   if (window.__bsEducationIncomeSyncV258Loaded) return;
   window.__bsEducationIncomeSyncV258Loaded = true;
@@ -12,6 +12,33 @@
   let lastAttemptAt = 0;
   let inFlight = null;
   let lastControlToastAt = 0;
+  let firstCloudRefreshFinished = false;
+
+  function ensureInitialRefreshStyle() {
+    if (document.querySelector('#bsInitialFinanceRefreshV270Style')) return;
+    const style = document.createElement('style');
+    style.id = 'bsInitialFinanceRefreshV270Style';
+    style.textContent = `
+      html.bs-finance-refresh-pending #dashboard #totalDebt,
+      html.bs-finance-refresh-pending #dashboard #monthOut,
+      html.bs-finance-refresh-pending #dashboard #monthPaid,
+      html.bs-finance-refresh-pending #dashboard #monthRemaining,
+      html.bs-finance-refresh-pending #dashboard #v177NetCash,
+      html.bs-finance-refresh-pending #dashboard #v177Income,
+      html.bs-finance-refresh-pending #dashboard #v177Payments,
+      html.bs-finance-refresh-pending #dashboard #v177Expenses{
+        opacity:0!important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function setInitialRefreshPending(active) {
+    ensureInitialRefreshStyle();
+    document.documentElement.classList.toggle('bs-finance-refresh-pending', !!active);
+    const dashboard = document.querySelector('#dashboard');
+    if (dashboard) dashboard.setAttribute('aria-busy', active ? 'true' : 'false');
+  }
 
   function installAutomaticIncomeWriteGuard() {
     if (typeof cloudUpsertIncome !== 'function' || cloudUpsertIncome.__bsAutomaticIncomeWriteGuardV2594) return;
@@ -100,12 +127,23 @@
   if (typeof pullCloud === 'function' && !pullCloud.__bsEducationIncomeSyncV258Wrapped) {
     const originalPullCloud = pullCloud;
     const wrapped = async function (...args) {
+      const initialRefresh = !firstCloudRefreshFinished;
+      if (initialRefresh) setInitialRefreshPending(true);
+
       try {
-        await syncEducationIncome();
-      } catch (error) {
-        console.warn(error);
+        try {
+          await syncEducationIncome();
+        } catch (error) {
+          console.warn(error);
+        }
+        return await originalPullCloud.apply(this, args);
+      } finally {
+        if (initialRefresh) {
+          firstCloudRefreshFinished = true;
+          setInitialRefreshPending(false);
+          if (typeof renderDashboard === 'function') renderDashboard();
+        }
       }
-      return originalPullCloud.apply(this, args);
     };
     wrapped.__bsEducationIncomeSyncV258Wrapped = true;
     pullCloud = wrapped;
