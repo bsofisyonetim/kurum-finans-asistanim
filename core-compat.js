@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.6.9 - Merkezi uyumluluk ve başlangıç katmanı */
+/* BS OFİS BÜTÇE V2.7.0 - Merkezi uyumluluk ve başlangıç katmanı */
 (() => {
   if(window.__bsCoreCompatLoaded) return;
   window.__bsCoreCompatLoaded = true;
@@ -256,7 +256,7 @@
 
   async function loadOptionalModules(){
     const modules = [
-      ['./v258-education-income-sync.js?v=258','__bsEducationIncomeSyncV258Loaded'],
+      ['./v258-education-income-sync.js?v=270','__bsEducationIncomeSyncV258Loaded'],
       ['./v2584-income-themes.js?v=2584','__bsIncomeThemesV2584Loaded'],
       ['./v2592-income-other-description.js?v=2592','__bsIncomeOtherDescriptionV2592Loaded'],
       ['./v2585-payment-owner-label.js?v=2586','__bsPaymentOwnerLabelV2586Loaded'],
@@ -264,7 +264,7 @@
       ['./v230-mobile-dialog.js?v=2571','__bsV235MobileDialogLoaded'],
       ['./payment-editor-v240.js?v=240','__bsPaymentEditorV240Loaded'],
       ['./v2595-atomic-payment-create.js?v=2595','__bsAtomicPaymentCreateV2595Loaded'],
-      ['./v2597-debt-monthly-view.js?v=269','__bsDebtMonthlyViewV2597Loaded'],
+      ['./v2597-debt-monthly-view.js?v=270','__bsDebtMonthlyViewV2597Loaded'],
       ['./v2598-debt-card-status.js?v=269','__bsDebtCardStatusV2598Loaded'],
       ['./v262-credit-card-statement.js?v=269','__bsDebtPaymentStructureV263Loaded'],
       ['./v241-payment-modal-scroll-lock.js?v=241','__bsV241PaymentModalScrollLockLoaded'],
@@ -277,7 +277,7 @@
       try{
         await loadScript(src,marker);
       }catch(error){
-        console.error('V2.6.9 opsiyonel modül yükleme hatası:',error);
+        console.error('V2.7.0 opsiyonel modül yükleme hatası:',error);
       }
     }
   }
