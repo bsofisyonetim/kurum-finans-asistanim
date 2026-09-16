@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.6.7 - Ödeme motoru doğrulaması ve değişken kredi kartı güvenliği */
+/* BS OFİS BÜTÇE V2.6.8 - Sabit / Değişken borç kartı sadeleştirmesi */
 (() => {
   if (window.__bsDebtPaymentStructureV263Loaded) return;
   window.__bsDebtPaymentStructureV263Loaded = true;
@@ -137,7 +137,20 @@
     const remainingLabel = s.carryover > EPS ? 'Devreden borç' : 'Kalan ekstre';
     const statementText = s.hasStatement
       ? `Ekstre ${money(s.statement)} · Ödenen ${money(s.paid)} · ${remainingLabel} ${money(s.statementRemaining)}`
-      : 'Ekstre bekleniyor';
+      : 'Ekstre girilmedi · Bu ay ödenecek ₺0';
+
+    let amountText = 'Ekstre yok';
+    let amountSubline = 'bu ay ödenecek ₺0';
+    if (s.hasStatement && s.minimumRemaining > EPS) {
+      amountText = money(s.minimumRemaining);
+      amountSubline = `kalan asgari · ${dueText}`;
+    } else if (s.hasStatement && s.carryover > EPS) {
+      amountText = money(s.carryover);
+      amountSubline = 'devreden borç';
+    } else if (s.hasStatement) {
+      amountText = money(0);
+      amountSubline = 'ekstre ödendi';
+    }
 
     return `
       <article class="list-card clickable bs-cc-card" data-debt="${esc(d.id)}">
@@ -151,8 +164,8 @@
           <small class="bs-cc-subline">${esc(statementText)}</small>
         </div>
         <div class="amount">
-          ${s.hasStatement && s.minimum > EPS ? money(s.minimum) : 'Asgari girilecek'}
-          <small>${s.hasStatement ? `Asgari · ${esc(dueText)}` : 'Ekstre girilince hesaplanır'}</small>
+          ${amountText}
+          <small>${esc(amountSubline)}</small>
         </div>
       </article>
     `;
@@ -173,11 +186,56 @@
     });
   }
 
+  function fixedRemainingInstallments(raw) {
+    const d = normalizeDebt(raw || {});
+    const value = d.custom?.remaining_installments;
+    if (value === '' || value == null || Number.isNaN(+value)) return null;
+    return Math.max(0, Math.floor(+value));
+  }
+
+  function decorateFixedCards() {
+    const byId = new Map(
+      state.debts
+        .map(normalizeDebt)
+        .filter(d => paymentStructure(d) === FIXED)
+        .map(d => [String(d.id), d])
+    );
+
+    document.querySelectorAll('#debtList [data-debt]').forEach(card => {
+      const d = byId.get(String(card.dataset.debt || ''));
+      if (!d) return;
+
+      const status = card.querySelector('.bs-v2598-debt-status');
+      if (!status) return;
+
+      status.querySelectorAll('[data-bs-fixed-structure]').forEach(node => node.remove());
+      const structure = document.createElement('span');
+      structure.className = 'bs-v2598-pill';
+      structure.dataset.bsFixedStructure = '1';
+      structure.textContent = FIXED;
+      status.prepend(structure);
+
+      const remainingInstallments = fixedRemainingInstallments(d);
+      if (remainingInstallments != null) {
+        const installment = document.createElement('span');
+        installment.className = 'bs-v2598-pill';
+        installment.dataset.bsFixedStructure = '1';
+        installment.textContent = `${remainingInstallments} taksit kaldı`;
+        status.appendChild(installment);
+      }
+
+      const paid = Math.max(0, roundMoney(d.custom?.current_installment_paid || 0));
+      const label = card.querySelector('.bs-v2598-remaining-label');
+      if (label) label.textContent = paid > EPS ? 'bu taksitte kalan' : 'bu taksit';
+    });
+  }
+
   if (typeof renderDebts === 'function' && !renderDebts.__bsPaymentStructureV263) {
     const original = renderDebts;
     const wrapped = function(...args) {
       const result = original.apply(this, args);
       restoreVariableCards();
+      decorateFixedCards();
       return result;
     };
     wrapped.__bsPaymentStructureV263 = true;
@@ -598,6 +656,6 @@
   try {
     renderAll();
   } catch (error) {
-    console.error('V2.6.7 ödeme motoru render hatası:', error);
+    console.error('V2.6.8 borç kartı render hatası:', error);
   }
 })();
