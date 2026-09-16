@@ -1,0 +1,184 @@
+/* BS OFIS BUTCE V2.6.1.0 - Gelirler ekrani nötr temel gorsel katmani
+   Yalnizca sunum katmani. Gelir dagitimi, PaymentID gruplama ve BS Ofis entegrasyonunu degistirmez.
+   Bu dosya semantik renk vermez; sahiplik ve gelir türü renkleri v2581/v2583/v2584 katmanlarinda uygulanir. */
+
+#incomes{
+  padding-top:1px;
+}
+
+#incomes .page-title{
+  margin-bottom:12px!important;
+}
+#incomes .page-title .primary{
+  min-height:38px!important;
+  padding:9px 13px!important;
+  border-radius:11px!important;
+  font-size:11px!important;
+}
+
+/* Ust KPI kartlari: yalniz nötr temel. */
+#incomes .kpi-grid,
+#incomes [class*="income-kpi"]{
+  gap:8px!important;
+}
+#incomes .kpi{
+  min-height:78px!important;
+  padding:12px 13px!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  border:1px solid #E2E8F0!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+}
+#incomes .kpi span{
+  color:#64748B!important;
+  font-size:8.5px!important;
+  font-weight:830!important;
+  letter-spacing:.025em!important;
+}
+#incomes .kpi strong{
+  margin-top:2px!important;
+  color:#0F172A!important;
+  font-size:18px!important;
+  line-height:1.05!important;
+  font-weight:860!important;
+  letter-spacing:-.03em!important;
+}
+#incomes .kpi small{
+  color:#94A3B8!important;
+  font-size:8.5px!important;
+}
+
+/* Gelir sahibi kartlari: nötr taban; sahiplik rengi sonraki tema katmanlarinda. */
+#incomes #incomeOwnerKpis{
+  gap:7px!important;
+  margin:-3px 0 12px!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi{
+  min-height:64px!important;
+  padding:10px 10px 9px!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  border:1px solid #E2E8F0!important;
+  box-shadow:0 2px 8px rgba(15,23,42,.025)!important;
+  text-align:left!important;
+  align-content:center!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi span{
+  color:#64748B!important;
+  font-size:8.5px!important;
+  font-weight:830!important;
+  letter-spacing:.025em!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi strong{
+  margin-top:2px!important;
+  color:#0F172A!important;
+  font-size:15px!important;
+  line-height:1.08!important;
+  font-weight:860!important;
+  letter-spacing:-.025em!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi.active{
+  background:#FFFFFF!important;
+  border-color:#CBD5E1!important;
+  box-shadow:0 0 0 2px rgba(15,23,42,.05),0 4px 12px rgba(15,23,42,.04)!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi.active span{
+  color:#64748B!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi.active strong{
+  color:#0F172A!important;
+}
+
+/* Filtreler: kisi ve gelir türü üst KPI kartlariyla yönetilir; yalnız ay görünür. */
+#incomes .toolbar.debt-toolbar{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:0!important;
+  margin-bottom:12px!important;
+}
+#incomes #incomeOwnerFilter,
+#incomes #incomeTypeFilter{
+  display:none!important;
+}
+#incomes .toolbar.debt-toolbar #incomeMonth{
+  grid-column:1!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:44px!important;
+  padding:9px 34px 9px 12px!important;
+  border-radius:12px!important;
+  color:#475569!important;
+  font-size:10px!important;
+  font-weight:740!important;
+}
+
+/* Gelir kartlari: varsayilan kart nötr. */
+#incomes #incomeList{
+  gap:9px!important;
+}
+#incomes #incomeList .list-card,
+#incomes #incomeList .income-bs-card{
+  min-height:76px!important;
+  padding:13px 14px!important;
+  border-radius:15px!important;
+  border:1px solid #E2E8F0!important;
+  border-left:1px solid #E2E8F0!important;
+  background:#fff!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+  gap:12px!important;
+}
+#incomes #incomeList .list-card:hover,
+#incomes #incomeList .income-bs-card:hover{
+  border-color:#CBD5E1!important;
+  box-shadow:0 4px 13px rgba(15,23,42,.045)!important;
+}
+#incomes #incomeList .main{
+  gap:4px!important;
+}
+#incomes #incomeList .main>strong{
+  color:#172033!important;
+  font-size:12.5px!important;
+  line-height:1.25!important;
+  font-weight:830!important;
+  letter-spacing:-.012em!important;
+}
+#incomes #incomeList .main small{
+  color:#78869A!important;
+  font-size:9px!important;
+  line-height:1.28!important;
+}
+#incomes #incomeList .amount{
+  color:#0F172A!important;
+  font-size:15px!important;
+  line-height:1.1!important;
+  font-weight:870!important;
+  letter-spacing:-.025em!important;
+}
+
+#incomes #incomeList .empty{
+  padding:22px 16px!important;
+  border-radius:15px!important;
+  color:#7A8799!important;
+  font-size:10px!important;
+  box-shadow:none!important;
+}
+
+@media(max-width:520px){
+  #incomes #incomeOwnerKpis{
+    gap:6px!important;
+  }
+  #incomes #incomeOwnerKpis .income-owner-kpi{
+    min-height:60px!important;
+    padding:9px 8px!important;
+  }
+  #incomes #incomeOwnerKpis .income-owner-kpi strong{
+    font-size:14px!important;
+  }
+  #incomes #incomeList .list-card,
+  #incomes #incomeList .income-bs-card{
+    min-height:72px!important;
+    padding:12px 13px!important;
+  }
+  #incomes #incomeList .amount{
+    font-size:14px!important;
+  }
+}

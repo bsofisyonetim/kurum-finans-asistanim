@@ -1,0 +1,217 @@
+/* BS OFIS BUTCE V2.5.2 - Takvim ekrani son gorsel polish
+   Yalnizca sunum katmani. Vade, gecikme, odeme ve taksit davranisini degistirmez. */
+
+#calendar{
+  padding-top:1px;
+}
+
+#calendar .page-title{
+  margin-bottom:12px!important;
+}
+
+/* Geciken / 7 Gun / Tumu */
+#calendar #v175CalendarKpis{
+  gap:8px!important;
+  margin:-2px 0 12px!important;
+}
+#calendar #v175CalendarKpis .v175-quick-card{
+  min-height:76px!important;
+  padding:11px 10px!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  border:1px solid #E2E8F0!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+  text-align:left!important;
+  align-content:center!important;
+}
+#calendar #v175CalendarKpis .v175-quick-card span{
+  color:#718096!important;
+  font-size:8.5px!important;
+  line-height:1.1!important;
+  font-weight:830!important;
+  letter-spacing:.035em!important;
+}
+#calendar #v175CalendarKpis .v175-quick-card strong{
+  margin-top:2px!important;
+  color:#0F172A!important;
+  font-size:17px!important;
+  line-height:1.05!important;
+  font-weight:860!important;
+  letter-spacing:-.03em!important;
+}
+#calendar #v175CalendarKpis .v175-quick-card small{
+  margin-top:1px!important;
+  color:#8A98AB!important;
+  font-size:8.5px!important;
+}
+#calendar #v175CalendarKpis [data-calendar-quick="overdue"] strong,
+#calendar #v175CalendarKpis [data-calendar-quick="overdue"] small{
+  color:#DC2626!important;
+}
+#calendar #v175CalendarKpis [data-calendar-quick="week"] strong,
+#calendar #v175CalendarKpis [data-calendar-quick="week"] small{
+  color:#D97706!important;
+}
+#calendar #v175CalendarKpis [data-calendar-quick="all"] strong{
+  color:#2563EB!important;
+}
+#calendar #v175CalendarKpis .v175-quick-card.active{
+  box-shadow:inset 0 3px 0 currentColor,0 2px 9px rgba(15,23,42,.035)!important;
+}
+#calendar #v175CalendarKpis [data-calendar-quick="overdue"].active{
+  background:#FFFDFD!important;
+  border-color:#FBC7C7!important;
+  color:#EF4444!important;
+}
+#calendar #v175CalendarKpis [data-calendar-quick="week"].active{
+  background:#FFFDF9!important;
+  border-color:#F6D8A0!important;
+  color:#F59E0B!important;
+}
+#calendar #v175CalendarKpis [data-calendar-quick="all"].active{
+  background:#FBFDFF!important;
+  border-color:#C7D8FF!important;
+  color:#2563EB!important;
+}
+
+/* Siralama / filtre alani */
+#calendar .toolbar,
+#calendar .payment-filter-row{
+  margin-bottom:12px!important;
+}
+#calendar select{
+  min-height:40px!important;
+  border-radius:11px!important;
+  border-color:#D7E0EB!important;
+  background:#fff!important;
+  color:#475569!important;
+  font-size:10px!important;
+  font-weight:740!important;
+}
+
+/* Grup basliklari */
+#calendar .v175-calendar-group{
+  margin:16px 2px 7px!important;
+}
+#calendar .v175-calendar-group strong{
+  color:#172033!important;
+  font-size:12.5px!important;
+  font-weight:830!important;
+  letter-spacing:-.015em!important;
+}
+#calendar .v175-calendar-group small{
+  color:#8A98AB!important;
+  font-size:9px!important;
+}
+
+/* Vade kartlari */
+#calendar .list{
+  gap:9px!important;
+}
+#calendar .list-card{
+  min-height:82px!important;
+  padding:13px 14px!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  border:1px solid #E2E8F0!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+  gap:12px!important;
+}
+#calendar .list-card.v179-status-overdue{
+  border-left:3px solid #EF4444!important;
+}
+#calendar .list-card.v179-status-soon{
+  border-left:3px solid #F59E0B!important;
+}
+#calendar .list-card.v179-status-later{
+  border-left:3px solid #8FB3FF!important;
+}
+#calendar .list-card .main{
+  gap:4px!important;
+}
+#calendar .list-card .main>strong{
+  color:#172033!important;
+  font-size:12.5px!important;
+  line-height:1.25!important;
+  font-weight:830!important;
+  letter-spacing:-.012em!important;
+}
+#calendar .list-card .main small{
+  color:#78869A!important;
+  font-size:9px!important;
+  line-height:1.3!important;
+}
+#calendar .list-card .amount{
+  color:#172033!important;
+  font-size:14.5px!important;
+  line-height:1.1!important;
+  font-weight:870!important;
+  letter-spacing:-.025em!important;
+}
+
+/* Gecikme rozetleri ve ode butonu */
+#calendar .badge.red{
+  padding:4px 7px!important;
+  border-radius:999px!important;
+  background:#FEF2F2!important;
+  border:1px solid #FECACA!important;
+  color:#DC2626!important;
+  font-size:8px!important;
+  font-weight:830!important;
+}
+#calendar .badge.orange{
+  padding:4px 7px!important;
+  border-radius:999px!important;
+  background:#FFF7ED!important;
+  border:1px solid #FED7AA!important;
+  color:#C2410C!important;
+  font-size:8px!important;
+  font-weight:830!important;
+}
+#calendar .bs-calendar-pay{
+  margin-top:6px!important;
+  padding:5px 10px!important;
+  border-radius:999px!important;
+  border:1px solid #C7D8FF!important;
+  background:#EFF6FF!important;
+  color:#2563EB!important;
+  font-size:8.5px!important;
+  font-weight:830!important;
+  box-shadow:none!important;
+}
+#calendar .bs-calendar-pay.partial{
+  border-color:#F2D59E!important;
+  background:#FFF7E8!important;
+  color:#C97800!important;
+}
+
+#calendar .empty{
+  padding:22px 16px!important;
+  border-radius:15px!important;
+  color:#7A8799!important;
+  font-size:10px!important;
+  box-shadow:none!important;
+}
+
+@media(max-width:520px){
+  #calendar #v175CalendarKpis{
+    gap:7px!important;
+  }
+  #calendar #v175CalendarKpis .v175-quick-card{
+    min-height:70px!important;
+    padding:10px 8px!important;
+  }
+  #calendar #v175CalendarKpis .v175-quick-card strong{
+    font-size:15px!important;
+  }
+  #calendar .list-card{
+    min-height:78px!important;
+    padding:12px 13px!important;
+  }
+  #calendar .list-card .main>strong{
+    font-size:12px!important;
+  }
+  #calendar .list-card .amount{
+    font-size:14px!important;
+  }
+}

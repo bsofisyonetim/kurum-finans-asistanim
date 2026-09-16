@@ -1,0 +1,232 @@
+/* BS OFIS BUTCE V2.4.9 - Borclar ekrani gorsel polish
+   Yalnizca sunum katmani. Borc, taksit, filtre ve veri davranislarini degistirmez. */
+
+#debts{
+  padding-top:1px;
+}
+
+/* Baslik */
+#debts .page-title{
+  margin:7px 2px 13px!important;
+  min-height:50px!important;
+}
+#debts .page-title .eyebrow{
+  margin-bottom:4px!important;
+  color:#0f8f83!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  letter-spacing:.14em!important;
+}
+#debts .page-title h2{
+  font-size:26px!important;
+  line-height:1.02!important;
+  font-weight:860!important;
+  letter-spacing:-.04em!important;
+}
+#debts #addDebtBtn{
+  min-height:36px!important;
+  padding:8px 12px!important;
+  border-radius:11px!important;
+  box-shadow:0 3px 9px rgba(37,99,235,.15)!important;
+}
+
+/* Ust KPI'lar */
+#debts #v175DebtKpis{
+  gap:8px!important;
+  margin:0 0 12px!important;
+}
+#debts #v175DebtKpis .v175-quick-card{
+  min-height:74px!important;
+  padding:10px 9px!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  box-shadow:0 2px 8px rgba(15,23,42,.028)!important;
+  text-align:left!important;
+  align-content:center!important;
+  gap:3px!important;
+}
+#debts #v175DebtKpis .v175-quick-card span{
+  font-size:8.5px!important;
+  line-height:1.1!important;
+  font-weight:850!important;
+  letter-spacing:.045em!important;
+  color:#6b7a90!important;
+}
+#debts #v175DebtKpis .v175-quick-card strong{
+  font-size:19px!important;
+  line-height:1.08!important;
+  font-weight:870!important;
+  letter-spacing:-.035em!important;
+  color:#172033!important;
+}
+#debts #v175DebtKpis .v175-quick-card small{
+  font-size:8.5px!important;
+  line-height:1.15!important;
+  font-weight:700!important;
+  color:#8592a6!important;
+}
+
+#debts [data-debt-quick="active"]{
+  border-color:#c7eee7!important;
+  border-top:3px solid #14b8a6!important;
+}
+#debts [data-debt-quick="month"]{
+  border-color:#d6e3ff!important;
+  border-top:3px solid #2563eb!important;
+}
+#debts [data-debt-quick="overdue"]{
+  border-color:#fbd5d8!important;
+  border-top:3px solid #ef4444!important;
+}
+#debts [data-debt-quick="active"] strong{color:#0f8f83!important}
+#debts [data-debt-quick="month"] strong{color:#2563eb!important}
+#debts [data-debt-quick="overdue"] strong{color:#dc2626!important}
+
+#debts [data-debt-quick="active"].active{
+  background:#f5fffd!important;
+  box-shadow:0 0 0 2px rgba(20,184,166,.07)!important;
+}
+#debts [data-debt-quick="month"].active{
+  background:#f6f9ff!important;
+  box-shadow:0 0 0 2px rgba(37,99,235,.07)!important;
+}
+#debts [data-debt-quick="overdue"].active{
+  background:#fff8f8!important;
+  box-shadow:0 0 0 2px rgba(239,68,68,.06)!important;
+}
+
+/* Arama ve filtreler */
+#debts .debt-toolbar{
+  grid-template-columns:minmax(150px,1fr) minmax(106px,auto) minmax(96px,auto)!important;
+  gap:8px!important;
+  margin:0 0 12px!important;
+}
+#debts .debt-toolbar input,
+#debts .debt-toolbar select{
+  min-height:43px!important;
+  padding:9px 11px!important;
+  border-radius:12px!important;
+  border-color:#d9e1eb!important;
+  font-size:12px!important;
+  background:#fff!important;
+}
+#debts #debtSearch{
+  font-size:13px!important;
+}
+#debts #debtSearch::placeholder{
+  color:#9aa6b6!important;
+}
+
+/* Borc listesi */
+#debts #debtList{
+  gap:8px!important;
+}
+#debts #debtList .list-card{
+  min-height:72px!important;
+  padding:12px 13px!important;
+  border-radius:15px!important;
+  border:1px solid #e2e8f0!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+#debts #debtList .list-card.v179-debt-active{
+  border-left:3px solid #8fb5ff!important;
+}
+#debts #debtList .list-card.v179-debt-closed{
+  border-left:3px solid #cbd5e1!important;
+  opacity:.72!important;
+}
+#debts #debtList .list-card .main{
+  gap:4px!important;
+  min-width:0!important;
+}
+#debts #debtList .list-card .main>strong{
+  color:#172033!important;
+  font-size:13px!important;
+  line-height:1.23!important;
+  font-weight:820!important;
+  letter-spacing:-.018em!important;
+}
+#debts #debtList .list-card small{
+  color:#738197!important;
+  font-size:9px!important;
+  line-height:1.3!important;
+}
+#debts #debtList .amount{
+  flex:0 0 auto!important;
+  color:#172033!important;
+  font-size:14px!important;
+  line-height:1.15!important;
+  font-weight:870!important;
+  letter-spacing:-.025em!important;
+}
+#debts #debtList .amount small{
+  margin-top:3px!important;
+  font-size:8.5px!important;
+  font-weight:650!important;
+  color:#7c899b!important;
+}
+#debts #debtList .list-card.clickable:active{
+  transform:scale(.995)!important;
+}
+
+@media(max-width:520px){
+  #debts .page-title{
+    margin-bottom:11px!important;
+  }
+  #debts .page-title h2{
+    font-size:24px!important;
+  }
+  #debts #v175DebtKpis{
+    gap:7px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card{
+    min-height:70px!important;
+    padding:9px 8px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card strong{
+    font-size:17px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card span{
+    font-size:8px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card small{
+    font-size:8px!important;
+  }
+
+  #debts .debt-toolbar{
+    grid-template-columns:1fr 1fr!important;
+    gap:7px!important;
+  }
+  #debts .debt-toolbar #debtSearch{
+    grid-column:1/-1!important;
+  }
+  #debts .debt-toolbar input,
+  #debts .debt-toolbar select{
+    min-height:42px!important;
+  }
+
+  #debts #debtList .list-card{
+    min-height:70px!important;
+    padding:11px 12px!important;
+  }
+  #debts #debtList .list-card .main>strong{
+    font-size:12.5px!important;
+  }
+  #debts #debtList .amount{
+    font-size:13.5px!important;
+  }
+}
+
+@media(max-width:380px){
+  #debts #v175DebtKpis{
+    gap:5px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card{
+    padding:8px 6px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card strong{
+    font-size:15.5px!important;
+  }
+}

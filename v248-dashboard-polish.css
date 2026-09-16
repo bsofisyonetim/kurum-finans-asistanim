@@ -1,0 +1,308 @@
+/* BS OFIS BUTCE V2.4.8 - Ozet ekrani son gorsel polish
+   Yalnizca sunum katmani. Veri, DOM davranisi ve finans motorlarini degistirmez. */
+
+/* Genel ritim */
+#dashboard{
+  padding-top:1px;
+}
+#dashboard .summary-grid{
+  gap:9px!important;
+  margin:3px 0 17px!important;
+}
+#dashboard .section-head{
+  margin:18px 3px 8px!important;
+}
+#dashboard .section-head h2{
+  font-size:15px!important;
+  line-height:1.15!important;
+  font-weight:830!important;
+  letter-spacing:-.02em!important;
+}
+#dashboard .section-head .link-btn{
+  font-size:10px!important;
+  font-weight:800!important;
+}
+
+/* 4 ana KPI: daha urun hissi, daha az yukseklik */
+#dashboard .summary-card{
+  min-height:96px!important;
+  padding:13px 14px!important;
+  border-radius:17px!important;
+  box-shadow:0 3px 12px rgba(15,23,42,.035)!important;
+}
+#dashboard .summary-card span{
+  font-size:10px!important;
+  font-weight:790!important;
+  color:#66758c!important;
+}
+#dashboard .summary-card strong{
+  margin-top:1px!important;
+  font-size:21px!important;
+  line-height:1.08!important;
+  font-weight:860!important;
+  letter-spacing:-.035em!important;
+}
+#dashboard .summary-card small{
+  margin-top:2px!important;
+  font-size:9px!important;
+  line-height:1.25!important;
+  color:#93a0b3!important;
+}
+
+/* Hizli islemler */
+#dashboard #v178QuickActions{
+  margin:0 0 16px!important;
+}
+#dashboard .v178-quick-head{
+  margin:0 3px 8px!important;
+}
+#dashboard .v178-quick-head strong{
+  font-size:15px!important;
+  line-height:1.15!important;
+  font-weight:830!important;
+  letter-spacing:-.02em!important;
+}
+#dashboard .v178-quick-head small{
+  font-size:10px!important;
+  color:#95a2b5!important;
+}
+#dashboard .v178-quick-grid{
+  gap:8px!important;
+}
+#dashboard .v178-quick-btn{
+  min-height:57px!important;
+  padding:9px 11px!important;
+  border-radius:15px!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+}
+#dashboard .v178-quick-icon{
+  width:32px!important;
+  height:32px!important;
+  border-radius:10px!important;
+}
+#dashboard .v178-quick-label{
+  font-size:11px!important;
+  font-weight:810!important;
+  color:#34435a!important;
+}
+
+/* Net nakit karti */
+#dashboard #v177DashboardPanel{
+  gap:9px!important;
+  margin:0 0 16px!important;
+}
+#dashboard #v177BalanceCard{
+  min-height:100px!important;
+  padding:14px 16px!important;
+  border-radius:17px!important;
+  border-left:4px solid #15958c!important;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfffe 100%)!important;
+  box-shadow:0 3px 12px rgba(15,23,42,.035)!important;
+}
+#dashboard #v177BalanceCard.negative{
+  border-left-color:#ef4444!important;
+  background:linear-gradient(180deg,#ffffff 0%,#fffafa 100%)!important;
+}
+#dashboard .v177-balance-main{
+  gap:3px!important;
+}
+#dashboard .v177-balance-main span{
+  font-size:9px!important;
+  letter-spacing:.12em!important;
+  color:#0f8f83!important;
+}
+#dashboard .v177-balance-main strong{
+  font-size:26px!important;
+  letter-spacing:-.04em!important;
+}
+#dashboard .v177-balance-main small{
+  font-size:9px!important;
+  color:#6f7f96!important;
+}
+#dashboard .v177-balance-status{
+  padding:6px 10px!important;
+  font-size:9px!important;
+  letter-spacing:.02em!important;
+}
+
+/* Aylik odeme ilerlemesi */
+#dashboard #v179DebtProgress{
+  gap:7px!important;
+  padding:12px 14px!important;
+  border-radius:16px!important;
+  box-shadow:0 3px 12px rgba(15,23,42,.03)!important;
+}
+#dashboard .v179-progress-head span{
+  font-size:9px!important;
+  letter-spacing:.08em!important;
+}
+#dashboard .v179-progress-head strong{
+  font-size:12px!important;
+  color:#0f8f83!important;
+}
+#dashboard .v179-progress-track{
+  height:7px!important;
+  background:#edf2f7!important;
+}
+#dashboard .v179-progress-track span{
+  background:linear-gradient(90deg,#2563eb,#4f86ff)!important;
+}
+#dashboard .v179-progress-foot span,
+#dashboard .v179-progress-foot small{
+  font-size:9px!important;
+}
+#dashboard .v179-progress-foot strong{
+  font-size:10px!important;
+  color:#172033!important;
+}
+
+/* Gelir / borc odemesi / harcama */
+#dashboard .v177-flow-grid{
+  gap:7px!important;
+  margin-top:1px!important;
+}
+#dashboard .v177-flow-card{
+  min-height:68px!important;
+  padding:9px 9px!important;
+  border-radius:14px!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.028)!important;
+}
+#dashboard .v177-flow-card:nth-child(1){border-top:3px solid #15958c!important}
+#dashboard .v177-flow-card:nth-child(2){border-top:3px solid #2563eb!important}
+#dashboard .v177-flow-card:nth-child(3){border-top:3px solid #ef4444!important}
+#dashboard .v177-flow-card span{
+  font-size:9px!important;
+  letter-spacing:.04em!important;
+}
+#dashboard .v177-flow-card strong{
+  font-size:15px!important;
+  letter-spacing:-.025em!important;
+}
+#dashboard .v177-flow-card small{
+  font-size:9px!important;
+}
+
+/* Dikkat gerektirenler */
+#dashboard .v177-attention-head{
+  margin:8px 3px 0!important;
+}
+#dashboard .v177-attention-head strong{
+  font-size:15px!important;
+  line-height:1.15!important;
+  font-weight:830!important;
+  letter-spacing:-.02em!important;
+}
+#dashboard .v177-attention-head small{
+  font-size:10px!important;
+  color:#7f8da2!important;
+}
+#dashboard .v177-attention-grid{
+  gap:8px!important;
+}
+#dashboard .v177-attention-card{
+  min-height:67px!important;
+  padding:10px 11px!important;
+  border-radius:15px!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.028)!important;
+}
+#dashboard .v177-attention-number{
+  min-width:36px!important;
+  width:36px!important;
+  height:36px!important;
+  border-radius:11px!important;
+  font-size:15px!important;
+}
+#dashboard .v177-attention-copy span{
+  font-size:9px!important;
+}
+#dashboard .v177-attention-copy strong{
+  font-size:12px!important;
+}
+#dashboard .v177-attention-copy small{
+  font-size:9px!important;
+}
+
+/* Kurumsal rapor: daha kompakt, is akisina uygun */
+#dashboard #v244MonthlyReport{
+  margin-top:18px!important;
+  margin-bottom:18px!important;
+  padding:14px 15px!important;
+  border-radius:17px!important;
+  box-shadow:0 3px 12px rgba(15,23,42,.035)!important;
+}
+#dashboard #v244MonthlyReport .v244-report-eyebrow{
+  font-size:9px!important;
+  letter-spacing:.13em!important;
+}
+#dashboard #v244MonthlyReport .v244-report-title{
+  margin-top:4px!important;
+  font-size:17px!important;
+  line-height:1.15!important;
+  letter-spacing:-.025em!important;
+}
+#dashboard #v244MonthlyReport .v244-report-copy,
+#dashboard #v244MonthlyReport p{
+  font-size:10px!important;
+  line-height:1.35!important;
+}
+#dashboard #v244MonthlyReport select,
+#dashboard #v244MonthlyReport button{
+  min-height:44px!important;
+}
+
+/* Sıradaki / son odemeler */
+#dashboard #upcomingMini,
+#dashboard #recentPayments{
+  gap:7px!important;
+}
+#dashboard #upcomingMini .list-card,
+#dashboard #recentPayments .list-card{
+  min-height:66px!important;
+  padding:11px 12px!important;
+  border-radius:15px!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.028)!important;
+}
+#dashboard #upcomingMini .list-card .main>strong,
+#dashboard #recentPayments .list-card .main>strong{
+  font-size:12px!important;
+}
+#dashboard #upcomingMini .list-card small,
+#dashboard #recentPayments .list-card small{
+  font-size:9px!important;
+}
+#dashboard #upcomingMini .list-card .amount,
+#dashboard #recentPayments .list-card .amount{
+  font-size:13px!important;
+}
+#dashboard #upcomingMini .amount .bs-calendar-pay{
+  margin-top:5px!important;
+  padding:5px 10px!important;
+  font-size:9px!important;
+}
+
+@media(max-width:520px){
+  #dashboard .summary-grid{gap:8px!important;margin-bottom:15px!important}
+  #dashboard .summary-card{min-height:92px!important;padding:12px 13px!important}
+  #dashboard .summary-card strong{font-size:20px!important}
+
+  #dashboard .v178-quick-grid{gap:7px!important}
+  #dashboard .v178-quick-btn{min-height:55px!important;padding:8px 10px!important}
+
+  #dashboard #v177BalanceCard{min-height:96px!important;padding:13px 14px!important}
+  #dashboard .v177-balance-main strong{font-size:25px!important}
+
+  #dashboard #v179DebtProgress{padding:11px 13px!important}
+  #dashboard .v177-flow-grid{gap:6px!important}
+  #dashboard .v177-flow-card{min-height:65px!important;padding:8px 8px!important}
+
+  #dashboard .v177-attention-card{min-height:64px!important;padding:9px 10px!important}
+
+  #dashboard #v244MonthlyReport{padding:13px 14px!important}
+}
+
+@media(max-width:380px){
+  #dashboard .summary-card strong{font-size:18px!important}
+  #dashboard .v177-balance-main strong{font-size:23px!important}
+  #dashboard .v177-flow-card strong{font-size:13px!important}
+  #dashboard .v177-attention-grid{grid-template-columns:1fr!important}
+}

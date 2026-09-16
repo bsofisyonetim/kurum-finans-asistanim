@@ -1,0 +1,201 @@
+/* BS OFIS BUTCE V2.6.0.8 - Odemeler ekrani nötr temel gorsel katmani
+   Yalnizca sunum katmani. Odeme, taksit, replay ve Supabase davranisini degistirmez.
+   Donem ve sahiplik renkleri sonraki semantik katmanlarda uygulanir. */
+
+#payments{
+  padding-top:1px;
+}
+
+/* Sayfa basligi ve ana aksiyon */
+#payments .page-title{
+  margin-bottom:12px!important;
+}
+#payments .page-title h2{
+  letter-spacing:-.035em!important;
+}
+#payments .page-title .primary{
+  min-height:38px!important;
+  padding:9px 13px!important;
+  border-radius:11px!important;
+  font-size:11px!important;
+  box-shadow:0 3px 9px rgba(37,99,235,.16)!important;
+}
+
+/* Bu Ay / Gecen Ay / Tumu: yalniz nötr temel. */
+#payments #v176PaymentKpis{
+  gap:8px!important;
+  margin:-2px 0 12px!important;
+}
+#payments #v176PaymentKpis .v175-quick-card{
+  min-height:76px!important;
+  padding:11px 10px!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  border-color:#E2E8F0!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+  text-align:left!important;
+  align-content:center!important;
+}
+#payments #v176PaymentKpis .v175-quick-card span{
+  color:#64748B!important;
+  font-size:8.5px!important;
+  line-height:1.1!important;
+  font-weight:830!important;
+  letter-spacing:.035em!important;
+}
+#payments #v176PaymentKpis .v175-quick-card strong{
+  margin-top:2px!important;
+  color:#0F172A!important;
+  font-size:17px!important;
+  line-height:1.05!important;
+  font-weight:860!important;
+  letter-spacing:-.03em!important;
+}
+#payments #v176PaymentKpis .v175-quick-card small{
+  margin-top:1px!important;
+  color:#94A3B8!important;
+  font-size:8.5px!important;
+  line-height:1.2!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active{
+  background:#FFFFFF!important;
+  border-color:#CBD5E1!important;
+  box-shadow:0 0 0 2px rgba(15,23,42,.05),0 4px 12px rgba(15,23,42,.04)!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active span{
+  color:#64748B!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active strong{
+  color:#0F172A!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active small{
+  color:#94A3B8!important;
+}
+
+/* Donem filtresi: teknik durum tutucu DOM'da kalir; kullaniciya ikinci kontrol gosterilmez. */
+#payments .payment-filter-row{
+  display:none!important;
+}
+
+/* Odeme listesi: varsayilan kart nötr. */
+#payments #paymentList{
+  gap:9px!important;
+}
+#payments #paymentList .v179-payment-card,
+#payments #paymentList .list-card{
+  position:relative!important;
+  min-height:76px!important;
+  padding:13px 14px!important;
+  border-radius:15px!important;
+  border:1px solid #E2E8F0!important;
+  border-left:1px solid #E2E8F0!important;
+  background:#fff!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+#payments #paymentList .v179-payment-card:hover,
+#payments #paymentList .list-card:hover{
+  border-color:#CBD5E1!important;
+  box-shadow:0 4px 13px rgba(15,23,42,.045)!important;
+}
+#payments #paymentList .main{
+  gap:4px!important;
+}
+#payments #paymentList .main>strong{
+  color:#172033!important;
+  font-size:12.5px!important;
+  line-height:1.25!important;
+  font-weight:830!important;
+  letter-spacing:-.012em!important;
+}
+#payments #paymentList .main small{
+  color:#78869A!important;
+  font-size:9px!important;
+  line-height:1.28!important;
+}
+#payments #paymentList .amount{
+  color:#0F172A!important;
+  font-size:15px!important;
+  line-height:1.1!important;
+  font-weight:870!important;
+  letter-spacing:-.025em!important;
+}
+#payments #paymentList .amount small{
+  margin-top:5px!important;
+  color:#8190A4!important;
+  font-size:8.5px!important;
+  font-weight:700!important;
+}
+
+/* Taksit sonucu ve durum etiketleri semantik renklerini korur. */
+#payments #paymentList .badge,
+#payments #paymentList [class*="payment-status"],
+#payments #paymentList [class*="installment"]{
+  max-width:max-content;
+}
+#payments #paymentList .badge.green{
+  padding:4px 7px!important;
+  background:#F0FDF4!important;
+  border:1px solid #DCFCE7!important;
+  color:#15803D!important;
+  font-size:8px!important;
+  line-height:1!important;
+  font-weight:830!important;
+}
+#payments #paymentList .badge.orange{
+  padding:4px 7px!important;
+  background:#FFF7ED!important;
+  border:1px solid #FFEDD5!important;
+  color:#C2410C!important;
+  font-size:8px!important;
+  line-height:1!important;
+  font-weight:830!important;
+}
+
+/* Bos durum */
+#payments #paymentList .empty{
+  padding:22px 16px!important;
+  border-radius:15px!important;
+  border-color:#D9E2ED!important;
+  color:#7A8799!important;
+  font-size:10px!important;
+  box-shadow:none!important;
+}
+
+@media(max-width:520px){
+  #payments #v176PaymentKpis{
+    gap:7px!important;
+  }
+  #payments #v176PaymentKpis .v175-quick-card{
+    min-height:70px!important;
+    padding:10px 8px!important;
+  }
+  #payments #v176PaymentKpis .v175-quick-card strong{
+    font-size:15px!important;
+  }
+  #payments #paymentList .v179-payment-card,
+  #payments #paymentList .list-card{
+    min-height:72px!important;
+    padding:12px 13px!important;
+  }
+  #payments #paymentList .main>strong{
+    font-size:12px!important;
+  }
+  #payments #paymentList .amount{
+    font-size:14px!important;
+  }
+}
+
+@media(max-width:360px){
+  #payments #v176PaymentKpis .v175-quick-card{
+    padding:9px 6px!important;
+  }
+  #payments #v176PaymentKpis .v175-quick-card span,
+  #payments #v176PaymentKpis .v175-quick-card small{
+    font-size:7.5px!important;
+  }
+  #payments #v176PaymentKpis .v175-quick-card strong{
+    font-size:14px!important;
+  }
+}
