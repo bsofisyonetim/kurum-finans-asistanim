@@ -1,8 +1,8 @@
-// V263 - Borç ödeme yapısı / değişken ekstre modeli önbelleği
-const CACHE='bs-ofis-butce-v263-debt-structure-20260916';
+// V270 - Ana ekran finans doğruluğu ve güvenli gelir senkronu önbelleği
+const CACHE='bs-ofis-butce-v270-finance-accuracy-20260916';
 const ASSETS=[
-  './?v=263',
-  './index.html?v=263',
+  './?v=270',
+  './index.html?v=270',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v2471-mobile-polish.css?v=2610',
@@ -21,7 +21,7 @@ const ASSETS=[
   './v2603-finance-typography.css?v=26031',
   './app.js?v=257',
   './core-compat.js?v=257',
-  './v258-education-income-sync.js?v=258',
+  './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
   './v2592-income-other-description.js?v=2592',
   './v2585-payment-owner-label.js?v=2586',
@@ -41,7 +41,7 @@ const ASSETS=[
   './schedule-editor.js?v=232',
   './payment-editor-v240.js?v=240',
   './v2595-atomic-payment-create.js?v=2595',
-  './v2597-debt-monthly-view.js?v=2597',
+  './v2597-debt-monthly-view.js?v=270',
   './v2598-debt-card-status.js?v=263',
   './v262-credit-card-statement.js?v=263',
   './v230-mobile-dialog.js?v=2571',
@@ -89,6 +89,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=263') || caches.match('./index.html?v=263')))
+        .then(response => response || caches.match('./?v=270') || caches.match('./index.html?v=270')))
   );
 });
