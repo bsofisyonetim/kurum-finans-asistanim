@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.6.4 - Borç ödeme yapısı ve değişken kredi kartı modeli */
+/* BS OFİS BÜTÇE V2.6.5 - Borç formu ve ödeme yapısı sadeleştirmesi */
 (() => {
   if (window.__bsDebtPaymentStructureV263Loaded) return;
   window.__bsDebtPaymentStructureV263Loaded = true;
@@ -109,9 +109,10 @@
     style.textContent = `
       .bs-cc-card .bs-cc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin-top:3px}
       .bs-cc-card .bs-cc-subline{display:block;margin-top:4px;color:#64748b}
-      .bs-debt-structure-fields,.bs-cc-statement-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .bs-debt-structure-fields{display:grid;grid-template-columns:1fr;gap:12px}
+      .bs-cc-statement-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
       .bs-debt-structure-fields label,.bs-cc-statement-fields label{min-width:0}
-      @media (max-width:640px){.bs-debt-structure-fields,.bs-cc-statement-fields{grid-template-columns:1fr}}
+      @media (max-width:640px){.bs-cc-statement-fields{grid-template-columns:1fr}}
     `;
     document.head.appendChild(style);
   }
@@ -262,6 +263,31 @@
     if (label) label.style.display = visible ? '' : 'none';
   }
 
+  function arrangeDebtForm(form, structureBox, statementBox) {
+    const holder = form.querySelector('#recordFields');
+    if (!holder) return;
+
+    const labelFor = name => form.querySelector(`[name="${name}"]`)?.closest('label');
+    const ordered = [
+      labelFor('name'),
+      labelFor('type'),
+      structureBox,
+      statementBox,
+      labelFor('minimum'),
+      labelFor('dueDate'),
+      labelFor('custom__remaining_installments'),
+      labelFor('custom__debt_owner'),
+      labelFor('notes')
+    ].filter(Boolean);
+
+    let anchor = null;
+    for (const node of ordered) {
+      if (!anchor) holder.prepend(node);
+      else anchor.after(node);
+      anchor = node;
+    }
+  }
+
   function ensureStructureField(form, record) {
     let box = form.querySelector('#bsDebtPaymentStructureFields');
     if (box) return box;
@@ -317,33 +343,55 @@
     const form = document.querySelector('#recordForm');
     if (!form || form.querySelector('[name="module"]')?.value !== 'debts') return;
 
+    const nameInput = form.querySelector('[name="name"]');
     const typeInput = form.querySelector('[name="type"]');
     const structureBox = ensureStructureField(form, record);
     const structureInput = structureBox.querySelector('[name="custom__odeme_yapisi"]');
     if (!typeInput || !structureInput) return;
 
+    const statementBox = ensureStatementFields(form, record);
+    arrangeDebtForm(form, structureBox, statementBox);
+    setLabelText(nameInput, 'Borç adı');
+    setLabelText(typeInput, 'Borç türü');
+
     const applyMode = () => {
+      const fixed = structureInput.value === FIXED;
       const variableCard = structureInput.value === VARIABLE && typeInput.value === 'Kredi Kartı';
-      const statementBox = ensureStatementFields(form, record);
       statementBox.style.display = variableCard ? '' : 'none';
 
-      setFieldVisible(form, 'original', !variableCard);
-      setFieldVisible(form, 'balance', !variableCard);
-      setFieldVisible(form, 'rate', !variableCard);
-      setFieldVisible(form, 'frequency', !variableCard);
-      setFieldVisible(form, 'custom__remaining_installments', !variableCard);
-      setFieldVisible(form, 'custom__next_payment_after_current', !variableCard);
+      setFieldVisible(form, 'original', false);
+      setFieldVisible(form, 'balance', false);
+      setFieldVisible(form, 'rate', false);
+      setFieldVisible(form, 'frequency', false);
+      setFieldVisible(form, 'custom__remaining_installments', fixed);
+      setFieldVisible(form, 'custom__next_payment_after_current', false);
+      setFieldVisible(form, 'custom__debt_owner', true);
+      setFieldVisible(form, 'notes', true);
 
       const minInput = form.querySelector('[name="minimum"]');
       const dueInput = form.querySelector('[name="dueDate"]');
-      setLabelText(minInput, variableCard ? 'Asgari ödeme' : fieldLabel('debts', 'minimum'));
-      setLabelText(dueInput, variableCard ? 'Son ödeme tarihi' : fieldLabel('debts', 'dueDate'));
+      setLabelText(
+        minInput,
+        variableCard
+          ? 'Asgari ödeme'
+          : fixed
+            ? 'Aylık / taksit tutarı'
+            : 'Planlanan ödeme'
+      );
+      setLabelText(
+        dueInput,
+        variableCard
+          ? 'Son ödeme tarihi'
+          : fixed
+            ? 'Sıradaki ödeme tarihi'
+            : 'Ödeme tarihi'
+      );
 
       const title = document.querySelector('#recordDialogTitle');
       if (title) {
         title.textContent = variableCard
           ? (record?.id ? 'Kredi Kartı Ekstresini Güncelle' : 'Yeni Kredi Kartı')
-          : (record?.id ? 'Kaydı Düzenle' : 'Yeni Borç');
+          : (record?.id ? 'Borcu Düzenle' : 'Yeni Borç');
       }
     };
 
@@ -417,6 +465,6 @@
   try {
     renderAll();
   } catch (error) {
-    console.error('V2.6.4 borç ödeme yapısı render hatası:', error);
+    console.error('V2.6.5 borç formu render hatası:', error);
   }
 })();
