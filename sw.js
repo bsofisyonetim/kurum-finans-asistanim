@@ -1,8 +1,8 @@
-// V271 - İki yetkili hesap için ortak finans erişimi önbelleği
-const CACHE='bs-ofis-butce-v271-shared-access-20260917';
+// V272 - Hızlı özet ve kompakt kredi kartı görünümü önbelleği
+const CACHE='bs-ofis-butce-v272-dashboard-card-polish-20260917';
 const ASSETS=[
-  './?v=271',
-  './index.html?v=271',
+  './?v=272',
+  './index.html?v=272',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v2471-mobile-polish.css?v=2610',
@@ -90,6 +90,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=271') || caches.match('./index.html?v=271')))
+        .then(response => response || caches.match('./?v=272') || caches.match('./index.html?v=272')))
   );
 });
