@@ -1,8 +1,8 @@
-// V270 - Ana ekran finans doğruluğu ve güvenli gelir senkronu önbelleği
-const CACHE='bs-ofis-butce-v270-finance-accuracy-20260916';
+// V271 - İki yetkili hesap için ortak finans erişimi önbelleği
+const CACHE='bs-ofis-butce-v271-shared-access-20260917';
 const ASSETS=[
-  './?v=270',
-  './index.html?v=270',
+  './?v=271',
+  './index.html?v=271',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v2471-mobile-polish.css?v=2610',
@@ -21,6 +21,7 @@ const ASSETS=[
   './v2603-finance-typography.css?v=26031',
   './app.js?v=257',
   './core-compat.js?v=257',
+  './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
   './v2592-income-other-description.js?v=2592',
@@ -42,8 +43,8 @@ const ASSETS=[
   './payment-editor-v240.js?v=240',
   './v2595-atomic-payment-create.js?v=2595',
   './v2597-debt-monthly-view.js?v=270',
-  './v2598-debt-card-status.js?v=263',
-  './v262-credit-card-statement.js?v=263',
+  './v2598-debt-card-status.js?v=269',
+  './v262-credit-card-statement.js?v=269',
   './v230-mobile-dialog.js?v=2571',
   './v234-shell-lock.js?v=257',
   './v26122-cloud-bootstrap.js?v=26122',
@@ -89,6 +90,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=270') || caches.match('./index.html?v=270')))
+        .then(response => response || caches.match('./?v=271') || caches.match('./index.html?v=271')))
   );
 });
