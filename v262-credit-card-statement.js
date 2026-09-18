@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.6.8 - Sabit / Değişken borç kartı sadeleştirmesi */
+/* BS OFİS BÜTÇE V2.7.2 - Sabit / Değişken borç kartı ve stabil özet başlangıcı */
 (() => {
   if (window.__bsDebtPaymentStructureV263Loaded) return;
   window.__bsDebtPaymentStructureV263Loaded = true;
@@ -656,6 +656,9 @@
   try {
     renderAll();
   } catch (error) {
-    console.error('V2.6.8 borç kartı render hatası:', error);
+    console.error('V2.7.2 borç kartı render hatası:', error);
+  } finally {
+    // İlk ekranda eski aylık borç formülünün kısa süre görünmesini engeller.
+    document.documentElement.classList.remove('bs-summary-engine-pending');
   }
 })();
