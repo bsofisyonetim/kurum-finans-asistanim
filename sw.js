@@ -1,5 +1,5 @@
 // V272 - Hızlı özet ve kompakt kredi kartı görünümü önbelleği
-const CACHE='bs-ofis-butce-v272-dashboard-card-polish-20260917';
+const CACHE='bs-ofis-butce-v272-summary-stability-20260918';
 const ASSETS=[
   './?v=272',
   './index.html?v=272',
@@ -20,7 +20,7 @@ const ASSETS=[
   './v257-foundation.css?v=2574',
   './v2603-finance-typography.css?v=26031',
   './app.js?v=257',
-  './core-compat.js?v=257',
+  './core-compat.js?v=272',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
