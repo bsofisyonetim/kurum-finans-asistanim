@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" class="bs-summary-engine-pending">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -9,6 +9,38 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BS OFİS BÜTÇE" />
   <title>BS Ofis Bütçe</title>
+
+  <style id="bsSummaryEngineStartup">
+    html.bs-summary-engine-pending #dashboard .summary-grid strong,
+    html.bs-summary-engine-pending #dashboard #v177NetCash,
+    html.bs-summary-engine-pending #dashboard #v177Income,
+    html.bs-summary-engine-pending #dashboard #v177Payments,
+    html.bs-summary-engine-pending #dashboard #v177Expenses{
+      color:transparent!important;
+      background:linear-gradient(90deg,#edf2f7 25%,#f8fafc 50%,#edf2f7 75%)!important;
+      background-size:200% 100%!important;
+      border-radius:8px!important;
+      animation:bsSummaryEnginePulse 1s linear infinite;
+      min-width:72px;
+    }
+    html.bs-summary-engine-pending #dashboard .summary-grid strong{
+      display:inline-block;
+      width:58%;
+    }
+    @keyframes bsSummaryEnginePulse{
+      from{background-position:200% 0}
+      to{background-position:-200% 0}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html.bs-summary-engine-pending #dashboard .summary-grid strong,
+      html.bs-summary-engine-pending #dashboard #v177NetCash,
+      html.bs-summary-engine-pending #dashboard #v177Income,
+      html.bs-summary-engine-pending #dashboard #v177Payments,
+      html.bs-summary-engine-pending #dashboard #v177Expenses{
+        animation:none;
+      }
+    }
+  </style>
 
   <link rel="manifest" href="manifest.webmanifest?v=257" />
   <link rel="icon" type="image/svg+xml" href="bs-budget-app-icon-v256.svg?v=257" />
@@ -274,6 +306,6 @@
   <script src="exact-schedule.js?v=224"></script>
   <script src="debt-balance.js?v=236"></script>
   <script src="schedule-editor.js?v=232"></script>
-  <script src="core-compat.js?v=257"></script>
+  <script src="core-compat.js?v=272"></script>
 </body>
 </html>
