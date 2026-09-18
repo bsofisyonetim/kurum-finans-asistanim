@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.7.1 - Merkezi uyumluluk ve başlangıç katmanı */
+/* BS OFİS BÜTÇE V2.7.2 - Merkezi uyumluluk ve başlangıç katmanı */
 (() => {
   if(window.__bsCoreCompatLoaded) return;
   window.__bsCoreCompatLoaded = true;
@@ -256,8 +256,14 @@
 
   async function loadOptionalModules(){
     const modules = [
+      // Finans hesap motoru ilk çizimde hazır olsun: önce ortak veri, sonra dönem/borç motoru.
       ['./v265-shared-finance-access.js?v=265','__bsSharedFinanceAccessV265Loaded'],
       ['./v258-education-income-sync.js?v=270','__bsEducationIncomeSyncV258Loaded'],
+      ['./v2597-debt-monthly-view.js?v=270','__bsDebtMonthlyViewV2597Loaded'],
+      ['./v2598-debt-card-status.js?v=269','__bsDebtCardStatusV2598Loaded'],
+      ['./v262-credit-card-statement.js?v=272','__bsDebtPaymentStructureV263Loaded'],
+
+      // Sunum ve işlem yardımcıları finans motorundan sonra yüklenebilir.
       ['./v2584-income-themes.js?v=2584','__bsIncomeThemesV2584Loaded'],
       ['./v2592-income-other-description.js?v=2592','__bsIncomeOtherDescriptionV2592Loaded'],
       ['./v2585-payment-owner-label.js?v=2586','__bsPaymentOwnerLabelV2586Loaded'],
@@ -265,9 +271,6 @@
       ['./v230-mobile-dialog.js?v=2571','__bsV235MobileDialogLoaded'],
       ['./payment-editor-v240.js?v=240','__bsPaymentEditorV240Loaded'],
       ['./v2595-atomic-payment-create.js?v=2595','__bsAtomicPaymentCreateV2595Loaded'],
-      ['./v2597-debt-monthly-view.js?v=270','__bsDebtMonthlyViewV2597Loaded'],
-      ['./v2598-debt-card-status.js?v=269','__bsDebtCardStatusV2598Loaded'],
-      ['./v262-credit-card-statement.js?v=269','__bsDebtPaymentStructureV263Loaded'],
       ['./v241-payment-modal-scroll-lock.js?v=241','__bsV241PaymentModalScrollLockLoaded'],
       ['./v242-payment-save-ui.js?v=242','__bsV242PaymentSaveUiLoaded'],
       ['./v244-monthly-report.js?v=244','__bsMonthlyReportV244Loaded'],
@@ -278,9 +281,11 @@
       try{
         await loadScript(src,marker);
       }catch(error){
-        console.error('V2.7.1 opsiyonel modül yükleme hatası:',error);
+        console.error('V2.7.2 opsiyonel modül yükleme hatası:',error);
       }
     }
+
+    document.documentElement.classList.remove('bs-summary-engine-pending');
   }
 
   migrateConfig();
