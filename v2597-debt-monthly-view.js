@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.7.0 - Borçlar aylık operasyon görünümü
+/* BS OFİS BÜTÇE V2.7.3 - Borçlar aylık operasyon ve çoklu gecikme görünümü
    Veri modelini değiştirmez. Mevcut ödeme/taksit motorunun ürettiği vade ve kısmi ödeme durumunu kullanır.
    Ana ekrandaki Kalan Ödeme, bu ayın planlı yükünden yalnız bu aya uygulanmış ödemeleri düşer. */
 (() => {
@@ -52,6 +52,36 @@
 
   function sumRemaining(list){
     return roundMoney(list.reduce((sum,d) => sum + remainingAmount(d), 0));
+  }
+
+  function overdueMetrics(list){
+    let count = 0;
+    let total = 0;
+
+    list.forEach(d => {
+      if(typeof window.bsDebtOverdueSummary === 'function'){
+        try{
+          const summary = window.bsDebtOverdueSummary(d);
+          if(summary?.count > 0){
+            count += summary.count;
+            total += Math.max(0,+summary.total || 0);
+            return;
+          }
+        }catch(_error){}
+      }
+
+      // Değişken kredi kartı veya plan motoru olmayan eski kayıt:
+      // tek açık ödeme yükümlülüğü olarak sayılır.
+      if(d.dueDate && d.dueDate < todayISO()){
+        count += 1;
+        total += remainingAmount(d);
+      }
+    });
+
+    return {
+      count,
+      total:roundMoney(total)
+    };
   }
 
   function monthlyPlannedAmount(raw,current){
@@ -163,8 +193,9 @@
     if(activeAmount) activeAmount.textContent = money(sumRemaining(open));
     if(monthCount) monthCount.textContent = String(month.length);
     if(monthAmount) monthAmount.textContent = money(sumRemaining(month));
-    if(overdueCount) overdueCount.textContent = String(overdue.length);
-    if(overdueAmount) overdueAmount.textContent = money(sumRemaining(overdue));
+    const overdueInfo = overdueMetrics(overdue);
+    if(overdueCount) overdueCount.textContent = String(overdueInfo.count);
+    if(overdueAmount) overdueAmount.textContent = money(overdueInfo.total);
   }
 
   function updateDashboardRemaining(){
