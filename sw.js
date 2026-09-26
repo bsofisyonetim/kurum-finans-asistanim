@@ -1,8 +1,8 @@
-// V272 - Hızlı özet ve kompakt kredi kartı görünümü önbelleği
-const CACHE='bs-ofis-butce-v272-summary-stability-20260918';
+// V273 - Çoklu gecikmiş taksit görünümü önbelleği
+const CACHE='bs-ofis-butce-v273-multi-overdue-20260926';
 const ASSETS=[
-  './?v=272',
-  './index.html?v=272',
+  './?v=273',
+  './index.html?v=273',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v2471-mobile-polish.css?v=2610',
@@ -20,7 +20,7 @@ const ASSETS=[
   './v257-foundation.css?v=2574',
   './v2603-finance-typography.css?v=26031',
   './app.js?v=257',
-  './core-compat.js?v=272',
+  './core-compat.js?v=273',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
@@ -42,9 +42,9 @@ const ASSETS=[
   './schedule-editor.js?v=232',
   './payment-editor-v240.js?v=240',
   './v2595-atomic-payment-create.js?v=2595',
-  './v2597-debt-monthly-view.js?v=270',
-  './v2598-debt-card-status.js?v=269',
-  './v262-credit-card-statement.js?v=272',
+  './v2597-debt-monthly-view.js?v=273',
+  './v2598-debt-card-status.js?v=273',
+  './v262-credit-card-statement.js?v=273',
   './v230-mobile-dialog.js?v=2571',
   './v234-shell-lock.js?v=257',
   './v26122-cloud-bootstrap.js?v=26122',
@@ -90,6 +90,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=272') || caches.match('./index.html?v=272')))
+        .then(response => response || caches.match('./?v=273') || caches.match('./index.html?v=273')))
   );
 });
