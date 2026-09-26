@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.7.2 - Merkezi uyumluluk ve başlangıç katmanı */
+/* BS OFİS BÜTÇE V2.7.3 - Merkezi uyumluluk ve çoklu gecikme katmanı */
 (() => {
   if(window.__bsCoreCompatLoaded) return;
   window.__bsCoreCompatLoaded = true;
@@ -259,9 +259,9 @@
       // Finans hesap motoru ilk çizimde hazır olsun: önce ortak veri, sonra dönem/borç motoru.
       ['./v265-shared-finance-access.js?v=265','__bsSharedFinanceAccessV265Loaded'],
       ['./v258-education-income-sync.js?v=270','__bsEducationIncomeSyncV258Loaded'],
-      ['./v2597-debt-monthly-view.js?v=270','__bsDebtMonthlyViewV2597Loaded'],
-      ['./v2598-debt-card-status.js?v=269','__bsDebtCardStatusV2598Loaded'],
-      ['./v262-credit-card-statement.js?v=272','__bsDebtPaymentStructureV263Loaded'],
+      ['./v2597-debt-monthly-view.js?v=273','__bsDebtMonthlyViewV2597Loaded'],
+      ['./v2598-debt-card-status.js?v=273','__bsDebtCardStatusV2598Loaded'],
+      ['./v262-credit-card-statement.js?v=273','__bsDebtPaymentStructureV263Loaded'],
 
       // Sunum ve işlem yardımcıları finans motorundan sonra yüklenebilir.
       ['./v2584-income-themes.js?v=2584','__bsIncomeThemesV2584Loaded'],
@@ -281,7 +281,7 @@
       try{
         await loadScript(src,marker);
       }catch(error){
-        console.error('V2.7.2 opsiyonel modül yükleme hatası:',error);
+        console.error('V2.7.3 opsiyonel modül yükleme hatası:',error);
       }
     }
 
