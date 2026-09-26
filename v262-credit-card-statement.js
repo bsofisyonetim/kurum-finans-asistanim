@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.7.2 - Sabit / Değişken borç kartı ve stabil özet başlangıcı */
+/* BS OFİS BÜTÇE V2.7.3 - Sabit / Değişken borç kartı ve çoklu gecikme uyumu */
 (() => {
   if (window.__bsDebtPaymentStructureV263Loaded) return;
   window.__bsDebtPaymentStructureV263Loaded = true;
@@ -226,7 +226,14 @@
 
       const paid = Math.max(0, roundMoney(d.custom?.current_installment_paid || 0));
       const label = card.querySelector('.bs-v2598-remaining-label');
-      if (label) label.textContent = paid > EPS ? 'bu taksitte kalan' : 'bu taksit';
+      const overdue = typeof window.bsDebtOverdueSummary === 'function'
+        ? window.bsDebtOverdueSummary(d)
+        : null;
+      if (label) {
+        label.textContent = overdue?.count > 1
+          ? 'gecikmiş toplam'
+          : (paid > EPS ? 'bu taksitte kalan' : 'bu taksit');
+      }
     });
   }
 
