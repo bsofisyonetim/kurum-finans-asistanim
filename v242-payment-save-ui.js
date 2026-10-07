@@ -169,7 +169,8 @@
       if(typeof oldAmountInput==='function') oldAmountInput.call(this,event);
     };
 
-    renderVariableHint(form,false);
+    const editing=!!form.querySelector('[name="id"]')?.value;
+    renderVariableHint(form,!editing);
   }
 
   function install(){
