@@ -1,8 +1,8 @@
-// V276 - Özet sadeleştirme ve sekme KPI standardı
-const CACHE='bs-ofis-butce-v276-section-standard-20261126';
+// V277 - Kredi kartı görsel standardı
+const CACHE='bs-ofis-butce-v277-card-standard-20261126';
 const ASSETS=[
-  './?v=276',
-  './index.html?v=276',
+  './?v=277',
+  './index.html?v=277',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v2471-mobile-polish.css?v=2610',
@@ -20,7 +20,7 @@ const ASSETS=[
   './v257-foundation.css?v=2574',
   './v2603-finance-typography.css?v=26031',
   './app.js?v=257',
-  './core-compat.js?v=276',
+  './core-compat.js?v=277',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
@@ -46,7 +46,7 @@ const ASSETS=[
   './v2598-debt-card-status.js?v=273',
   './v262-credit-card-statement.js?v=273',
   './v275-credit-cards-view.js?v=275',
-  './v276-section-standard.js?v=276',
+  './v276-section-standard.js?v=277',
   './v230-mobile-dialog.js?v=2571',
   './v234-shell-lock.js?v=257',
   './v26122-cloud-bootstrap.js?v=26122',
@@ -92,6 +92,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=276') || caches.match('./index.html?v=276')))
+        .then(response => response || caches.match('./?v=277') || caches.match('./index.html?v=277')))
   );
 });
