@@ -64,7 +64,7 @@
     list.dataset.v279PayBound='1';
 
     list.addEventListener('click',e=>{
-      const btn=e.target.closest('[data-calendar-pay]');
+      const btn=e.target.closest('[data-upcoming-pay]');
       if(!btn) return;
 
       e.preventDefault();
@@ -72,7 +72,7 @@
 
       const debt=state.debts
         .map(normalizeDebt)
-        .find(d=>d.id===btn.dataset.calendarPay);
+        .find(d=>d.id===btn.dataset.upcomingPay);
       if(!debt) return;
 
       const remaining=typeof window.currentInstallmentRemaining==='function'
