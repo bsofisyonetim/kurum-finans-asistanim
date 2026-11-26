@@ -250,7 +250,9 @@
         <input id="v244ReportMonth" type="month" aria-label="Rapor ayı" value="${currentMonth()}" />
         <button id="v244CreateReport" type="button">PDF İndir</button>
       </div>`;
-    summary.insertAdjacentElement('afterend',panel);
+    const upcoming=document.querySelector('#upcomingMini');
+    if(upcoming) upcoming.insertAdjacentElement('afterend',panel);
+    else summary.insertAdjacentElement('afterend',panel);
     panel.querySelector('#v244CreateReport')?.addEventListener('click',()=>{
       openReport(panel.querySelector('#v244ReportMonth')?.value || currentMonth());
     });
