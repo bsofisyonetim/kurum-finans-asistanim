@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.7.3 - Merkezi uyumluluk ve çoklu gecikme katmanı */
+/* BS OFİS BÜTÇE V2.7.5 - Merkezi uyumluluk, çoklu gecikme ve kredi kartı görünümü */
 (() => {
   if(window.__bsCoreCompatLoaded) return;
   window.__bsCoreCompatLoaded = true;
@@ -274,14 +274,15 @@
       ['./v241-payment-modal-scroll-lock.js?v=241','__bsV241PaymentModalScrollLockLoaded'],
       ['./v242-payment-save-ui.js?v=242','__bsV242PaymentSaveUiLoaded'],
       ['./v244-monthly-report.js?v=244','__bsMonthlyReportV244Loaded'],
-      ['./v246-direct-pdf-report.js?v=246','__bsDirectPdfReportV246Loaded']
+      ['./v246-direct-pdf-report.js?v=246','__bsDirectPdfReportV246Loaded'],
+      ['./v275-credit-cards-view.js?v=275','__bsCreditCardsViewV275Loaded']
     ];
 
     for(const [src,marker] of modules){
       try{
         await loadScript(src,marker);
       }catch(error){
-        console.error('V2.7.3 opsiyonel modül yükleme hatası:',error);
+        console.error('V2.7.5 opsiyonel modül yükleme hatası:',error);
       }
     }
 

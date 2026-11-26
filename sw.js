@@ -1,8 +1,8 @@
-// V273 - Çoklu gecikmiş taksit görünümü önbelleği
-const CACHE='bs-ofis-butce-v273-multi-overdue-20260926';
+// V275 - Kredi kartları ayrı görünüm önbelleği
+const CACHE='bs-ofis-butce-v275-credit-cards-20261126';
 const ASSETS=[
-  './?v=273',
-  './index.html?v=273',
+  './?v=275',
+  './index.html?v=275',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v2471-mobile-polish.css?v=2610',
@@ -20,7 +20,7 @@ const ASSETS=[
   './v257-foundation.css?v=2574',
   './v2603-finance-typography.css?v=26031',
   './app.js?v=257',
-  './core-compat.js?v=273',
+  './core-compat.js?v=275',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
@@ -45,6 +45,7 @@ const ASSETS=[
   './v2597-debt-monthly-view.js?v=273',
   './v2598-debt-card-status.js?v=273',
   './v262-credit-card-statement.js?v=273',
+  './v275-credit-cards-view.js?v=275',
   './v230-mobile-dialog.js?v=2571',
   './v234-shell-lock.js?v=257',
   './v26122-cloud-bootstrap.js?v=26122',
@@ -90,6 +91,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=273') || caches.match('./index.html?v=273')))
+        .then(response => response || caches.match('./?v=275') || caches.match('./index.html?v=275')))
   );
 });
