@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.7.8 - Detay kartları; özet ödeme planı kaldırıldı */
+/* BS OFİS BÜTÇE V2.7.9 - Detay ve kayıt kartları */
 (() => {
   if(window.__bsOfisV179Loaded) return;
   window.__bsOfisV179Loaded = true;
@@ -309,25 +309,8 @@
     }
   };
 
-  function ensureDebtProgress(){
-    document.querySelector('#v179DebtProgress')?.remove();
-    return null;
-  }
-
-  function updateDebtProgress(){
-    document.querySelector('#v179DebtProgress')?.remove();
-  }
 
   ensureV179Styles();
-  ensureDebtProgress();
-  updateDebtProgress();
-
-  const originalRenderDashboardV179 = renderDashboard;
-  renderDashboard = function(){
-    originalRenderDashboardV179();
-    ensureDebtProgress();
-    updateDebtProgress();
-  };
 
   // Kart sınıflarının hemen görünmesi için mevcut ekranları bir kez yenile.
   renderDebts();
