@@ -1,12 +1,12 @@
-// V280 - Kart renderer hotfix
-const CACHE='bs-ofis-butce-v280-card-renderer-hotfix-20261126';
+// V281 - Takvim ekranı kaldırıldı, Sıradaki Ödemeler çekirdeği korundu
+const CACHE='bs-ofis-butce-v281-no-calendar-20261126';
 const ASSETS=[
-  './?v=280',
-  './index.html?v=280',
+  './?v=281',
+  './index.html?v=281',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
-  './v2471-mobile-polish.css?v=279',
-  './v248-dashboard-polish.css?v=279',
+  './v2471-mobile-polish.css?v=281',
+  './v248-dashboard-polish.css?v=281',
   './v249-debts-polish.css?v=249',
   './v2587-debt-owner-colors.css?v=2587',
   './v250-payments-polish.css?v=2608',
@@ -15,11 +15,10 @@ const ASSETS=[
   './v2581-income-owner-colors.css?v=2606',
   './v2583-income-summary-stripes.css?v=2609',
   './v2584-income-themes.css?v=2610',
-  './v252-calendar-polish.css?v=252',
-  './v2588-selectable-kpi-standard.css?v=2608',
-  './v257-foundation.css?v=2574',
-  './v2603-finance-typography.css?v=26031',
-  './app.js?v=280',
+    './v2588-selectable-kpi-standard.css?v=2608',
+  './v257-foundation.css?v=281',
+  './v2603-finance-typography.css?v=281',
+  './app.js?v=281',
   './core-compat.js?v=279',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
@@ -28,14 +27,14 @@ const ASSETS=[
   './v2585-payment-owner-label.js?v=2586',
   './v2587-debt-owner-colors.js?v=2587',
   './v17-ui.js?v=218',
-  './v175-ui.js?v=175',
+  './v175-ui.js?v=281',
   './v176-ui.js?v=218',
-  './v177-ui.js?v=279',
+  './v177-ui.js?v=281',
   './v178-ui.js?v=279',
   './v2611-cash-flow-detail.js?v=2611',
-  './v179-ui.js?v=279',
-  './ui.js?v=279',
-  './payment-plan.js?v=200',
+  './v179-ui.js?v=281',
+  './ui.js?v=281',
+  './payment-plan.js?v=281',
   './payment-schedule.js?v=222',
   './exact-schedule.js?v=224',
   './debt-balance.js?v=236',
@@ -92,6 +91,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=280') || caches.match('./index.html?v=280')))
+        .then(response => response || caches.match('./?v=281') || caches.match('./index.html?v=281')))
   );
 });
