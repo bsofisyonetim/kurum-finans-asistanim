@@ -1,8 +1,8 @@
-// V279 - Dashboard kalinti temizligi ve acilis sadeleştirmesi
-const CACHE='bs-ofis-butce-v279-dashboard-clean-20261126';
+// V280 - Kart renderer hotfix
+const CACHE='bs-ofis-butce-v280-card-renderer-hotfix-20261126';
 const ASSETS=[
-  './?v=279',
-  './index.html?v=279',
+  './?v=280',
+  './index.html?v=280',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v2471-mobile-polish.css?v=279',
@@ -19,7 +19,7 @@ const ASSETS=[
   './v2588-selectable-kpi-standard.css?v=2608',
   './v257-foundation.css?v=2574',
   './v2603-finance-typography.css?v=26031',
-  './app.js?v=279',
+  './app.js?v=280',
   './core-compat.js?v=279',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
@@ -92,6 +92,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=279') || caches.match('./index.html?v=279')))
+        .then(response => response || caches.match('./?v=280') || caches.match('./index.html?v=280')))
   );
 });
