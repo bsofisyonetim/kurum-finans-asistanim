@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.7.8 - Hızlı işlemler + sade özet + startup gate */
+/* BS OFİS BÜTÇE V2.7.9 - Hızlı işlemler + rapor yükleme + startup gate */
 (() => {
   function ensureV178Styles(){
     if(document.querySelector('#v178Styles')) return;
@@ -107,8 +107,8 @@
 
   function ensureQuickActions(){
     const dashboard = document.querySelector('#dashboard');
-    const panel = document.querySelector('#v177DashboardPanel');
-    if(!dashboard || !panel || document.querySelector('#v178QuickActions')) return;
+    const summary = dashboard?.querySelector('.summary-grid');
+    if(!dashboard || !summary || document.querySelector('#v178QuickActions')) return;
 
     const wrap = document.createElement('section');
     wrap.id = 'v178QuickActions';
@@ -154,7 +154,7 @@
       </div>
     `;
 
-    panel.insertAdjacentElement('beforebegin',wrap);
+    summary.insertAdjacentElement('afterend',wrap);
 
     wrap.addEventListener('click', e => {
       const btn = e.target.closest('[data-v178-action]');
@@ -187,60 +187,6 @@
     });
   }
 
-  function stabilizeDashboardV2612(){
-    const dashboard = document.querySelector('#dashboard');
-    if(!dashboard) return;
-
-    const assistant = document.querySelector('#assistantCard');
-    const assistantHead = assistant?.previousElementSibling;
-    if(assistant) assistant.style.display = 'none';
-    if(assistantHead?.classList?.contains('section-head')) assistantHead.style.display = 'none';
-
-    const upcoming = document.querySelector('#upcomingMini');
-    const upcomingHead = upcoming?.previousElementSibling;
-    if(upcomingHead?.classList?.contains('section-head')){
-      const title = upcomingHead.querySelector('h2');
-      const link = upcomingHead.querySelector('.link-btn');
-      if(title) title.textContent = 'Sıradaki Ödemeler';
-      if(link) link.textContent = 'Takvim';
-    }
-
-    const recent = document.querySelector('#recentPayments');
-    const recentHead = recent?.previousElementSibling;
-    if(recentHead?.classList?.contains('section-head')){
-      const title = recentHead.querySelector('h2');
-      const link = recentHead.querySelector('.link-btn');
-      if(title) title.textContent = 'Son Ödemeler';
-      if(link) link.textContent = 'Tümü';
-    }
-
-    const quick = document.querySelector('#v178QuickActions');
-    const panel = document.querySelector('#v177DashboardPanel');
-    if(quick && panel && quick.nextElementSibling !== panel){
-      panel.insertAdjacentElement('beforebegin',quick);
-    }
-
-    const report = document.querySelector('#v244MonthlyReport');
-    if(report && upcoming && upcoming.nextElementSibling !== report){
-      upcoming.insertAdjacentElement('afterend',report);
-    }
-
-    if(report){
-      const button = report.querySelector('#v244CreateReport');
-      const hint = report.querySelector('.v244-report-copy small');
-      if(button && !button.disabled) button.textContent = 'PDF Rapor İndir';
-      if(hint) hint.textContent = 'Gelir, gider, borç ödemeleri ve gelir dağılımını doğrudan temiz A4 PDF dosyası olarak üretir.';
-    }
-  }
-
-  function observeDashboardV2612(){
-    const dashboard = document.querySelector('#dashboard');
-    if(!dashboard || dashboard.dataset.v2612Observed === '1') return;
-    dashboard.dataset.v2612Observed = '1';
-    const observer = new MutationObserver(() => stabilizeDashboardV2612());
-    observer.observe(dashboard,{childList:true});
-  }
-
   function loadScriptV2612(src,marker){
     return new Promise((resolve,reject) => {
       if(marker && window[marker]) return resolve();
@@ -262,10 +208,8 @@
 
   async function preloadReportModulesV2612(){
     try{
-      await loadScriptV2612('./v244-monthly-report.js?v=278','__bsMonthlyReportV244Loaded');
-      stabilizeDashboardV2612();
+      await loadScriptV2612('./v244-monthly-report.js?v=279','__bsMonthlyReportV244Loaded');
       await loadScriptV2612('./v246-direct-pdf-report.js?v=2612','__bsDirectPdfReportV246Loaded');
-      stabilizeDashboardV2612();
     }catch(error){
       console.error('V261.2 rapor ön yükleme hatası:',error);
     }
@@ -291,7 +235,6 @@
 
     const modernUiReady = () => !!(
       document.querySelector('#v178QuickActions') &&
-      document.querySelector('#v177DashboardPanel') &&
       document.querySelector('#v244MonthlyReport') &&
       window.__bsCurrentUiReady === true &&
       window.__bsDirectPdfReportV246Loaded === true
@@ -336,16 +279,7 @@
 
   ensureV178Styles();
   ensureQuickActions();
-  stabilizeDashboardV2612();
-  observeDashboardV2612();
   preloadReportModulesV2612();
   loadCashFlowDetailV2611();
   startStartupGateV2613();
-
-  const originalRenderDashboardV178 = renderDashboard;
-  renderDashboard = function(){
-    originalRenderDashboardV178();
-    ensureQuickActions();
-    stabilizeDashboardV2612();
-  };
 })();
