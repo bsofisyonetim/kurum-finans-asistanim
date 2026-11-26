@@ -273,7 +273,7 @@
       ['./v2595-atomic-payment-create.js?v=2595','__bsAtomicPaymentCreateV2595Loaded'],
       ['./v241-payment-modal-scroll-lock.js?v=241','__bsV241PaymentModalScrollLockLoaded'],
       ['./v242-payment-save-ui.js?v=242','__bsV242PaymentSaveUiLoaded'],
-      ['./v275-credit-cards-view.js?v=275','__bsCreditCardsViewV275Loaded'],
+      ['./v275-credit-cards-view.js?v=281','__bsCreditCardsViewV275Loaded'],
       ['./v276-section-standard.js?v=277','__bsSectionStandardV276Loaded']
     ];
 
