@@ -214,7 +214,7 @@
   }
 
   function debtStats(){
-    const all = state.debts.map(normalizeDebt);
+    const all = state.debts.map(normalizeDebt).filter(d => !(d.type === 'Kredi Kartı' && d.custom?.odeme_yapisi === 'Değişken'));
     const active = all.filter(d => d.status === 'active');
     const currentMonth = monthKey();
     const today = todayISO();
@@ -273,11 +273,12 @@
     const list = state.debts
       .map(normalizeDebt)
       .filter(d => {
+        if(typeof window.bsV276IsVariableCard === 'function' ? window.bsV276IsVariableCard(d) : d.type === 'Kredi Kartı' && d.custom?.odeme_yapisi === 'Değişken') return false;
         let modeOk;
         if(debtQuickMode === 'month'){
-          modeOk = d.status === 'active' && !!d.dueDate && d.dueDate.startsWith(currentMonth);
+          modeOk = d.status === 'active' && !!d.dueDate && d.dueDate.startsWith(currentMonth) && (typeof window.bsV276DebtRemaining !== 'function' || window.bsV276DebtRemaining(d) > .005);
         }else if(debtQuickMode === 'overdue'){
-          modeOk = d.status === 'active' && !!d.dueDate && d.dueDate < today;
+          modeOk = typeof window.bsV276DebtOverdueInfo === 'function' ? window.bsV276DebtOverdueInfo(d).count > 0 : d.status === 'active' && !!d.dueDate && d.dueDate < today;
         }else{
           modeOk = filter === 'all'
             || (filter === 'active' && d.status === 'active')

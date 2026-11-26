@@ -36,16 +36,38 @@
     return Math.max(0, roundMoney((+d.minimum || 0) - paid));
   }
 
+  function isCard(d){
+    return typeof window.bsIsCreditCardDebt === 'function'
+      ? window.bsIsCreditCardDebt(d)
+      : d.type === 'Kredi Kartı' && d.custom?.odeme_yapisi === 'Değişken';
+  }
+
+  function overdueInfo(d){
+    if(d.status !== 'active' || isCard(d)) return {count:0,total:0};
+    if(String(d.custom?.odeme_yapisi || 'Sabit').trim() !== 'Değişken'
+      && typeof window.bsDebtOverdueSummary === 'function'){
+      const s = window.bsDebtOverdueSummary(d);
+      return {count:s.total > EPS ? s.count : 0,total:Math.max(0,s.total || 0)};
+    }
+    const amount = remainingAmount(d);
+    return d.dueDate && d.dueDate < todayISO() && amount > EPS
+      ? {count:1,total:amount} : {count:0,total:0};
+  }
+
+  window.bsV276DebtOverdueInfo = overdueInfo;
+  window.bsV276DebtRemaining = remainingAmount;
+  window.bsV276IsVariableCard = isCard;
+
   function debtSets(){
-    const all = state.debts.map(normalizeDebt);
+    const all = state.debts.map(normalizeDebt).filter(d => !isCard(d));
     const currentMonth = monthKey();
     const today = todayISO();
     const nextMonth = nextMonthStart();
 
     const active = all.filter(d => d.status === 'active');
-    const open = active.filter(d => !!d.dueDate && d.dueDate < nextMonth);
-    const month = active.filter(d => !!d.dueDate && d.dueDate.startsWith(currentMonth));
-    const overdue = active.filter(d => !!d.dueDate && d.dueDate < today);
+    const open = active.filter(d => !!d.dueDate && d.dueDate < nextMonth && (remainingAmount(d) > EPS || overdueInfo(d).count > 0));
+    const month = active.filter(d => !!d.dueDate && d.dueDate.startsWith(currentMonth) && remainingAmount(d) > EPS);
+    const overdue = active.filter(d => overdueInfo(d).count > 0);
 
     return {all,active,open,month,overdue};
   }
@@ -59,23 +81,9 @@
     let total = 0;
 
     list.forEach(d => {
-      if(typeof window.bsDebtOverdueSummary === 'function'){
-        try{
-          const summary = window.bsDebtOverdueSummary(d);
-          if(summary?.count > 0){
-            count += summary.count;
-            total += Math.max(0,+summary.total || 0);
-            return;
-          }
-        }catch(_error){}
-      }
-
-      // Değişken kredi kartı veya plan motoru olmayan eski kayıt:
-      // tek açık ödeme yükümlülüğü olarak sayılır.
-      if(d.dueDate && d.dueDate < todayISO()){
-        count += 1;
-        total += remainingAmount(d);
-      }
+      const info = overdueInfo(d);
+      count += info.count;
+      total += info.total;
     });
 
     return {
