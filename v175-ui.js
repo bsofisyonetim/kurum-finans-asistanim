@@ -1,7 +1,6 @@
-/* BS OFİS BÜTÇE V1.7.5 - Özet, Borçlar ve Takvim UX */
+/* BS OFİS BÜTÇE V2.8.1 - Özet ve Borçlar UX */
 (() => {
   let debtQuickMode = 'active';
-  let calendarQuickMode = 'all';
 
   function ensureV175Styles(){
     if(document.querySelector('#v175Styles')) return;
@@ -76,21 +75,6 @@
       #dashboard .summary-card[data-v175-target]:hover{
         border-color:#b9cbef;
       }
-      .v175-calendar-group{
-        margin:15px 0 7px;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:10px;
-      }
-      .v175-calendar-group strong{
-        font-size:12px;
-        color:var(--ink);
-      }
-      .v175-calendar-group small{
-        color:var(--muted);
-        font-size:10px;
-      }
       @media(max-width:380px){
         .v175-quick-grid{gap:6px}
         .v175-quick-card{padding:9px 5px}
@@ -140,12 +124,13 @@
     }
 
     if(due){
-      due.dataset.v175Target = 'calendar';
+      due.dataset.v175Target = 'upcoming';
       makeInteractive(due, () => {
-        calendarQuickMode = 'all';
-        renderCalendar();
-        openView('calendar');
-      }, 'Planlanan ödemeleri takvimde aç');
+        document.querySelector('#upcomingMini')?.scrollIntoView({
+          behavior:'smooth',
+          block:'start'
+        });
+      }, 'Bu ayın planlanan ödemelerini Sıradaki Ödemeler bölümünde göster');
     }
 
     if(paid){
@@ -329,133 +314,12 @@
     if(search) search.oninput = renderDebts;
   }
 
-  function ensureCalendarQuickCards(){
-    const view = document.querySelector('#calendar');
-    const title = view?.querySelector('.page-title');
-    if(!view || !title || document.querySelector('#v175CalendarKpis')) return;
-
-    const wrap = document.createElement('div');
-    wrap.id = 'v175CalendarKpis';
-    wrap.className = 'v175-quick-grid';
-    wrap.innerHTML = `
-      <article class="v175-quick-card" data-calendar-quick="overdue" role="button" tabindex="0">
-        <span>GECİKEN</span>
-        <strong id="v175CalOverdueCount">0</strong>
-        <small id="v175CalOverdueAmount">₺0</small>
-      </article>
-      <article class="v175-quick-card" data-calendar-quick="week" role="button" tabindex="0">
-        <span>7 GÜN</span>
-        <strong id="v175CalWeekCount">0</strong>
-        <small id="v175CalWeekAmount">₺0</small>
-      </article>
-      <article class="v175-quick-card" data-calendar-quick="all" role="button" tabindex="0">
-        <span>TÜMÜ</span>
-        <strong id="v175CalAllCount">0</strong>
-        <small id="v175CalAllAmount">₺0</small>
-      </article>
-    `;
-    title.insertAdjacentElement('afterend',wrap);
-
-    wrap.addEventListener('click', e => {
-      const card = e.target.closest('[data-calendar-quick]');
-      if(card){
-        calendarQuickMode = card.dataset.calendarQuick;
-        renderCalendar();
-      }
-    });
-    wrap.addEventListener('keydown', e => {
-      const card = e.target.closest('[data-calendar-quick]');
-      if(!card || !['Enter',' '].includes(e.key)) return;
-      e.preventDefault();
-      calendarQuickMode = card.dataset.calendarQuick;
-      renderCalendar();
-    });
-  }
-
-  function updateCalendarQuickCards(due){
-    ensureCalendarQuickCards();
-    const overdue = due.filter(d => d.days < 0);
-    const week = due.filter(d => d.days >= 0 && d.days <= 7);
-
-    const values = [
-      ['#v175CalOverdueCount',String(overdue.length)],
-      ['#v175CalOverdueAmount',money(overdue.reduce((s,d)=>s+(+d.amount||0),0))],
-      ['#v175CalWeekCount',String(week.length)],
-      ['#v175CalWeekAmount',money(week.reduce((s,d)=>s+(+d.amount||0),0))],
-      ['#v175CalAllCount',String(due.length)],
-      ['#v175CalAllAmount',money(due.reduce((s,d)=>s+(+d.amount||0),0))]
-    ];
-    values.forEach(([selector,value]) => {
-      const el = document.querySelector(selector);
-      if(el) el.textContent = value;
-    });
-
-    document.querySelectorAll('[data-calendar-quick]').forEach(card => {
-      const active = card.dataset.calendarQuick === calendarQuickMode;
-      card.classList.toggle('active',active);
-      card.setAttribute('aria-pressed',active?'true':'false');
-    });
-  }
-
-  function calendarGroupHtml(title,items){
-    if(!items.length) return '';
-    const total = items.reduce((s,d)=>s+(+d.amount||0),0);
-    return `
-      <div class="v175-calendar-group">
-        <strong>${esc(title)}</strong>
-        <small>${items.length} kayıt · ${money(total)}</small>
-      </div>
-      ${items.map(dueCard).join('')}
-    `;
-  }
-
-  function renderCalendarV175(){
-    ensureCalendarQuickCards();
-    const due = dueItems();
-    updateCalendarQuickCards(due);
-
-    let filtered = due;
-    if(calendarQuickMode === 'overdue'){
-      filtered = due.filter(d => d.days < 0);
-    }else if(calendarQuickMode === 'week'){
-      filtered = due.filter(d => d.days >= 0 && d.days <= 7);
-    }
-
-    const overdue = filtered.filter(d => d.days < 0);
-    const today = filtered.filter(d => d.days === 0);
-    const week = filtered.filter(d => d.days > 0 && d.days <= 7);
-    const later = filtered.filter(d => d.days > 7);
-
-    const list = document.querySelector('#calendarList');
-    if(!list) return;
-
-    if(!filtered.length){
-      list.innerHTML = empty(
-        calendarQuickMode === 'overdue'
-          ? 'Gecikmiş ödeme yok.'
-          : calendarQuickMode === 'week'
-            ? 'Önümüzdeki 7 günde ödeme yok.'
-            : 'Takvimde yaklaşan ödeme yok.'
-      );
-      return;
-    }
-
-    list.innerHTML =
-      calendarGroupHtml('Geciken',overdue) +
-      calendarGroupHtml('Bugün',today) +
-      calendarGroupHtml('Önümüzdeki 7 Gün',week) +
-      calendarGroupHtml('Daha Sonra',later);
-  }
-
   ensureV175Styles();
   bindDashboardCards();
   ensureDebtQuickCards();
-  ensureCalendarQuickCards();
 
   renderDebts = renderDebtsV175;
-  renderCalendar = renderCalendarV175;
 
   bindDebtFilters();
   renderDebts();
-  renderCalendar();
 })();
