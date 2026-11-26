@@ -1,13 +1,13 @@
-// V285 — Ortak görsel standart ve sürüm uyumu
-const CACHE='bs-ofis-butce-v285-visual-standard-20261126';
+// V286 — Tek kredi kartı çizim akışı
+const CACHE='bs-ofis-butce-v286-credit-render-20261126';
 const ASSETS=[
-  './?v=285',
-  './index.html?v=285',
+  './?v=286',
+  './index.html?v=286',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v283-ui-bundle.css?v=285',
-  './app.js?v=285',
-  './core-compat.js?v=284',
+  './app.js?v=286',
+  './core-compat.js?v=286',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
@@ -32,8 +32,8 @@ const ASSETS=[
   './v2597-debt-monthly-view.js?v=273',
   './v2598-debt-card-status.js?v=273',
   './v262-credit-card-statement.js?v=273',
-  './v275-credit-cards-view.js?v=282',
-  './v276-section-standard.js?v=283',
+  './v275-credit-cards-view.js?v=286',
+  './v276-section-standard.js?v=286',
   './v230-mobile-dialog.js?v=2571',
   './v234-shell-lock.js?v=284',
   './v26122-cloud-bootstrap.js?v=26122',
@@ -93,7 +93,7 @@ self.addEventListener('fetch',event => {
       const hit=await cache.match(request);
       if(hit) return hit;
       if(isNavigation){
-        const shell=await cache.match('./?v=285') || await cache.match('./index.html?v=285');
+        const shell=await cache.match('./?v=286') || await cache.match('./index.html?v=286');
         if(shell) return shell;
       }
       return new Response('Çevrimdışı: dosya kullanılamıyor.',{

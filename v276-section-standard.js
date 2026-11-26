@@ -5,6 +5,7 @@
 
   const EPS = .005;
   let creditQuickMode = 'active';
+  let usesSharedCreditRenderer = false;
 
   const roundMoney = value => Math.round((+value || 0) * 100) / 100;
 
@@ -371,7 +372,7 @@
       const wrapped = function(...args){
         const result = original.apply(this,args);
         updateDebtKpis();
-        renderCreditCards();
+        if(!usesSharedCreditRenderer) renderCreditCards();
         return result;
       };
       wrapped.__bsSectionStandardV276 = true;
@@ -391,7 +392,9 @@
     }
 
     ensureCreditKpis();
-    bindCreditFilters();
+    usesSharedCreditRenderer = typeof window.bsSetCreditCardRendererV286 === 'function'
+      && window.bsSetCreditCardRendererV286(renderCreditCards) === true;
+    if(!usesSharedCreditRenderer) bindCreditFilters();
     installRenderHooks();
 
     removeDashboardAttention();

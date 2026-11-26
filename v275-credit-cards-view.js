@@ -5,6 +5,13 @@
 
   const VIEW = 'creditCards';
   const VARIABLE = 'Değişken';
+  let finalCreditRenderer = null;
+  // V286: the final renderer takes over the existing handlers and debt hook.
+  window.bsSetCreditCardRendererV286 = renderer => {
+    if(typeof renderer !== 'function') return false;
+    finalCreditRenderer = renderer;
+    return true;
+  };
 
   function isVariableCard(raw){
     if(typeof window.bsIsCreditCardDebt === 'function'){
@@ -59,10 +66,14 @@
     const list = section?.querySelector('#creditCardList');
     if(!list) return;
 
-    const cards = cardList();
-    list.innerHTML = cards.length
-      ? cards.map(debtCard).join('')
-      : empty('Aktif kredi kartı bulunmuyor.');
+    if(finalCreditRenderer){
+      finalCreditRenderer();
+    }else{
+      const cards = cardList();
+      list.innerHTML = cards.length
+        ? cards.map(debtCard).join('')
+        : empty('Aktif kredi kartı bulunmuyor.');
+    }
 
     const title = section.querySelector('#creditCardsPageTitle');
     const menu = typeof menuItem === 'function' ? menuItem(VIEW) : null;
@@ -128,7 +139,6 @@
     installRenderHooks();
 
     renderDebts();
-    renderCreditCards();
   }
 
   install();
