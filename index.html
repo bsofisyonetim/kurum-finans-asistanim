@@ -50,7 +50,7 @@
   <link rel="stylesheet" href="styles.css?v=219" />
   <link rel="stylesheet" href="v247-design-system.css?v=247" />
   <link rel="stylesheet" href="v2471-mobile-polish.css?v=281" />
-  <link rel="stylesheet" href="v2603-finance-typography.css?v=281" />
+  <link rel="stylesheet" href="v2603-finance-typography.css?v=282" />
 </head>
 <body>
   <div class="app-shell">
@@ -110,6 +110,20 @@
           <select id="debtFilter"><option value="active">Aktif</option><option value="all">Tümü</option><option value="closed">Kapanan</option></select>
         </div>
         <div id="debtList" class="list"></div>
+      </section>
+
+      <section id="creditCards" class="view" aria-label="Kredi Kartları">
+        <div class="page-title">
+          <div><p class="eyebrow">KREDİ KARTLARI</p><h2 id="creditCardsPageTitle">Kredi Kartları</h2></div>
+          <button id="addCreditCardBtn" class="primary small" disabled>＋ Kart</button>
+        </div>
+        <div class="toolbar debt-toolbar">
+          <input id="creditCardSearch" placeholder="Kart ara…" disabled />
+          <select id="creditCardOwnerFilter" aria-label="Kredi kartı sahibi" disabled>
+            <option value="all">Herkes</option><option value="Süleyman">Süleyman</option><option value="Başak">Başak</option>
+          </select>
+        </div>
+        <div id="creditCardList" class="list" aria-live="polite"><p class="muted">Kartlar yükleniyor…</p></div>
       </section>
 
       <section id="incomes" class="view">
@@ -286,7 +300,7 @@
   <div id="toast" class="toast"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js?v=281"></script>
+  <script src="app.js?v=282"></script>
   <script src="v17-ui.js?v=218"></script>
   <script src="v175-ui.js?v=281"></script>
   <script src="v176-ui.js?v=218"></script>
@@ -300,6 +314,6 @@
   <script src="exact-schedule.js?v=224"></script>
   <script src="debt-balance.js?v=236"></script>
   <script src="schedule-editor.js?v=232"></script>
-  <script src="core-compat.js?v=281"></script>
+  <script src="core-compat.js?v=282"></script>
 </body>
 </html>

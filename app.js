@@ -13,6 +13,7 @@ const defaultAppConfig={
     {view:'debts',label:'Borçlar',icon:'▤',visible:true,locked:false},
     {view:'payments',label:'Ödemeler',icon:'✓₺',visible:true,locked:false},
     {view:'incomes',label:'Gelirler',icon:'＋₺',visible:true,locked:false},
+    {view:'creditCards',label:'Kredi Kartları',icon:'▣',visible:true,locked:false},
     {view:'expenses',label:'Harcamalar',icon:'₺',visible:false,locked:false},
     {view:'settings',label:'Ayarlar',icon:'⚙',visible:true,locked:true}
   ],
@@ -182,12 +183,19 @@ function mergeAppConfig(raw={}){
     }
   }
 
+  if(Array.isArray(raw.menus) && !raw.menus.some(m=>m.view==='creditCards')){
+    const card=base.menus.find(m=>m.view==='creditCards');
+    base.menus=base.menus.filter(m=>m.view!=='creditCards');
+    base.menus.splice(base.menus.findIndex(m=>m.view==='incomes')+1,0,card);
+  }
+
   if(oldSchema<14){
     const canonical=[
       'dashboard',
       'debts',
       'payments',
       'incomes',
+      'creditCards',
       'expenses',
       'settings'
     ];
@@ -197,6 +205,7 @@ function mergeAppConfig(raw={}){
       debts:true,
       payments:true,
       incomes:true,
+      creditCards:true,
       expenses:false,
       settings:true
     };
@@ -1102,6 +1111,11 @@ function navIcon(view){
         <path d="M8 12h8"/>
       </svg>`,
 
+    creditCards:`
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h3"/>
+      </svg>`,
+
     expenses:`
       <svg viewBox="0 0 24 24" width="21" height="21"
            fill="none" stroke="currentColor" stroke-width="1.8"
@@ -1179,6 +1193,7 @@ function renderTitles(){
   for(const [view,id] of [
     ['debts','debtsPageTitle'],
     ['incomes','incomesPageTitle'],
+    ['creditCards','creditCardsPageTitle'],
     ['expenses','expensesPageTitle'],
     ['payments','paymentsPageTitle'],
     ['settings','settingsPageTitle']
@@ -4050,7 +4065,7 @@ if(
 if('serviceWorker' in navigator){
   navigator.serviceWorker
     .register(
-      './sw.js?v=160',
+      './sw.js?v=282',
       {updateViaCache:'none'}
     )
     .then(reg=>reg.update())

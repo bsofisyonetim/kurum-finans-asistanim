@@ -1,8 +1,8 @@
 // V281 - Sade ana navigasyon ve Sıradaki Ödemeler çekirdeği
-const CACHE='bs-ofis-butce-v281-simplified-nav-20261126';
+const CACHE='bs-ofis-butce-v282-stable-nav-type-20261126';
 const ASSETS=[
-  './?v=281',
-  './index.html?v=281',
+  './?v=282',
+  './index.html?v=282',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v2471-mobile-polish.css?v=281',
@@ -17,9 +17,9 @@ const ASSETS=[
   './v2584-income-themes.css?v=2610',
     './v2588-selectable-kpi-standard.css?v=2608',
   './v257-foundation.css?v=281',
-  './v2603-finance-typography.css?v=281',
-  './app.js?v=281',
-  './core-compat.js?v=281',
+  './v2603-finance-typography.css?v=282',
+  './app.js?v=282',
+  './core-compat.js?v=282',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
@@ -44,7 +44,7 @@ const ASSETS=[
   './v2597-debt-monthly-view.js?v=273',
   './v2598-debt-card-status.js?v=273',
   './v262-credit-card-statement.js?v=273',
-  './v275-credit-cards-view.js?v=281',
+  './v275-credit-cards-view.js?v=282',
   './v276-section-standard.js?v=277',
   './v230-mobile-dialog.js?v=2571',
   './v234-shell-lock.js?v=257',
@@ -91,6 +91,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=281') || caches.match('./index.html?v=281')))
+        .then(response => response || caches.match('./?v=282') || caches.match('./index.html?v=282')))
   );
 });

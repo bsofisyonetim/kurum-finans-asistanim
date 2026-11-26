@@ -352,3 +352,72 @@ textarea,
   }
 }
 
+
+/* V2.8.2: İlk çizimde ortak alt menü ölçüleri ve finans tipografisi. */
+:root{--bs-type-nav:11px;--bs-type-nav-mobile:10.5px;--bs-type-quick-kpi:20px}
+html body .app-shell > .bottom-nav .nav-btn{
+ flex:1 1 0!important;min-width:0!important;padding-inline:2px!important;min-height:48px!important
+}
+html body .app-shell > .bottom-nav .nav-btn small{
+ max-width:none!important;width:100%;font-size:var(--bs-type-nav)!important;
+ line-height:1.15!important;font-weight:var(--bs-weight-semibold)!important;
+ text-align:center;white-space:normal!important;overflow:visible!important;text-overflow:clip!important
+}
+html body .app-shell > .bottom-nav .nav-btn.active small{font-weight:var(--bs-weight-bold)!important}
+html body .app-shell > .bottom-nav .nav-btn svg{width:24px!important;height:24px!important}
+html body .app-shell #creditCards .page-title h2,
+html body .app-shell #debts .page-title h2,
+html body .app-shell #payments .page-title h2,
+html body .app-shell #incomes .page-title h2,
+html body .app-shell #expenses .page-title h2,
+html body .app-shell #settings .page-title h2{
+ font-size:var(--bs-type-page)!important;line-height:1.08!important;font-weight:var(--bs-weight-bold)!important;letter-spacing:-.035em!important
+}
+html body .app-shell .view .page-title .eyebrow{
+ font-size:11px!important;line-height:1.2!important;font-weight:var(--bs-weight-bold)!important;letter-spacing:.12em!important
+}
+html body .app-shell .view .page-title .primary,
+html body .app-shell .view .debt-toolbar input,
+html body .app-shell .view .debt-toolbar select{
+ font-size:var(--bs-type-control)!important;line-height:1.3!important;font-weight:var(--bs-weight-semibold)!important
+}
+html body .app-shell .view .v175-quick-card span,
+html body .app-shell .view .income-owner-kpi span,
+html body .app-shell #creditCards #v276CreditCardKpis .v175-quick-card span{
+ font-size:var(--bs-type-label)!important;line-height:1.2!important;font-weight:var(--bs-weight-semibold)!important;letter-spacing:.025em!important
+}
+html body .app-shell .view .v175-quick-card strong,
+html body .app-shell .view .income-owner-kpi strong,
+html body .app-shell #creditCards #v276CreditCardKpis .v175-quick-card strong{
+ font-size:var(--bs-type-quick-kpi)!important;line-height:1.12!important;font-weight:var(--bs-weight-bold)!important;
+ letter-spacing:-.03em!important;font-variant-numeric:tabular-nums lining-nums
+}
+html body .app-shell .view .v175-quick-card small,
+html body .app-shell .view .income-owner-kpi small,
+html body .app-shell #creditCards #v276CreditCardKpis .v175-quick-card small{
+ font-size:var(--bs-type-label)!important;line-height:1.25!important;font-weight:var(--bs-weight-medium)!important;overflow-wrap:anywhere
+}
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-name{
+ font-size:var(--bs-type-card-title)!important;line-height:1.28!important;font-weight:var(--bs-weight-semibold)!important;letter-spacing:-.015em!important;overflow-wrap:anywhere
+}
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-amount strong{
+ font-size:var(--bs-type-amount)!important;line-height:1.15!important;font-weight:var(--bs-weight-bold)!important;letter-spacing:-.02em!important;font-variant-numeric:tabular-nums lining-nums
+}
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-meta,
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-status,
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-summary{
+ font-size:var(--bs-type-meta)!important;line-height:1.4!important;font-weight:var(--bs-weight-regular)!important
+}
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-amount small,
+html body .app-shell #creditCards #creditCardList .bs-v276-pill{
+ font-size:var(--bs-type-label)!important;line-height:1.2!important;font-weight:var(--bs-weight-medium)!important
+}
+@media(max-width:520px){
+ html body .app-shell > .bottom-nav .nav-btn small{font-size:var(--bs-type-nav-mobile)!important}
+ html body .app-shell .view .debt-toolbar input,
+ html body .app-shell .view .debt-toolbar select{font-size:16px!important}
+ html body .app-shell .view .v175-quick-card span,
+ html body .app-shell .view .income-owner-kpi span{overflow-wrap:anywhere}
+ html body .app-shell .view .v175-quick-card,
+ html body .app-shell .view .income-owner-kpi{min-width:0!important}
+}

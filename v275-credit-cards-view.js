@@ -14,95 +14,21 @@
     return d.type === 'Kredi Kartı' && String(d.custom?.odeme_yapisi || '').trim() === VARIABLE;
   }
 
-  function insertMenuItem(target){
-    if(!Array.isArray(target)) return false;
-    if(target.some(item => item?.view === VIEW)) return false;
-    const item = {view:VIEW,label:'Kredi Kartları',icon:'▣',visible:true,locked:false};
-    const incomeIndex = target.findIndex(x => x?.view === 'incomes');
-    const settingsIndex = target.findIndex(x => x?.view === 'settings');
-    const insertAt = incomeIndex >= 0
-      ? incomeIndex + 1
-      : settingsIndex >= 0
-        ? settingsIndex
-        : target.length;
-    target.splice(insertAt,0,item);
-    return true;
-  }
-
-  function ensureMenu(){
-    let changed = false;
-    if(typeof defaultAppConfig === 'object' && defaultAppConfig){
-      changed = insertMenuItem(defaultAppConfig.menus) || changed;
-    }
-    if(typeof appConfig === 'object' && appConfig){
-      changed = insertMenuItem(appConfig.menus) || changed;
-      if(changed && typeof saveAppConfig === 'function') saveAppConfig(false);
-    }
-  }
-
-  function ensureStyle(){
-    if(document.getElementById('bsCreditCardsViewV275Style')) return;
-    const style=document.createElement('style');
-    style.id='bsCreditCardsViewV275Style';
-    style.textContent=`
-      @media(max-width:520px){
-        .app-shell > .bottom-nav .nav-btn{
-          flex:1 1 0!important;
-          min-width:52px!important;
-          padding-left:2px!important;
-          padding-right:2px!important;
-        }
-        .app-shell > .bottom-nav .nav-btn small{
-          max-width:62px!important;
-          font-size:8.5px!important;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
   function ensureView(){
-    let section = document.getElementById(VIEW);
-    if(section) return section;
-
-    const main = document.getElementById('main');
-    if(!main) return null;
-
-    section = document.createElement('section');
-    section.id = VIEW;
-    section.className = 'view';
-    section.innerHTML = `
-      <div class="page-title">
-        <div>
-          <p class="eyebrow">KREDİ KARTLARI</p>
-          <h2 id="creditCardsPageTitle">Kredi Kartları</h2>
-        </div>
-        <button id="addCreditCardBtn" class="primary small">＋ Kart</button>
-      </div>
-      <div class="toolbar debt-toolbar">
-        <input id="creditCardSearch" placeholder="Kart ara…" />
-        <select id="creditCardOwnerFilter" aria-label="Kredi kartı sahibi">
-          <option value="all">Herkes</option>
-          <option value="Süleyman">Süleyman</option>
-          <option value="Başak">Başak</option>
-        </select>
-      </div>
-      <div id="creditCardList" class="list"></div>
-    `;
-
-    const debts = document.getElementById('debts');
-    if(debts?.parentElement === main) debts.insertAdjacentElement('afterend',section);
-    else main.appendChild(section);
-
-    section.querySelector('#creditCardSearch')?.addEventListener('input',renderCreditCards);
-    section.querySelector('#creditCardOwnerFilter')?.addEventListener('change',renderCreditCards);
-    section.querySelector('#addCreditCardBtn')?.addEventListener('click',() => {
-      openRecordDialog('debts',{
-        type:'Kredi Kartı',
-        custom:{odeme_yapisi:VARIABLE}
+    const section = document.getElementById(VIEW);
+    if(!section) return null;
+    if(section.dataset.bsCreditControlsBound !== '1'){
+      const search = section.querySelector('#creditCardSearch');
+      const owner = section.querySelector('#creditCardOwnerFilter');
+      const add = section.querySelector('#addCreditCardBtn');
+      search?.addEventListener('input',renderCreditCards);
+      owner?.addEventListener('change',renderCreditCards);
+      add?.addEventListener('click',() => {
+        openRecordDialog('debts',{type:'Kredi Kartı',custom:{odeme_yapisi:VARIABLE}});
       });
-    });
-
+      [search,owner,add].forEach(control=>{if(control) control.disabled=false;});
+      section.dataset.bsCreditControlsBound = '1';
+    }
     return section;
   }
 
@@ -160,26 +86,6 @@
     }
   }
 
-  function installNavIcon(){
-    if(typeof navIcon !== 'function' || navIcon.__bsCreditCardsViewV275) return;
-    const original = navIcon;
-    const wrapped = function(view){
-      if(view === VIEW){
-        return `
-          <svg viewBox="0 0 24 24" width="21" height="21"
-               fill="none" stroke="currentColor" stroke-width="1.8"
-               stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="6" width="18" height="13" rx="2.5"/>
-            <path d="M3 10h18"/>
-            <path d="M7 15h4"/>
-          </svg>`;
-      }
-      return original(view);
-    };
-    wrapped.__bsCreditCardsViewV275 = true;
-    navIcon = wrapped;
-  }
-
   function installRenderHooks(){
     if(typeof renderDebts === 'function' && !renderDebts.__bsCreditCardsViewV275){
       const original = renderDebts;
@@ -218,16 +124,11 @@
       return;
     }
 
-    ensureMenu();
-    ensureStyle();
     ensureView();
-    installNavIcon();
     installRenderHooks();
 
     renderDebts();
     renderCreditCards();
-    if(typeof renderBottomNav === 'function') renderBottomNav();
-    if(typeof renderMenuManager === 'function') renderMenuManager();
   }
 
   install();
