@@ -259,7 +259,7 @@
       // Finans hesap motoru ilk çizimde hazır olsun: önce ortak veri, sonra dönem/borç motoru.
       ['./v265-shared-finance-access.js?v=265','__bsSharedFinanceAccessV265Loaded'],
       ['./v258-education-income-sync.js?v=270','__bsEducationIncomeSyncV258Loaded'],
-      ['./v2597-debt-monthly-view.js?v=273','__bsDebtMonthlyViewV2597Loaded'],
+      ['./v2597-debt-monthly-view.js?v=276','__bsDebtMonthlyViewV2597Loaded'],
       ['./v2598-debt-card-status.js?v=273','__bsDebtCardStatusV2598Loaded'],
       ['./v262-credit-card-statement.js?v=273','__bsDebtPaymentStructureV263Loaded'],
 
@@ -275,7 +275,7 @@
       ['./v242-payment-save-ui.js?v=242','__bsV242PaymentSaveUiLoaded'],
       ['./v244-monthly-report.js?v=244','__bsMonthlyReportV244Loaded'],
       ['./v246-direct-pdf-report.js?v=246','__bsDirectPdfReportV246Loaded'],
-      ['./v275-credit-cards-view.js?v=275','__bsCreditCardsViewV275Loaded']
+      ['./v275-credit-cards-view.js?v=276','__bsCreditCardsViewV275Loaded']
     ];
 
     for(const [src,marker] of modules){
