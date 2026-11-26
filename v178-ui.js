@@ -237,7 +237,8 @@
       document.querySelector('#v178QuickActions') &&
       document.querySelector('#v244MonthlyReport') &&
       window.__bsCurrentUiReady === true &&
-      window.__bsDirectPdfReportV246Loaded === true
+      window.__bsDirectPdfReportV246Loaded === true &&
+      !root.classList.contains('bs-summary-engine-pending')
     );
 
     const cloudReady = () => {
@@ -256,6 +257,7 @@
       clearTimeout(timer);
       root.classList.add('bs-startup-ready');
       root.dataset.bsStartupReady = reason;
+      try{performance.mark('bs-startup-ready');}catch(_error){}
     };
 
     const check = () => {

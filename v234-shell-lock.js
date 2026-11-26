@@ -11,12 +11,18 @@
 
     if(topbar){
       const height = Math.ceil(topbar.getBoundingClientRect().height);
-      root.style.setProperty('--bs-shell-top-space',`${Math.max(72,height + 14)}px`);
+      const value = `${Math.max(72,height + 14)}px`;
+      if(root.style.getPropertyValue('--bs-shell-top-space') !== value){
+        root.style.setProperty('--bs-shell-top-space',value);
+      }
     }
 
     if(bottom){
       const height = Math.ceil(bottom.getBoundingClientRect().height);
-      root.style.setProperty('--bs-shell-bottom-space',`${Math.max(70,height + 12)}px`);
+      const value = `${Math.max(70,height + 12)}px`;
+      if(root.style.getPropertyValue('--bs-shell-bottom-space') !== value){
+        root.style.setProperty('--bs-shell-bottom-space',value);
+      }
     }
   }
 
@@ -25,7 +31,7 @@
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
       measureBars();
-      requestAnimationFrame(measureBars);
+      raf = 0;
     });
   }
 
@@ -44,6 +50,13 @@
   window.addEventListener('load',scheduleMeasure,{once:true});
   window.addEventListener('resize',scheduleMeasure,{passive:true});
   window.addEventListener('orientationchange',scheduleMeasure,{passive:true});
+  if(typeof ResizeObserver === 'function'){
+    const observer = new ResizeObserver(scheduleMeasure);
+    const topbar = document.querySelector('.app-shell > .topbar');
+    const bottom = document.querySelector('.app-shell > .bottom-nav');
+    if(topbar) observer.observe(topbar);
+    if(bottom) observer.observe(bottom);
+  }
 
   if(document.fonts?.ready){
     document.fonts.ready.then(scheduleMeasure).catch(() => {});

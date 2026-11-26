@@ -1,13 +1,13 @@
-// V283 — Tutarlı sürüm ve güvenli çevrimdışı varlıklar
-const CACHE='bs-ofis-butce-v283-startup-assets-20261126';
+// V284 — Paralel ağ hazırlığı, sıralı çalışma ve güvenli ilk çizim
+const CACHE='bs-ofis-butce-v284-startup-order-20261126';
 const ASSETS=[
-  './?v=283',
-  './index.html?v=283',
+  './?v=284',
+  './index.html?v=284',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v283-ui-bundle.css?v=283',
-  './app.js?v=283',
-  './core-compat.js?v=283',
+  './app.js?v=284',
+  './core-compat.js?v=284',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
@@ -18,7 +18,7 @@ const ASSETS=[
   './v175-ui.js?v=281',
   './v176-ui.js?v=218',
   './v177-ui.js?v=281',
-  './v178-ui.js?v=279',
+  './v178-ui.js?v=284',
   './v2611-cash-flow-detail.js?v=2611',
   './v179-ui.js?v=281',
   './ui.js?v=281',
@@ -35,7 +35,7 @@ const ASSETS=[
   './v275-credit-cards-view.js?v=282',
   './v276-section-standard.js?v=283',
   './v230-mobile-dialog.js?v=2571',
-  './v234-shell-lock.js?v=257',
+  './v234-shell-lock.js?v=284',
   './v26122-cloud-bootstrap.js?v=26122',
   './v241-payment-modal-scroll-lock.js?v=241',
   './v242-payment-save-ui.js?v=242',
@@ -93,7 +93,7 @@ self.addEventListener('fetch',event => {
       const hit=await cache.match(request);
       if(hit) return hit;
       if(isNavigation){
-        const shell=await cache.match('./?v=283') || await cache.match('./index.html?v=283');
+        const shell=await cache.match('./?v=284') || await cache.match('./index.html?v=284');
         if(shell) return shell;
       }
       return new Response('Çevrimdışı: dosya kullanılamıyor.',{

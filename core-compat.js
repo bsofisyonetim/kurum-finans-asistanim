@@ -254,6 +254,22 @@
     });
   }
 
+  function preloadOptionalModules(modules){
+    const existing = new Set(Array.from(document.querySelectorAll('link[rel="preload"][as="script"]'), link => link.href));
+    for(const [src,marker] of modules){
+      if(marker && window[marker]) continue;
+      const href = new URL(src,document.baseURI).href;
+      if(existing.has(href)) continue;
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'script';
+      link.href = href;
+      // Network downloads can overlap; execution below remains strictly ordered.
+      document.head.appendChild(link);
+      existing.add(href);
+    }
+  }
+
   async function loadOptionalModules(){
     const modules = [
       // Finans hesap motoru ilk çizimde hazır olsun: önce ortak veri, sonra dönem/borç motoru.
@@ -277,6 +293,9 @@
       ['./v276-section-standard.js?v=283','__bsSectionStandardV276Loaded']
     ];
 
+    preloadOptionalModules(modules);
+    try{performance.mark('bs-optional-modules-start');}catch(_error){}
+
     for(const [src,marker] of modules){
       try{
         await loadScript(src,marker);
@@ -286,6 +305,7 @@
     }
 
     document.documentElement.classList.remove('bs-summary-engine-pending');
+    try{performance.mark('bs-optional-modules-ready');}catch(_error){}
   }
 
   migrateConfig();
