@@ -326,8 +326,8 @@
         renderDebts();
       };
     }
-    if(owner) owner.onchange = renderDebts;
-    if(search) search.oninput = renderDebts;
+    if(owner) owner.onchange = () => renderDebts();
+    if(search) search.oninput = () => renderDebts();
   }
 
   function ensureCalendarQuickCards(){
