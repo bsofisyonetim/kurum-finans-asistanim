@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V1.7.9 - Görsel iyileştirmeler ve detay kartları */
+/* BS OFİS BÜTÇE V2.7.8 - Detay kartları; özet ödeme planı kaldırıldı */
 (() => {
   if(window.__bsOfisV179Loaded) return;
   window.__bsOfisV179Loaded = true;
@@ -310,60 +310,12 @@
   };
 
   function ensureDebtProgress(){
-    const panel = document.querySelector('#v177DashboardPanel');
-    const balance = document.querySelector('#v177BalanceCard');
-    if(!panel || !balance) return null;
-
-    let card = document.querySelector('#v179DebtProgress');
-    if(card) return card;
-
-    card = document.createElement('button');
-    card.type = 'button';
-    card.id = 'v179DebtProgress';
-    card.className = 'v179-progress-card';
-    card.setAttribute('aria-label','Bu ayın borç ödeme ilerlemesini aç');
-    card.innerHTML = `
-      <div class="v179-progress-head">
-        <span>BU AY ÖDEME PLANI</span>
-        <strong id="v179DebtProgressPercent">%0</strong>
-      </div>
-      <div class="v179-progress-track"><span id="v179DebtProgressBar"></span></div>
-      <div class="v179-progress-foot">
-        <span id="v179DebtProgressPaid">Ödenen ₺0</span>
-        <strong id="v179DebtProgressRemaining">Kalan ₺0</strong>
-        <small id="v179DebtProgressPlanned">Plan ₺0</small>
-      </div>
-    `;
-
-    balance.insertAdjacentElement('afterend',card);
-    card.addEventListener('click',() => {
-      const period = document.querySelector('#paymentPeriodFilter');
-      if(period) period.value = 'current';
-      renderPayments();
-      openView('payments');
-    });
-    return card;
+    document.querySelector('#v179DebtProgress')?.remove();
+    return null;
   }
 
   function updateDebtProgress(){
-    ensureDebtProgress();
-
-    const planned = monthlyDebtLoad();
-    const paid = currentMonthPayments().reduce((s,p)=>s+(+p.amount||0),0);
-    const remaining = Math.max(0,planned-paid);
-    const ratio = planned > 0 ? Math.min(100,Math.max(0,(paid/planned)*100)) : 0;
-
-    const percent = document.querySelector('#v179DebtProgressPercent');
-    const bar = document.querySelector('#v179DebtProgressBar');
-    const paidEl = document.querySelector('#v179DebtProgressPaid');
-    const remEl = document.querySelector('#v179DebtProgressRemaining');
-    const planEl = document.querySelector('#v179DebtProgressPlanned');
-
-    if(percent) percent.textContent = planned > 0 ? `%${Math.round(ratio)}` : 'Plan yok';
-    if(bar) bar.style.width = `${ratio}%`;
-    if(paidEl) paidEl.textContent = `Ödenen ${money(paid)}`;
-    if(remEl) remEl.textContent = `Kalan ${money(remaining)}`;
-    if(planEl) planEl.textContent = `Plan ${money(planned)}`;
+    document.querySelector('#v179DebtProgress')?.remove();
   }
 
   ensureV179Styles();
