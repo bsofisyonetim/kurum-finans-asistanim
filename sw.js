@@ -1,5 +1,5 @@
-// V281 - Takvim ekranı kaldırıldı, Sıradaki Ödemeler çekirdeği korundu
-const CACHE='bs-ofis-butce-v281-no-calendar-20261126';
+// V281 - Sade ana navigasyon ve Sıradaki Ödemeler çekirdeği
+const CACHE='bs-ofis-butce-v281-simplified-nav-20261126';
 const ASSETS=[
   './?v=281',
   './index.html?v=281',
@@ -35,7 +35,7 @@ const ASSETS=[
   './v179-ui.js?v=281',
   './ui.js?v=281',
   './payment-plan.js?v=281',
-  './payment-schedule.js?v=222',
+  './payment-schedule.js?v=281',
   './exact-schedule.js?v=224',
   './debt-balance.js?v=236',
   './schedule-editor.js?v=232',
