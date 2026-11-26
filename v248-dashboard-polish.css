@@ -1,4 +1,4 @@
-/* BS OFIS BUTCE V2.4.8 - Ozet ekrani son gorsel polish
+/* BS OFIS BUTCE V2.7.8 - Sade finans ozeti ve mobil ritim
    Yalnizca sunum katmani. Veri, DOM davranisi ve finans motorlarini degistirmez. */
 
 /* Genel ritim */
@@ -305,4 +305,60 @@
   #dashboard .v177-balance-main strong{font-size:23px!important}
   #dashboard .v177-flow-card strong{font-size:13px!important}
   #dashboard .v177-attention-grid{grid-template-columns:1fr!important}
+}
+
+
+/* V278: 6 kompakt finans karti; tekrar eden dashboard bloklari kaldirildi. */
+#dashboard .summary-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+  margin:3px 0 14px!important;
+}
+#dashboard .summary-card{
+  min-height:78px!important;
+  padding:10px 11px!important;
+  border-radius:16px!important;
+  align-content:center!important;
+  gap:3px!important;
+}
+#dashboard .summary-card strong{
+  font-size:18px!important;
+}
+#dashboard .summary-card small{
+  font-size:8.5px!important;
+}
+#dashboard .summary-card.planned{
+  border-color:#D6E3FF!important;
+  background:linear-gradient(180deg,#fff 0%,#FBFDFF 100%)!important;
+}
+#dashboard .summary-card.planned strong{color:#315FC9!important}
+#dashboard .summary-card.expense{
+  border-color:#FBD5D8!important;
+  background:linear-gradient(180deg,#fff 0%,#FFF9F9 100%)!important;
+}
+#dashboard .summary-card.expense strong{color:#DC2626!important}
+#dashboard .summary-card.net{
+  border-color:#C7EEE7!important;
+  background:linear-gradient(180deg,#fff 0%,#FBFFFE 100%)!important;
+}
+#dashboard .summary-card.net strong{color:#15803D!important}
+#dashboard #v177DashboardPanel,
+#dashboard #v179DebtProgress{
+  display:none!important;
+}
+#dashboard #v178QuickActions{
+  margin-top:2px!important;
+  margin-bottom:14px!important;
+}
+#dashboard #v244MonthlyReport{
+  margin:12px 0 14px!important;
+}
+@media(max-width:520px){
+  #dashboard .summary-card{
+    min-height:76px!important;
+    padding:9px 10px!important;
+  }
+  #dashboard .summary-card strong{
+    font-size:17px!important;
+  }
 }
