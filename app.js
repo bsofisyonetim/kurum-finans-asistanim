@@ -756,6 +756,94 @@ function openIncomeDialog(income={}){
   $('#incomeDialog').showModal();
 }
 
+function dueCard(d){
+  const badge=
+    d.days<0
+      ?`<span class="badge red">${Math.abs(d.days)} gün gecikti</span>`
+      :d.days===0
+        ?'<span class="badge orange">Bugün</span>'
+        :`<span class="badge">${d.days} gün</span>`;
+
+  const owner=d.custom?.debt_owner||'';
+
+  return `
+    <article class="list-card clickable" data-debt="${d.id}">
+      <div class="main">
+        <strong>${esc(d.name)}</strong>
+        <small>
+          ${d.date.toLocaleDateString('tr-TR')} ·
+          ${badge}
+          ${owner?` · ${esc(owner)}`:''}
+        </small>
+      </div>
+
+      <div class="amount">
+        ${d.amount>0?money(d.amount):'Tutar girilecek'}
+        <small>${esc(d.type)}</small>
+      </div>
+    </article>
+  `;
+}
+
+function debtCard(d){
+  const owner=d.custom?.debt_owner||'';
+  const rem=d.custom?.remaining_installments;
+
+  const left=
+    rem!==''&&rem!=null
+      ?`${fmt(rem)} taksit`
+      :'';
+
+  return `
+    <article class="list-card clickable" data-debt="${d.id}">
+      <div class="main">
+        <strong>${esc(d.name)}</strong>
+        <small>
+          ${owner?`${esc(owner)} · `:''}
+          ${esc(d.type)}
+          ${left?` · ${esc(left)}`:''}
+          ${d.status==='closed'
+            ?' · <span class="badge green">Kapandı</span>'
+            :''
+          }
+        </small>
+      </div>
+
+      <div class="amount">
+        ${d.minimum>0?money(d.minimum):'Tutar girilecek'}
+        <small>
+          ${
+            d.dueDate
+              ?parseDate(d.dueDate)
+                .toLocaleDateString('tr-TR')
+              :'Tarih girilmedi'
+          }
+        </small>
+      </div>
+    </article>
+  `;
+}
+
+function expenseCard(x){
+  return `
+    <article class="list-card clickable" data-expense="${x.id}">
+      <div class="main">
+        <strong>${esc(x.description)}</strong>
+        <small>
+          ${parseDate(x.date).toLocaleDateString('tr-TR')} ·
+          ${esc(x.category)}
+          ${x.addedBy?` · ${esc(x.addedBy)}`:''}
+        </small>
+      </div>
+
+      <div class="amount">
+        ${money(x.amount)}
+        <small>${esc(x.method)}</small>
+      </div>
+    </article>
+  `;
+}
+
 function paymentCard(p){
   const d=state.debts
     .map(normalizeDebt)
