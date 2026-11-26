@@ -227,10 +227,10 @@
     const style=document.createElement('style');
     style.id='v244MonthlyReportStyles';
     style.textContent=`
-      #v244MonthlyReport{margin:12px 0 16px;padding:14px;border:1px solid #dbe3ef;border-radius:16px;background:#fff;box-shadow:0 3px 14px rgba(15,23,42,.035);display:flex;align-items:center;justify-content:space-between;gap:12px}
-      #v244MonthlyReport .v244-report-copy{min-width:0}.v244-report-eyebrow{margin:0 0 3px;color:#0f8f8a;font-size:9px;font-weight:900;letter-spacing:.12em}.v244-report-title{margin:0;color:#0f172a;font-size:14px}.v244-report-copy small{display:block;margin-top:4px;color:#64748b;font-size:9px;line-height:1.35}
-      #v244MonthlyReport .v244-report-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}#v244MonthlyReport input[type=month]{height:36px;min-width:145px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;padding:0 9px;color:#0f172a;font:700 11px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif}#v244MonthlyReport button{height:36px;border:0;border-radius:10px;padding:0 12px;background:#2563eb;color:#fff;font-size:10px;font-weight:850;cursor:pointer;white-space:nowrap}
-      @media(max-width:560px){#v244MonthlyReport{align-items:stretch;flex-direction:column}#v244MonthlyReport .v244-report-actions{width:100%}#v244MonthlyReport input[type=month]{min-width:0;flex:1}#v244MonthlyReport button{flex:1}}
+      #v244MonthlyReport{margin:12px 0 14px;padding:10px 11px;border:1px solid #dbe3ef;border-radius:16px;background:#fff;box-shadow:0 2px 10px rgba(15,23,42,.03);display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:9px}
+      #v244MonthlyReport .v244-report-copy{min-width:0}.v244-report-title{margin:0;color:#0f172a;font-size:12px;font-weight:850;white-space:nowrap}.v244-report-eyebrow,.v244-report-copy small{display:none!important}
+      #v244MonthlyReport .v244-report-actions{display:flex;align-items:center;gap:6px;min-width:0}#v244MonthlyReport input[type=month]{height:34px;min-width:128px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;padding:0 8px;color:#0f172a;font:700 10px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif}#v244MonthlyReport button{height:34px;border:0;border-radius:10px;padding:0 10px;background:#2563eb;color:#fff;font-size:9.5px;font-weight:850;cursor:pointer;white-space:nowrap}
+      @media(max-width:430px){#v244MonthlyReport{grid-template-columns:auto minmax(0,1fr);gap:7px}#v244MonthlyReport .v244-report-title{font-size:10.5px}#v244MonthlyReport .v244-report-actions{justify-content:flex-end}#v244MonthlyReport input[type=month]{min-width:0;width:112px}#v244MonthlyReport button{padding:0 8px}}
     `;
     document.head.appendChild(style);
   }
@@ -244,13 +244,11 @@
     panel.id='v244MonthlyReport';
     panel.innerHTML=`
       <div class="v244-report-copy">
-        <p class="v244-report-eyebrow">RAPORLAMA</p>
-        <h3 class="v244-report-title">Aylık Kurumsal Finans Raporu</h3>
-        <small>Gelir, gider, borç ödemeleri ve gelir dağılımını tek A4 raporda oluşturur.</small>
+        <h3 class="v244-report-title">Aylık Finans Raporu</h3>
       </div>
       <div class="v244-report-actions">
         <input id="v244ReportMonth" type="month" aria-label="Rapor ayı" value="${currentMonth()}" />
-        <button id="v244CreateReport" type="button">PDF Rapor Oluştur</button>
+        <button id="v244CreateReport" type="button">PDF İndir</button>
       </div>`;
     summary.insertAdjacentElement('afterend',panel);
     panel.querySelector('#v244CreateReport')?.addEventListener('click',()=>{
