@@ -361,7 +361,7 @@
     ensureStyles();
     const changed=await migrateLegacyNotes();
     if(changed){
-      try{renderDashboard();renderDebts();renderCalendar();}catch(_e){}
+      try{renderDashboard();renderDebts();}catch(_e){}
     }
   }
 
