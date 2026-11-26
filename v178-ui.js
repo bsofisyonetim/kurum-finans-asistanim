@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.6.1.3 - Hızlı işlemler + Özet açılış stabilizasyonu + startup gate */
+/* BS OFİS BÜTÇE V2.7.8 - Hızlı işlemler + sade özet + startup gate */
 (() => {
   function ensureV178Styles(){
     if(document.querySelector('#v178Styles')) return;
@@ -221,8 +221,8 @@
     }
 
     const report = document.querySelector('#v244MonthlyReport');
-    if(report && panel && panel.nextElementSibling !== report){
-      panel.insertAdjacentElement('afterend',report);
+    if(report && upcoming && upcoming.nextElementSibling !== report){
+      upcoming.insertAdjacentElement('afterend',report);
     }
 
     if(report){
@@ -262,7 +262,7 @@
 
   async function preloadReportModulesV2612(){
     try{
-      await loadScriptV2612('./v244-monthly-report.js?v=2612','__bsMonthlyReportV244Loaded');
+      await loadScriptV2612('./v244-monthly-report.js?v=278','__bsMonthlyReportV244Loaded');
       stabilizeDashboardV2612();
       await loadScriptV2612('./v246-direct-pdf-report.js?v=2612','__bsDirectPdfReportV246Loaded');
       stabilizeDashboardV2612();
@@ -292,7 +292,6 @@
     const modernUiReady = () => !!(
       document.querySelector('#v178QuickActions') &&
       document.querySelector('#v177DashboardPanel') &&
-      document.querySelector('#v179DebtProgress') &&
       document.querySelector('#v244MonthlyReport') &&
       window.__bsCurrentUiReady === true &&
       window.__bsDirectPdfReportV246Loaded === true
