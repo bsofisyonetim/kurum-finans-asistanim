@@ -1,25 +1,13 @@
-// V281 - Sade ana navigasyon ve Sıradaki Ödemeler çekirdeği
-const CACHE='bs-ofis-butce-v282-stable-nav-type-20261126';
+// V283 — Tutarlı sürüm ve güvenli çevrimdışı varlıklar
+const CACHE='bs-ofis-butce-v283-startup-assets-20261126';
 const ASSETS=[
-  './?v=282',
-  './index.html?v=282',
+  './?v=283',
+  './index.html?v=283',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
-  './v2471-mobile-polish.css?v=281',
-  './v248-dashboard-polish.css?v=281',
-  './v249-debts-polish.css?v=249',
-  './v2587-debt-owner-colors.css?v=2587',
-  './v250-payments-polish.css?v=2608',
-  './v2586-payment-owner-colors.css?v=2608',
-  './v251-incomes-polish.css?v=2610',
-  './v2581-income-owner-colors.css?v=2606',
-  './v2583-income-summary-stripes.css?v=2609',
-  './v2584-income-themes.css?v=2610',
-    './v2588-selectable-kpi-standard.css?v=2608',
-  './v257-foundation.css?v=281',
-  './v2603-finance-typography.css?v=282',
-  './app.js?v=282',
-  './core-compat.js?v=282',
+  './v283-ui-bundle.css?v=283',
+  './app.js?v=283',
+  './core-compat.js?v=283',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
@@ -45,7 +33,7 @@ const ASSETS=[
   './v2598-debt-card-status.js?v=273',
   './v262-credit-card-statement.js?v=273',
   './v275-credit-cards-view.js?v=282',
-  './v276-section-standard.js?v=277',
+  './v276-section-standard.js?v=283',
   './v230-mobile-dialog.js?v=2571',
   './v234-shell-lock.js?v=257',
   './v26122-cloud-bootstrap.js?v=26122',
@@ -74,23 +62,43 @@ self.addEventListener('activate',event => {
   event.waitUntil(
     caches.keys()
       .then(keys => Promise.all(
-        keys.filter(key => key !== CACHE).map(key => caches.delete(key))
+        keys.filter(key => key.startsWith('bs-ofis-butce-') && key !== CACHE).map(key => caches.delete(key))
       ))
       .then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch',event => {
-  if(event.request.method !== 'GET' || new URL(event.request.url).origin !== location.origin) return;
+  const request=event.request;
+  if(request.method !== 'GET' || new URL(request.url).origin !== location.origin) return;
 
-  event.respondWith(
-    fetch(event.request,{cache:'no-store'})
-      .then(response => {
-        const copy = response.clone();
-        caches.open(CACHE).then(cache => cache.put(event.request,copy));
-        return response;
-      })
-      .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=282') || caches.match('./index.html?v=282')))
-  );
+  event.respondWith((async()=>{
+    const cache=await caches.open(CACHE);
+    // HTML must never replace JS/CSS on offline misses.
+    const isNavigation=request.mode === 'navigate';
+    const url=new URL(request.url);
+    const versioned=!isNavigation && url.searchParams.has('v') &&
+      ASSETS.some(asset=>new URL(asset,self.location.href).href===request.url);
+    if(versioned){
+      const hit=await cache.match(request);
+      if(hit) return hit;
+    }
+    try{
+      const response=await fetch(request,{cache:'no-store'});
+      if(response.ok){
+        try{await cache.put(request,response.clone());}catch(_error){}
+      }
+      return response;
+    }catch(_error){
+      const hit=await cache.match(request);
+      if(hit) return hit;
+      if(isNavigation){
+        const shell=await cache.match('./?v=283') || await cache.match('./index.html?v=283');
+        if(shell) return shell;
+      }
+      return new Response('Çevrimdışı: dosya kullanılamıyor.',{
+        status:503,headers:{'Content-Type':'text/plain; charset=utf-8'}
+      });
+    }
+  })());
 });

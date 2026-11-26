@@ -1,0 +1,359 @@
+/* V2.8.3: V276 kredi kartı görsel kuralları; eski JS bloğundan aynen taşındı. */
+#creditCards #v276CreditCardKpis{margin-bottom:14px}
+
+      #creditCards #creditCardList .bs-v276-cc-card{
+        display:grid!important;
+        grid-template-columns:minmax(0,1fr) auto!important;
+        align-items:start!important;
+        gap:8px 12px!important;
+        padding:14px 15px!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-main{min-width:0}
+      #creditCards #creditCardList .bs-v276-cc-name{
+        display:block;
+        color:#172033;
+        font-size:16px;
+        line-height:1.2;
+        font-weight:850;
+        letter-spacing:-.02em;
+      }
+      #creditCards #creditCardList .bs-v276-cc-meta{
+        display:flex;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:4px 7px;
+        margin-top:5px;
+        color:#748198;
+        font-size:11px!important;
+        line-height:1.25!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount{
+        min-width:105px;
+        text-align:right;
+        white-space:nowrap;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount strong{
+        display:block;
+        color:#172033;
+        font-size:20px;
+        line-height:1.05;
+        font-weight:850;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount small{
+        display:block;
+        margin-top:5px;
+        color:#64748B!important;
+        font-size:9.5px!important;
+        line-height:1.15!important;
+        font-weight:700!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-status,
+      #creditCards #creditCardList .bs-v276-cc-summary{
+        grid-column:1/-1;
+      }
+      #creditCards #creditCardList .bs-v276-cc-status{
+        display:flex;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:6px;
+        color:#748198;
+        font-size:10.5px;
+        line-height:1.2;
+      }
+      #creditCards #creditCardList .bs-v276-pill{
+        display:inline-flex;
+        align-items:center;
+        min-height:20px;
+        padding:3px 7px;
+        border-radius:999px;
+        border:1px solid #E2E8F0;
+        background:#F8FAFC;
+        color:#64748B;
+        font-size:9.5px!important;
+        line-height:1!important;
+        font-weight:800;
+        white-space:nowrap;
+      }
+      #creditCards #creditCardList .bs-v276-pill.green{
+        border-color:#BBF7D0;
+        background:#F0FDF4;
+        color:#15803D;
+      }
+      #creditCards #creditCardList .bs-v276-pill.orange{
+        border-color:#FED7AA;
+        background:#FFF7ED;
+        color:#C2410C;
+      }
+      #creditCards #creditCardList .bs-v276-pill.red{
+        border-color:#FECACA;
+        background:#FFF1F2;
+        color:#DC2626;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary{
+        display:flex;
+        flex-wrap:wrap;
+        gap:4px 8px;
+        padding-top:2px;
+        color:#748198;
+        font-size:10.5px;
+        line-height:1.3;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary strong{
+        color:#4C5B72;
+        font-weight:800;
+      }
+
+      /* V2.7.7: Kredi Kartları sekmesi, Borçlar ile aynı görsel standardı kullanır. */
+      #creditCards .page-title{
+        margin:7px 2px 13px!important;
+        min-height:50px!important;
+      }
+      #creditCards .page-title .eyebrow{
+        margin-bottom:4px!important;
+        color:#0f8f83!important;
+        font-size:9px!important;
+        font-weight:850!important;
+        letter-spacing:.14em!important;
+      }
+      #creditCards .page-title h2{
+        font-size:26px!important;
+        line-height:1.02!important;
+        font-weight:860!important;
+        letter-spacing:-.04em!important;
+      }
+      #creditCards #addCreditCardBtn{
+        min-height:36px!important;
+        padding:8px 12px!important;
+        border-radius:11px!important;
+        box-shadow:0 3px 9px rgba(37,99,235,.15)!important;
+      }
+
+      #creditCards #v276CreditCardKpis{
+        gap:8px!important;
+        margin:0 0 12px!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card{
+        position:relative!important;
+        overflow:hidden!important;
+        min-height:74px!important;
+        padding:10px 9px!important;
+        border-radius:15px!important;
+        background:#fff!important;
+        box-shadow:0 2px 8px rgba(15,23,42,.028)!important;
+        text-align:left!important;
+        align-content:center!important;
+        gap:3px!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card span{
+        font-size:8.5px!important;
+        line-height:1.1!important;
+        font-weight:850!important;
+        letter-spacing:.045em!important;
+        color:#6b7a90!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card strong{
+        font-size:19px!important;
+        line-height:1.08!important;
+        font-weight:870!important;
+        letter-spacing:-.035em!important;
+        color:#172033!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card small{
+        font-size:8.5px!important;
+        line-height:1.15!important;
+        font-weight:700!important;
+        color:#8592a6!important;
+      }
+
+      #creditCards [data-credit-quick="active"]{
+        border-color:#c7eee7!important;
+        border-top:3px solid #14b8a6!important;
+      }
+      #creditCards [data-credit-quick="month"]{
+        border-color:#d6e3ff!important;
+        border-top:3px solid #2563eb!important;
+      }
+      #creditCards [data-credit-quick="overdue"]{
+        border-color:#fbd5d8!important;
+        border-top:3px solid #ef4444!important;
+      }
+      #creditCards [data-credit-quick="active"] strong{color:#0f8f83!important}
+      #creditCards [data-credit-quick="month"] strong{color:#2563eb!important}
+      #creditCards [data-credit-quick="overdue"] strong{color:#dc2626!important}
+
+      #creditCards [data-credit-quick="active"].active{
+        border-color:#91DED3!important;
+        border-top-color:#14B8A6!important;
+        background:linear-gradient(180deg,#F7FFFD 0%,#EDFCF9 100%)!important;
+        box-shadow:0 0 0 2px rgba(20,184,166,.10),0 4px 12px rgba(20,184,166,.06)!important;
+      }
+      #creditCards [data-credit-quick="month"].active{
+        border-color:#9FBCFF!important;
+        border-top-color:#2563EB!important;
+        background:linear-gradient(180deg,#F8FBFF 0%,#F2F7FF 100%)!important;
+        box-shadow:0 0 0 2px rgba(37,99,235,.10),0 4px 12px rgba(37,99,235,.06)!important;
+      }
+      #creditCards [data-credit-quick="overdue"].active{
+        border-color:#F5A5AB!important;
+        border-top-color:#EF4444!important;
+        background:linear-gradient(180deg,#FFF9F9 0%,#FFF2F3 100%)!important;
+        box-shadow:0 0 0 2px rgba(239,68,68,.09),0 4px 12px rgba(239,68,68,.055)!important;
+      }
+      #creditCards [data-credit-quick="active"].active span,
+      #creditCards [data-credit-quick="active"].active strong,
+      #creditCards [data-credit-quick="active"].active small{color:#0F8F83!important}
+      #creditCards [data-credit-quick="month"].active span,
+      #creditCards [data-credit-quick="month"].active strong,
+      #creditCards [data-credit-quick="month"].active small{color:#2563EB!important}
+      #creditCards [data-credit-quick="overdue"].active span,
+      #creditCards [data-credit-quick="overdue"].active strong,
+      #creditCards [data-credit-quick="overdue"].active small{color:#DC2626!important}
+
+      #creditCards .debt-toolbar{
+        gap:8px!important;
+        margin:0 0 12px!important;
+      }
+      #creditCards .debt-toolbar input,
+      #creditCards .debt-toolbar select{
+        min-height:43px!important;
+        padding:9px 11px!important;
+        border-radius:12px!important;
+        border-color:#d9e1eb!important;
+        font-size:12px!important;
+        background:#fff!important;
+      }
+      #creditCards #creditCardSearch{
+        font-size:13px!important;
+      }
+      #creditCards #creditCardSearch::placeholder{
+        color:#9aa6b6!important;
+      }
+
+      #creditCards #creditCardList{
+        gap:8px!important;
+      }
+      #creditCards #creditCardList .list-card{
+        min-height:72px!important;
+        padding:12px 13px!important;
+        border-radius:15px!important;
+        border:1px solid #e2e8f0!important;
+        background:#fff!important;
+        box-shadow:none!important;
+        overflow:hidden!important;
+      }
+      #creditCards #creditCardList .list-card.debt-owner-basak{
+        border-left:3px solid #EC4899!important;
+      }
+      #creditCards #creditCardList .list-card.debt-owner-suleyman{
+        border-left:3px solid #2563EB!important;
+      }
+      #creditCards #creditCardList .list-card.debt-owner-kurum{
+        border-left:3px solid #14B8A6!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-main{
+        gap:4px!important;
+        min-width:0!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-name{
+        color:#172033!important;
+        font-size:13px!important;
+        line-height:1.23!important;
+        font-weight:820!important;
+        letter-spacing:-.018em!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-meta{
+        margin-top:4px!important;
+        color:#738197!important;
+        font-size:9px!important;
+        line-height:1.3!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount{
+        min-width:auto!important;
+        color:#172033!important;
+        font-size:14px!important;
+        line-height:1.15!important;
+        font-weight:870!important;
+        letter-spacing:-.025em!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount strong{
+        color:#172033!important;
+        font-size:14px!important;
+        line-height:1.15!important;
+        font-weight:870!important;
+        letter-spacing:-.025em!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount small{
+        margin-top:3px!important;
+        color:#7c899b!important;
+        font-size:8.5px!important;
+        font-weight:650!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-status{
+        gap:6px!important;
+        color:#738197!important;
+        font-size:9px!important;
+        line-height:1.3!important;
+      }
+      #creditCards #creditCardList .bs-v276-pill{
+        min-height:19px!important;
+        padding:3px 7px!important;
+        font-size:8.5px!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary{
+        gap:3px 7px!important;
+        padding-top:0!important;
+        color:#738197!important;
+        font-size:9px!important;
+        line-height:1.3!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary strong{
+        color:#4C5B72!important;
+        font-weight:800!important;
+      }
+      #creditCards #creditCardList .list-card.clickable:active{
+        transform:scale(.995)!important;
+      }
+
+      @media(max-width:520px){
+        #creditCards .page-title{
+          margin-bottom:11px!important;
+        }
+        #creditCards .page-title h2{
+          font-size:24px!important;
+        }
+        #creditCards #v276CreditCardKpis{
+          gap:7px!important;
+        }
+        #creditCards #v276CreditCardKpis .v175-quick-card{
+          min-height:70px!important;
+          padding:9px 8px!important;
+        }
+        #creditCards #v276CreditCardKpis .v175-quick-card strong{
+          font-size:17px!important;
+        }
+        #creditCards #v276CreditCardKpis .v175-quick-card span,
+        #creditCards #v276CreditCardKpis .v175-quick-card small{
+          font-size:8px!important;
+        }
+        #creditCards #creditCardList .list-card{
+          min-height:70px!important;
+          padding:11px 12px!important;
+        }
+        #creditCards #creditCardList .bs-v276-cc-name{
+          font-size:12.5px!important;
+        }
+        #creditCards #creditCardList .bs-v276-cc-amount strong{
+          font-size:13.5px!important;
+        }
+      }
+
+      @media(max-width:520px){
+        #creditCards #creditCardList .bs-v276-cc-card{
+          gap:7px 9px!important;
+          padding:13px!important;
+        }
+        #creditCards #creditCardList .bs-v276-cc-name{font-size:15px}
+        #creditCards #creditCardList .bs-v276-cc-amount{min-width:92px}
+        #creditCards #creditCardList .bs-v276-cc-amount strong{font-size:18px}
+        #creditCards #creditCardList .bs-v276-cc-summary{font-size:9.8px}
+      }

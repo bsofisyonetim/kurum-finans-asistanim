@@ -1,0 +1,2444 @@
+/* GENERATED: BS Finans V2.8.3. Kaynak sırası korunur. Yenilemek için: node tools/build-ui-bundle.mjs */
+/* SOURCE: v248-dashboard-polish.css */
+/* BS OFIS BUTCE V2.7.9 - Sade dashboard son gorsel standardi
+   Yalnizca mevcut 6 finans karti, hizli islemler, rapor ve liste sunumunu icerir. */
+
+#dashboard{
+  padding-top:1px;
+}
+
+#dashboard .summary-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+  margin:3px 0 14px!important;
+}
+
+#dashboard .summary-card{
+  min-height:78px!important;
+  padding:10px 11px!important;
+  border-radius:16px!important;
+  align-content:center!important;
+  gap:3px!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+}
+#dashboard .summary-card span{
+  font-size:9px!important;
+  line-height:1.15!important;
+  font-weight:800!important;
+  color:#66758c!important;
+}
+#dashboard .summary-card strong{
+  margin-top:1px!important;
+  font-size:18px!important;
+  line-height:1.08!important;
+  font-weight:860!important;
+  letter-spacing:-.035em!important;
+}
+#dashboard .summary-card small{
+  margin-top:1px!important;
+  font-size:8.5px!important;
+  line-height:1.2!important;
+  color:#93a0b3!important;
+}
+
+#dashboard .summary-card.income{
+  border-color:#C7EEE7!important;
+  background:linear-gradient(180deg,#fff 0%,#FBFFFE 100%)!important;
+}
+#dashboard .summary-card.income strong{color:#0F8F83!important}
+
+#dashboard .summary-card.planned{
+  border-color:#D6E3FF!important;
+  background:linear-gradient(180deg,#fff 0%,#FBFDFF 100%)!important;
+}
+#dashboard .summary-card.planned strong{color:#315FC9!important}
+
+#dashboard .summary-card.paid{
+  border-color:#D5E2FF!important;
+  background:linear-gradient(180deg,#fff 0%,#FBFDFF 100%)!important;
+}
+#dashboard .summary-card.paid strong{color:#2563EB!important}
+
+#dashboard .summary-card.remaining{
+  border-color:#FDE5BC!important;
+  background:linear-gradient(180deg,#fff 0%,#FFFCF7 100%)!important;
+}
+#dashboard .summary-card.remaining strong{color:#D97706!important}
+
+#dashboard .summary-card.expense{
+  border-color:#FBD5D8!important;
+  background:linear-gradient(180deg,#fff 0%,#FFF9F9 100%)!important;
+}
+#dashboard .summary-card.expense strong{color:#DC2626!important}
+
+#dashboard .summary-card.net{
+  border-color:#C7EEE7!important;
+  background:linear-gradient(180deg,#fff 0%,#FBFFFE 100%)!important;
+}
+#dashboard .summary-card.net strong{color:#15803D!important}
+#dashboard .summary-card.net.net-negative strong{color:#DC2626!important}
+
+#dashboard .section-head{
+  margin:17px 3px 8px!important;
+}
+#dashboard .section-head h2{
+  font-size:15px!important;
+  line-height:1.15!important;
+  font-weight:830!important;
+  letter-spacing:-.02em!important;
+}
+#dashboard .section-head .link-btn{
+  font-size:10px!important;
+  font-weight:800!important;
+}
+
+#dashboard #v178QuickActions{
+  margin:0 0 14px!important;
+}
+#dashboard .v178-quick-head{
+  margin:0 3px 8px!important;
+}
+#dashboard .v178-quick-head strong{
+  font-size:15px!important;
+  line-height:1.15!important;
+  font-weight:830!important;
+  letter-spacing:-.02em!important;
+}
+#dashboard .v178-quick-head small{
+  font-size:10px!important;
+  color:#95a2b5!important;
+}
+#dashboard .v178-quick-grid{
+  gap:7px!important;
+}
+#dashboard .v178-quick-btn{
+  min-height:55px!important;
+  padding:8px 10px!important;
+  border-radius:15px!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+}
+#dashboard .v178-quick-icon{
+  width:32px!important;
+  height:32px!important;
+  border-radius:10px!important;
+}
+#dashboard .v178-quick-label{
+  font-size:11px!important;
+  font-weight:810!important;
+  color:#34435a!important;
+}
+
+#dashboard #v244MonthlyReport{
+  margin:12px 0 14px!important;
+  border-radius:16px!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+}
+
+#dashboard #upcomingMini,
+#dashboard #recentPayments{
+  gap:7px!important;
+}
+#dashboard #upcomingMini .list-card,
+#dashboard #recentPayments .list-card{
+  min-height:66px!important;
+  padding:11px 12px!important;
+  border-radius:15px!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.028)!important;
+}
+#dashboard #upcomingMini .list-card .main>strong,
+#dashboard #recentPayments .list-card .main>strong{
+  font-size:12px!important;
+}
+#dashboard #upcomingMini .list-card small,
+#dashboard #recentPayments .list-card small{
+  font-size:9px!important;
+}
+#dashboard #upcomingMini .list-card .amount,
+#dashboard #recentPayments .list-card .amount{
+  font-size:13px!important;
+}
+#dashboard #upcomingMini .amount .bs-upcoming-pay{
+  margin-top:5px!important;
+  padding:5px 10px!important;
+  font-size:9px!important;
+}
+
+@media(max-width:520px){
+  #dashboard .summary-grid{
+    gap:7px!important;
+    margin-bottom:13px!important;
+  }
+  #dashboard .summary-card{
+    min-height:76px!important;
+    padding:9px 10px!important;
+  }
+  #dashboard .summary-card strong{
+    font-size:17px!important;
+  }
+  #dashboard .v178-quick-grid{
+    gap:7px!important;
+  }
+}
+
+@media(max-width:380px){
+  #dashboard .summary-card strong{
+    font-size:16px!important;
+  }
+}
+
+/* SOURCE: v249-debts-polish.css */
+/* BS OFIS BUTCE V2.4.9 - Borclar ekrani gorsel polish
+   Yalnizca sunum katmani. Borc, taksit, filtre ve veri davranislarini degistirmez. */
+
+#debts{
+  padding-top:1px;
+}
+
+/* Baslik */
+#debts .page-title{
+  margin:7px 2px 13px!important;
+  min-height:50px!important;
+}
+#debts .page-title .eyebrow{
+  margin-bottom:4px!important;
+  color:#0f8f83!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  letter-spacing:.14em!important;
+}
+#debts .page-title h2{
+  font-size:26px!important;
+  line-height:1.02!important;
+  font-weight:860!important;
+  letter-spacing:-.04em!important;
+}
+#debts #addDebtBtn{
+  min-height:36px!important;
+  padding:8px 12px!important;
+  border-radius:11px!important;
+  box-shadow:0 3px 9px rgba(37,99,235,.15)!important;
+}
+
+/* Ust KPI'lar */
+#debts #v175DebtKpis{
+  gap:8px!important;
+  margin:0 0 12px!important;
+}
+#debts #v175DebtKpis .v175-quick-card{
+  min-height:74px!important;
+  padding:10px 9px!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  box-shadow:0 2px 8px rgba(15,23,42,.028)!important;
+  text-align:left!important;
+  align-content:center!important;
+  gap:3px!important;
+}
+#debts #v175DebtKpis .v175-quick-card span{
+  font-size:8.5px!important;
+  line-height:1.1!important;
+  font-weight:850!important;
+  letter-spacing:.045em!important;
+  color:#6b7a90!important;
+}
+#debts #v175DebtKpis .v175-quick-card strong{
+  font-size:19px!important;
+  line-height:1.08!important;
+  font-weight:870!important;
+  letter-spacing:-.035em!important;
+  color:#172033!important;
+}
+#debts #v175DebtKpis .v175-quick-card small{
+  font-size:8.5px!important;
+  line-height:1.15!important;
+  font-weight:700!important;
+  color:#8592a6!important;
+}
+
+#debts [data-debt-quick="active"]{
+  border-color:#c7eee7!important;
+  border-top:3px solid #14b8a6!important;
+}
+#debts [data-debt-quick="month"]{
+  border-color:#d6e3ff!important;
+  border-top:3px solid #2563eb!important;
+}
+#debts [data-debt-quick="overdue"]{
+  border-color:#fbd5d8!important;
+  border-top:3px solid #ef4444!important;
+}
+#debts [data-debt-quick="active"] strong{color:#0f8f83!important}
+#debts [data-debt-quick="month"] strong{color:#2563eb!important}
+#debts [data-debt-quick="overdue"] strong{color:#dc2626!important}
+
+#debts [data-debt-quick="active"].active{
+  background:#f5fffd!important;
+  box-shadow:0 0 0 2px rgba(20,184,166,.07)!important;
+}
+#debts [data-debt-quick="month"].active{
+  background:#f6f9ff!important;
+  box-shadow:0 0 0 2px rgba(37,99,235,.07)!important;
+}
+#debts [data-debt-quick="overdue"].active{
+  background:#fff8f8!important;
+  box-shadow:0 0 0 2px rgba(239,68,68,.06)!important;
+}
+
+/* Arama ve filtreler */
+#debts .debt-toolbar{
+  grid-template-columns:minmax(150px,1fr) minmax(106px,auto) minmax(96px,auto)!important;
+  gap:8px!important;
+  margin:0 0 12px!important;
+}
+#debts .debt-toolbar input,
+#debts .debt-toolbar select{
+  min-height:43px!important;
+  padding:9px 11px!important;
+  border-radius:12px!important;
+  border-color:#d9e1eb!important;
+  font-size:12px!important;
+  background:#fff!important;
+}
+#debts #debtSearch{
+  font-size:13px!important;
+}
+#debts #debtSearch::placeholder{
+  color:#9aa6b6!important;
+}
+
+/* Borc listesi */
+#debts #debtList{
+  gap:8px!important;
+}
+#debts #debtList .list-card{
+  min-height:72px!important;
+  padding:12px 13px!important;
+  border-radius:15px!important;
+  border:1px solid #e2e8f0!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+#debts #debtList .list-card.v179-debt-active{
+  border-left:3px solid #8fb5ff!important;
+}
+#debts #debtList .list-card.v179-debt-closed{
+  border-left:3px solid #cbd5e1!important;
+  opacity:.72!important;
+}
+#debts #debtList .list-card .main{
+  gap:4px!important;
+  min-width:0!important;
+}
+#debts #debtList .list-card .main>strong{
+  color:#172033!important;
+  font-size:13px!important;
+  line-height:1.23!important;
+  font-weight:820!important;
+  letter-spacing:-.018em!important;
+}
+#debts #debtList .list-card small{
+  color:#738197!important;
+  font-size:9px!important;
+  line-height:1.3!important;
+}
+#debts #debtList .amount{
+  flex:0 0 auto!important;
+  color:#172033!important;
+  font-size:14px!important;
+  line-height:1.15!important;
+  font-weight:870!important;
+  letter-spacing:-.025em!important;
+}
+#debts #debtList .amount small{
+  margin-top:3px!important;
+  font-size:8.5px!important;
+  font-weight:650!important;
+  color:#7c899b!important;
+}
+#debts #debtList .list-card.clickable:active{
+  transform:scale(.995)!important;
+}
+
+@media(max-width:520px){
+  #debts .page-title{
+    margin-bottom:11px!important;
+  }
+  #debts .page-title h2{
+    font-size:24px!important;
+  }
+  #debts #v175DebtKpis{
+    gap:7px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card{
+    min-height:70px!important;
+    padding:9px 8px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card strong{
+    font-size:17px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card span{
+    font-size:8px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card small{
+    font-size:8px!important;
+  }
+
+  #debts .debt-toolbar{
+    grid-template-columns:1fr 1fr!important;
+    gap:7px!important;
+  }
+  #debts .debt-toolbar #debtSearch{
+    grid-column:1/-1!important;
+  }
+  #debts .debt-toolbar input,
+  #debts .debt-toolbar select{
+    min-height:42px!important;
+  }
+
+  #debts #debtList .list-card{
+    min-height:70px!important;
+    padding:11px 12px!important;
+  }
+  #debts #debtList .list-card .main>strong{
+    font-size:12.5px!important;
+  }
+  #debts #debtList .amount{
+    font-size:13.5px!important;
+  }
+}
+
+@media(max-width:380px){
+  #debts #v175DebtKpis{
+    gap:5px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card{
+    padding:8px 6px!important;
+  }
+  #debts #v175DebtKpis .v175-quick-card strong{
+    font-size:15.5px!important;
+  }
+}
+
+/* SOURCE: v2587-debt-owner-colors.css */
+/* BS OFİS BÜTÇE V2.5.8.7 - Borç kartlarında borç sahibi renkleri
+   Yalnızca Borçlar ekranının sunum katmanı.
+   Başak = pembe, Süleyman = mavi, Kurum = turkuaz. */
+
+/* Başak */
+#debts #debtList .list-card.debt-owner-basak{
+  border-left:3px solid #EC4899!important;
+  background:#FFFFFF!important;
+}
+#debts #debtList .list-card.debt-owner-basak .amount{
+  color:#0F172A!important;
+}
+#debts #debtList .list-card.debt-owner-basak:hover{
+  border-left-color:#EC4899!important;
+}
+
+/* Süleyman */
+#debts #debtList .list-card.debt-owner-suleyman{
+  border-left:3px solid #2563EB!important;
+  background:#FFFFFF!important;
+}
+#debts #debtList .list-card.debt-owner-suleyman .amount{
+  color:#0F172A!important;
+}
+#debts #debtList .list-card.debt-owner-suleyman:hover{
+  border-left-color:#2563EB!important;
+}
+
+/* Kurum */
+#debts #debtList .list-card.debt-owner-kurum{
+  border-left:3px solid #14B8A6!important;
+  background:#FFFFFF!important;
+}
+#debts #debtList .list-card.debt-owner-kurum .amount{
+  color:#0F172A!important;
+}
+#debts #debtList .list-card.debt-owner-kurum:hover{
+  border-left-color:#14B8A6!important;
+}
+
+/* SOURCE: v250-payments-polish.css */
+/* BS OFIS BUTCE V2.6.0.8 - Odemeler ekrani nötr temel gorsel katmani
+   Yalnizca sunum katmani. Odeme, taksit, replay ve Supabase davranisini degistirmez.
+   Donem ve sahiplik renkleri sonraki semantik katmanlarda uygulanir. */
+
+#payments{
+  padding-top:1px;
+}
+
+/* Sayfa basligi ve ana aksiyon */
+#payments .page-title{
+  margin-bottom:12px!important;
+}
+#payments .page-title h2{
+  letter-spacing:-.035em!important;
+}
+#payments .page-title .primary{
+  min-height:38px!important;
+  padding:9px 13px!important;
+  border-radius:11px!important;
+  font-size:11px!important;
+  box-shadow:0 3px 9px rgba(37,99,235,.16)!important;
+}
+
+/* Bu Ay / Gecen Ay / Tumu: yalniz nötr temel. */
+#payments #v176PaymentKpis{
+  gap:8px!important;
+  margin:-2px 0 12px!important;
+}
+#payments #v176PaymentKpis .v175-quick-card{
+  min-height:76px!important;
+  padding:11px 10px!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  border-color:#E2E8F0!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+  text-align:left!important;
+  align-content:center!important;
+}
+#payments #v176PaymentKpis .v175-quick-card span{
+  color:#64748B!important;
+  font-size:8.5px!important;
+  line-height:1.1!important;
+  font-weight:830!important;
+  letter-spacing:.035em!important;
+}
+#payments #v176PaymentKpis .v175-quick-card strong{
+  margin-top:2px!important;
+  color:#0F172A!important;
+  font-size:17px!important;
+  line-height:1.05!important;
+  font-weight:860!important;
+  letter-spacing:-.03em!important;
+}
+#payments #v176PaymentKpis .v175-quick-card small{
+  margin-top:1px!important;
+  color:#94A3B8!important;
+  font-size:8.5px!important;
+  line-height:1.2!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active{
+  background:#FFFFFF!important;
+  border-color:#CBD5E1!important;
+  box-shadow:0 0 0 2px rgba(15,23,42,.05),0 4px 12px rgba(15,23,42,.04)!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active span{
+  color:#64748B!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active strong{
+  color:#0F172A!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active small{
+  color:#94A3B8!important;
+}
+
+/* Donem filtresi: teknik durum tutucu DOM'da kalir; kullaniciya ikinci kontrol gosterilmez. */
+#payments .payment-filter-row{
+  display:none!important;
+}
+
+/* Odeme listesi: varsayilan kart nötr. */
+#payments #paymentList{
+  gap:9px!important;
+}
+#payments #paymentList .v179-payment-card,
+#payments #paymentList .list-card{
+  position:relative!important;
+  min-height:76px!important;
+  padding:13px 14px!important;
+  border-radius:15px!important;
+  border:1px solid #E2E8F0!important;
+  border-left:1px solid #E2E8F0!important;
+  background:#fff!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+#payments #paymentList .v179-payment-card:hover,
+#payments #paymentList .list-card:hover{
+  border-color:#CBD5E1!important;
+  box-shadow:0 4px 13px rgba(15,23,42,.045)!important;
+}
+#payments #paymentList .main{
+  gap:4px!important;
+}
+#payments #paymentList .main>strong{
+  color:#172033!important;
+  font-size:12.5px!important;
+  line-height:1.25!important;
+  font-weight:830!important;
+  letter-spacing:-.012em!important;
+}
+#payments #paymentList .main small{
+  color:#78869A!important;
+  font-size:9px!important;
+  line-height:1.28!important;
+}
+#payments #paymentList .amount{
+  color:#0F172A!important;
+  font-size:15px!important;
+  line-height:1.1!important;
+  font-weight:870!important;
+  letter-spacing:-.025em!important;
+}
+#payments #paymentList .amount small{
+  margin-top:5px!important;
+  color:#8190A4!important;
+  font-size:8.5px!important;
+  font-weight:700!important;
+}
+
+/* Taksit sonucu ve durum etiketleri semantik renklerini korur. */
+#payments #paymentList .badge,
+#payments #paymentList [class*="payment-status"],
+#payments #paymentList [class*="installment"]{
+  max-width:max-content;
+}
+#payments #paymentList .badge.green{
+  padding:4px 7px!important;
+  background:#F0FDF4!important;
+  border:1px solid #DCFCE7!important;
+  color:#15803D!important;
+  font-size:8px!important;
+  line-height:1!important;
+  font-weight:830!important;
+}
+#payments #paymentList .badge.orange{
+  padding:4px 7px!important;
+  background:#FFF7ED!important;
+  border:1px solid #FFEDD5!important;
+  color:#C2410C!important;
+  font-size:8px!important;
+  line-height:1!important;
+  font-weight:830!important;
+}
+
+/* Bos durum */
+#payments #paymentList .empty{
+  padding:22px 16px!important;
+  border-radius:15px!important;
+  border-color:#D9E2ED!important;
+  color:#7A8799!important;
+  font-size:10px!important;
+  box-shadow:none!important;
+}
+
+@media(max-width:520px){
+  #payments #v176PaymentKpis{
+    gap:7px!important;
+  }
+  #payments #v176PaymentKpis .v175-quick-card{
+    min-height:70px!important;
+    padding:10px 8px!important;
+  }
+  #payments #v176PaymentKpis .v175-quick-card strong{
+    font-size:15px!important;
+  }
+  #payments #paymentList .v179-payment-card,
+  #payments #paymentList .list-card{
+    min-height:72px!important;
+    padding:12px 13px!important;
+  }
+  #payments #paymentList .main>strong{
+    font-size:12px!important;
+  }
+  #payments #paymentList .amount{
+    font-size:14px!important;
+  }
+}
+
+@media(max-width:360px){
+  #payments #v176PaymentKpis .v175-quick-card{
+    padding:9px 6px!important;
+  }
+  #payments #v176PaymentKpis .v175-quick-card span,
+  #payments #v176PaymentKpis .v175-quick-card small{
+    font-size:7.5px!important;
+  }
+  #payments #v176PaymentKpis .v175-quick-card strong{
+    font-size:14px!important;
+  }
+}
+
+/* SOURCE: v2586-payment-owner-colors.css */
+/* BS OFİS BÜTÇE V2.6.0.8 - Ödeme kartlarında borç sahibi renkleri
+   Yalnızca Ödemeler ekranının sunum katmanı.
+   Sahiplik rengi yalnız sol şeritte kullanılır; ödeme tutarı mavi gösterilir.
+   Başak = pembe, Süleyman = mavi, Kurum = turkuaz. */
+
+:root{
+  --bs-payment-owner-basak:#EC4899;
+  --bs-payment-owner-suleyman:#2563EB;
+  --bs-payment-owner-kurum:#14B8A6;
+  --bs-payment-amount:#2563EB;
+}
+
+/* Tüm ödeme tutarları tek mavi renkte. */
+#payments #paymentList .list-card .amount,
+#payments #paymentList .v179-payment-card .amount{
+  color:var(--bs-payment-amount)!important;
+}
+
+/* Kısmi ödeme tutarı turuncu. */
+#payments #paymentList .v179-payment-card:has(.badge.orange) .amount{
+  color:#F59E0B!important;
+}
+
+/* Başak: yalnız sol pembe şerit. */
+#payments #paymentList .list-card.payment-owner-basak,
+#payments #paymentList .v179-payment-card.payment-owner-basak{
+  border-left-width:3px!important;
+  border-left-color:var(--bs-payment-owner-basak)!important;
+  background:#FFFFFF!important;
+}
+#payments #paymentList .list-card.payment-owner-basak:hover,
+#payments #paymentList .v179-payment-card.payment-owner-basak:hover{
+  border-left-color:var(--bs-payment-owner-basak)!important;
+}
+
+/* Süleyman: yalnız sol mavi şerit. */
+#payments #paymentList .list-card.payment-owner-suleyman,
+#payments #paymentList .v179-payment-card.payment-owner-suleyman{
+  border-left-width:3px!important;
+  border-left-color:var(--bs-payment-owner-suleyman)!important;
+  background:#FFFFFF!important;
+}
+#payments #paymentList .list-card.payment-owner-suleyman:hover,
+#payments #paymentList .v179-payment-card.payment-owner-suleyman:hover{
+  border-left-color:var(--bs-payment-owner-suleyman)!important;
+}
+
+/* Kurum: yalnız sol turkuaz şerit; eski kayıt uyumluluğu için korunur. */
+#payments #paymentList .list-card.payment-owner-kurum,
+#payments #paymentList .v179-payment-card.payment-owner-kurum{
+  border-left-width:3px!important;
+  border-left-color:var(--bs-payment-owner-kurum)!important;
+  background:#FFFFFF!important;
+}
+#payments #paymentList .list-card.payment-owner-kurum:hover,
+#payments #paymentList .v179-payment-card.payment-owner-kurum:hover{
+  border-left-color:var(--bs-payment-owner-kurum)!important;
+}
+
+/* SOURCE: v251-incomes-polish.css */
+/* BS OFIS BUTCE V2.6.1.0 - Gelirler ekrani nötr temel gorsel katmani
+   Yalnizca sunum katmani. Gelir dagitimi, PaymentID gruplama ve BS Ofis entegrasyonunu degistirmez.
+   Bu dosya semantik renk vermez; sahiplik ve gelir türü renkleri v2581/v2583/v2584 katmanlarinda uygulanir. */
+
+#incomes{
+  padding-top:1px;
+}
+
+#incomes .page-title{
+  margin-bottom:12px!important;
+}
+#incomes .page-title .primary{
+  min-height:38px!important;
+  padding:9px 13px!important;
+  border-radius:11px!important;
+  font-size:11px!important;
+}
+
+/* Ust KPI kartlari: yalniz nötr temel. */
+#incomes .kpi-grid,
+#incomes [class*="income-kpi"]{
+  gap:8px!important;
+}
+#incomes .kpi{
+  min-height:78px!important;
+  padding:12px 13px!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  border:1px solid #E2E8F0!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+}
+#incomes .kpi span{
+  color:#64748B!important;
+  font-size:8.5px!important;
+  font-weight:830!important;
+  letter-spacing:.025em!important;
+}
+#incomes .kpi strong{
+  margin-top:2px!important;
+  color:#0F172A!important;
+  font-size:18px!important;
+  line-height:1.05!important;
+  font-weight:860!important;
+  letter-spacing:-.03em!important;
+}
+#incomes .kpi small{
+  color:#94A3B8!important;
+  font-size:8.5px!important;
+}
+
+/* Gelir sahibi kartlari: nötr taban; sahiplik rengi sonraki tema katmanlarinda. */
+#incomes #incomeOwnerKpis{
+  gap:7px!important;
+  margin:-3px 0 12px!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi{
+  min-height:64px!important;
+  padding:10px 10px 9px!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  border:1px solid #E2E8F0!important;
+  box-shadow:0 2px 8px rgba(15,23,42,.025)!important;
+  text-align:left!important;
+  align-content:center!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi span{
+  color:#64748B!important;
+  font-size:8.5px!important;
+  font-weight:830!important;
+  letter-spacing:.025em!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi strong{
+  margin-top:2px!important;
+  color:#0F172A!important;
+  font-size:15px!important;
+  line-height:1.08!important;
+  font-weight:860!important;
+  letter-spacing:-.025em!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi.active{
+  background:#FFFFFF!important;
+  border-color:#CBD5E1!important;
+  box-shadow:0 0 0 2px rgba(15,23,42,.05),0 4px 12px rgba(15,23,42,.04)!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi.active span{
+  color:#64748B!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi.active strong{
+  color:#0F172A!important;
+}
+
+/* Filtreler: kisi ve gelir türü üst KPI kartlariyla yönetilir; yalnız ay görünür. */
+#incomes .toolbar.debt-toolbar{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:0!important;
+  margin-bottom:12px!important;
+}
+#incomes #incomeOwnerFilter,
+#incomes #incomeTypeFilter{
+  display:none!important;
+}
+#incomes .toolbar.debt-toolbar #incomeMonth{
+  grid-column:1!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:44px!important;
+  padding:9px 34px 9px 12px!important;
+  border-radius:12px!important;
+  color:#475569!important;
+  font-size:10px!important;
+  font-weight:740!important;
+}
+
+/* Gelir kartlari: varsayilan kart nötr. */
+#incomes #incomeList{
+  gap:9px!important;
+}
+#incomes #incomeList .list-card,
+#incomes #incomeList .income-bs-card{
+  min-height:76px!important;
+  padding:13px 14px!important;
+  border-radius:15px!important;
+  border:1px solid #E2E8F0!important;
+  border-left:1px solid #E2E8F0!important;
+  background:#fff!important;
+  box-shadow:0 2px 9px rgba(15,23,42,.03)!important;
+  gap:12px!important;
+}
+#incomes #incomeList .list-card:hover,
+#incomes #incomeList .income-bs-card:hover{
+  border-color:#CBD5E1!important;
+  box-shadow:0 4px 13px rgba(15,23,42,.045)!important;
+}
+#incomes #incomeList .main{
+  gap:4px!important;
+}
+#incomes #incomeList .main>strong{
+  color:#172033!important;
+  font-size:12.5px!important;
+  line-height:1.25!important;
+  font-weight:830!important;
+  letter-spacing:-.012em!important;
+}
+#incomes #incomeList .main small{
+  color:#78869A!important;
+  font-size:9px!important;
+  line-height:1.28!important;
+}
+#incomes #incomeList .amount{
+  color:#0F172A!important;
+  font-size:15px!important;
+  line-height:1.1!important;
+  font-weight:870!important;
+  letter-spacing:-.025em!important;
+}
+
+#incomes #incomeList .empty{
+  padding:22px 16px!important;
+  border-radius:15px!important;
+  color:#7A8799!important;
+  font-size:10px!important;
+  box-shadow:none!important;
+}
+
+@media(max-width:520px){
+  #incomes #incomeOwnerKpis{
+    gap:6px!important;
+  }
+  #incomes #incomeOwnerKpis .income-owner-kpi{
+    min-height:60px!important;
+    padding:9px 8px!important;
+  }
+  #incomes #incomeOwnerKpis .income-owner-kpi strong{
+    font-size:14px!important;
+  }
+  #incomes #incomeList .list-card,
+  #incomes #incomeList .income-bs-card{
+    min-height:72px!important;
+    padding:12px 13px!important;
+  }
+  #incomes #incomeList .amount{
+    font-size:14px!important;
+  }
+}
+
+/* SOURCE: v2581-income-owner-colors.css */
+/* BS OFIS BUTCE V2.6.0.6 - Gelir sahibi KPI secim standardi
+   Liste kartlarinin rengi filtreye gore degismez.
+   Sahiplik rengi seçili KPI kartında kontrollü vurgu olarak kullanılır. */
+
+/* BASAK — pembe kimlik */
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Başak"].active{
+  background:linear-gradient(180deg,#FFF9FC 0%,#FFF1F7 100%)!important;
+  border-color:#F5A5CD!important;
+  box-shadow:0 0 0 2px rgba(236,72,153,.10),0 4px 12px rgba(236,72,153,.06)!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Başak"].active span{
+  color:#DB2777!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Başak"].active strong{
+  color:#DB2777!important;
+}
+
+/* SULEYMAN — mavi kimlik */
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Süleyman"].active{
+  background:linear-gradient(180deg,#F8FBFF 0%,#F2F7FF 100%)!important;
+  border-color:#9FBCFF!important;
+  box-shadow:0 0 0 2px rgba(37,99,235,.10),0 4px 12px rgba(37,99,235,.06)!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Süleyman"].active span{
+  color:#2563EB!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Süleyman"].active strong{
+  color:#2563EB!important;
+}
+
+/* KURUM — turkuaz kimlik */
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Kurum Kasası"].active{
+  background:linear-gradient(180deg,#F7FFFD 0%,#EDFCF9 100%)!important;
+  border-color:#91DED3!important;
+  box-shadow:0 0 0 2px rgba(20,184,166,.10),0 4px 12px rgba(20,184,166,.06)!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Kurum Kasası"].active span{
+  color:#0F8F83!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Kurum Kasası"].active strong{
+  color:#0F8F83!important;
+}
+
+/* SOURCE: v2583-income-summary-stripes.css */
+/* BS OFIS BUTCE V2.6.0.9 - Gelir KPI semantik üst şeritleri
+   Tek renk = tek anlam:
+   - Seçili Ay Toplam: sarı
+   - Özel Ders Geliri: turuncu
+   - Başak: pembe
+   - Süleyman: mavi
+   - Kurum: yeşil */
+
+/* Ustteki iki ana KPI karti */
+#incomes .kpi-grid .kpi{
+  position:relative!important;
+  overflow:hidden!important;
+}
+#incomes .kpi-grid .kpi::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:4px;
+  pointer-events:none;
+}
+#incomes .kpi-grid .kpi:nth-child(1)::before{
+  background:#EAB308!important;
+}
+#incomes .kpi-grid .kpi:nth-child(2)::before{
+  background:#F59E0B!important;
+}
+
+/* Gelir sahibi ozet kartlari */
+#incomes #incomeOwnerKpis .income-owner-kpi{
+  position:relative!important;
+  overflow:hidden!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:4px;
+  pointer-events:none;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Başak"]::before{
+  background:#EC4899!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Süleyman"]::before{
+  background:#2563EB!important;
+}
+#incomes #incomeOwnerKpis .income-owner-kpi[data-owner-kpi="Kurum Kasası"]::before{
+  background:#22C55E!important;
+}
+
+/* SOURCE: v2584-income-themes.css */
+/* BS OFİS BÜTÇE V2.6.1.0 - Gelir renk hiyerarşisi
+   Tek renk = tek anlam:
+   - Süleyman: yalnız sahiplik vurgusu mavi
+   - Başak: yalnız sahiplik vurgusu pembe
+   - Kurum: liste kartında nötr; dağılım göstergesinde yeşil
+   - Özel Ders: yalnız KPI/tür kimliği turuncu
+   - Liste başlıkları koyu siyah; liste tutarları yeşil */
+
+:root{
+  --bs-income-owner-suleyman:#2563EB;
+  --bs-income-owner-basak:#EC4899;
+  --bs-income-owner-kurum:#22C55E;
+  --bs-income-lesson:#F59E0B;
+  --bs-income-amount:#0F172A;
+  --bs-income-border:#E2E8F0;
+}
+
+/* Gelir üst KPI rakamları da tek nötr renkte kalır. */
+#incomes .kpi-grid .kpi strong,
+#incomes #incomeOwnerKpis .income-owner-kpi strong{
+  color:var(--bs-income-amount)!important;
+}
+
+/* Özel Ders Geliri özet kartı: beyaz kart + yalnız turuncu tür kimliği. */
+#incomes .kpi-grid .kpi:nth-child(2){
+  background:#FFFFFF!important;
+  border-color:var(--bs-income-border)!important;
+}
+#incomes .kpi-grid .kpi:nth-child(2)::before{
+  background:var(--bs-income-lesson)!important;
+}
+#incomes .kpi-grid .kpi:nth-child(2) span{
+  color:#9A3412!important;
+}
+#incomes .kpi-grid .kpi:nth-child(2) strong{
+  color:var(--bs-income-amount)!important;
+}
+#incomes .kpi-grid .kpi:nth-child(2) small{
+  color:#64748B!important;
+}
+
+/* Tüm gelir kayıtlarında tutar yeşildir. */
+#incomes #incomeList .list-card .amount,
+#incomes #incomeList .income-bs-card .amount{
+  color:#22C55E!important;
+}
+
+/* Özel Ders: kart zemini, öğrenci/kayıt başlığı ve tutar nötr kalır. */
+#incomes #incomeList .list-card.income-theme-lesson,
+#incomes #incomeList .income-bs-card.income-theme-lesson{
+  background:#FFFFFF!important;
+}
+#incomes #incomeList .list-card.income-theme-lesson .main>strong,
+#incomes #incomeList .income-bs-card.income-theme-lesson .main>strong{
+  color:var(--bs-income-amount)!important;
+}
+
+/* Bölünmüş tahsilat: kart kenarlarını çoğaltmak yerine küçük, nötr pay göstergeleri. */
+#incomes #incomeList .income-split-shares{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  gap:5px!important;
+  margin-top:4px!important;
+  color:#475569!important;
+  font-size:8.5px!important;
+  line-height:1.15!important;
+}
+#incomes #incomeList .income-share-chip{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:5px!important;
+  width:max-content!important;
+  max-width:100%!important;
+  padding:3px 7px!important;
+  border:1px solid #E2E8F0!important;
+  border-radius:999px!important;
+  background:#F8FAFC!important;
+  color:#475569!important;
+  font-weight:780!important;
+  white-space:nowrap!important;
+}
+#incomes #incomeList .income-share-dot{
+  width:6px!important;
+  height:6px!important;
+  flex:0 0 6px!important;
+  border-radius:50%!important;
+  background:#94A3B8!important;
+}
+#incomes #incomeList .income-share-basak .income-share-dot{
+  background:var(--bs-income-owner-basak)!important;
+}
+#incomes #incomeList .income-share-suleyman .income-share-dot{
+  background:var(--bs-income-owner-suleyman)!important;
+}
+#incomes #incomeList .income-share-kurum .income-share-dot{
+  background:var(--bs-income-owner-kurum)!important;
+}
+
+/* Başak: yalnız sol pembe şerit. */
+#incomes #incomeList .list-card.income-theme-owner-basak,
+#incomes #incomeList .income-bs-card.income-theme-owner-basak{
+  border-left-width:3px!important;
+  border-left-color:var(--bs-income-owner-basak)!important;
+  background:#FFFFFF!important;
+}
+
+/* Süleyman: yalnız sol mavi şerit. */
+#incomes #incomeList .list-card.income-theme-owner-suleyman,
+#incomes #incomeList .income-bs-card.income-theme-owner-suleyman{
+  border-left-width:3px!important;
+  border-left-color:var(--bs-income-owner-suleyman)!important;
+  background:#FFFFFF!important;
+}
+
+/* Kurum: standart gri çerçeve, renkli sol şerit yok. */
+#incomes #incomeList .list-card.income-theme-owner-kurum,
+#incomes #incomeList .income-bs-card.income-theme-owner-kurum{
+  border-left-width:1px!important;
+  border-left-color:var(--bs-income-border)!important;
+  background:#FFFFFF!important;
+}
+
+/* Hover durumunda da sahiplik şeridi değişmez. */
+#incomes #incomeList .list-card.income-theme-owner-basak:hover,
+#incomes #incomeList .income-bs-card.income-theme-owner-basak:hover{
+  border-left-color:var(--bs-income-owner-basak)!important;
+}
+#incomes #incomeList .list-card.income-theme-owner-suleyman:hover,
+#incomes #incomeList .income-bs-card.income-theme-owner-suleyman:hover{
+  border-left-color:var(--bs-income-owner-suleyman)!important;
+}
+#incomes #incomeList .list-card.income-theme-owner-kurum:hover,
+#incomes #incomeList .income-bs-card.income-theme-owner-kurum:hover{
+  border-left-color:#CBD5E1!important;
+}
+
+/* SOURCE: v2588-selectable-kpi-standard.css */
+/* BS OFİS BÜTÇE V2.6.0.8 - Seçilebilir üst KPI kart standardı
+   Ödemeler ekranında dönem rengi üst şerit ve seçili kart vurgusunda kullanılır.
+   Borçlar bölümünün mevcut davranışı bu sürümde değiştirilmez. */
+
+/* ---------------------------------------------------------
+   ÖDEMELER
+   Bu Ay = mavi, Geçen Ay = turuncu, Tümü = turkuaz.
+   --------------------------------------------------------- */
+#payments #v176PaymentKpis .v175-quick-card{
+  position:relative!important;
+  overflow:hidden!important;
+}
+
+#payments #v176PaymentKpis [data-payment-quick="current"]{
+  border-top:3px solid #2563EB!important;
+}
+#payments #v176PaymentKpis [data-payment-quick="previous"]{
+  border-top:3px solid #F59E0B!important;
+}
+#payments #v176PaymentKpis [data-payment-quick="all"]{
+  border-top:3px solid #14B8A6!important;
+}
+
+#payments #v176PaymentKpis [data-payment-quick="current"].active{
+  border-color:#9FBCFF!important;
+  border-top-color:#2563EB!important;
+  background:linear-gradient(180deg,#F8FBFF 0%,#F2F7FF 100%)!important;
+  box-shadow:0 0 0 2px rgba(37,99,235,.10),0 4px 12px rgba(37,99,235,.06)!important;
+}
+#payments #v176PaymentKpis [data-payment-quick="previous"].active{
+  border-color:#F6C76B!important;
+  border-top-color:#F59E0B!important;
+  background:linear-gradient(180deg,#FFFCF5 0%,#FFF7E8 100%)!important;
+  box-shadow:0 0 0 2px rgba(245,158,11,.10),0 4px 12px rgba(245,158,11,.06)!important;
+}
+#payments #v176PaymentKpis [data-payment-quick="all"].active{
+  border-color:#91DED3!important;
+  border-top-color:#14B8A6!important;
+  background:linear-gradient(180deg,#F7FFFD 0%,#EDFCF9 100%)!important;
+  box-shadow:0 0 0 2px rgba(20,184,166,.10),0 4px 12px rgba(20,184,166,.06)!important;
+}
+
+#payments #v176PaymentKpis .v175-quick-card.active span{
+  color:#64748B!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active strong{
+  color:#0F172A!important;
+}
+#payments #v176PaymentKpis .v175-quick-card.active small{
+  color:#94A3B8!important;
+}
+
+/* ---------------------------------------------------------
+   BORÇLAR
+   Mevcut semantik şeritler korunur; aktif seçim belirginleşir.
+   --------------------------------------------------------- */
+#debts #v175DebtKpis [data-debt-quick="active"].active{
+  border-color:#91DED3!important;
+  background:linear-gradient(180deg,#F7FFFD 0%,#EDFCF9 100%)!important;
+  box-shadow:0 0 0 2px rgba(20,184,166,.10),0 4px 12px rgba(20,184,166,.06)!important;
+}
+#debts #v175DebtKpis [data-debt-quick="active"].active span,
+#debts #v175DebtKpis [data-debt-quick="active"].active strong,
+#debts #v175DebtKpis [data-debt-quick="active"].active small{
+  color:#0F8F83!important;
+}
+
+#debts #v175DebtKpis [data-debt-quick="month"].active{
+  border-color:#9FBCFF!important;
+  background:linear-gradient(180deg,#F8FBFF 0%,#F2F7FF 100%)!important;
+  box-shadow:0 0 0 2px rgba(37,99,235,.10),0 4px 12px rgba(37,99,235,.06)!important;
+}
+#debts #v175DebtKpis [data-debt-quick="month"].active span,
+#debts #v175DebtKpis [data-debt-quick="month"].active strong,
+#debts #v175DebtKpis [data-debt-quick="month"].active small{
+  color:#2563EB!important;
+}
+
+#debts #v175DebtKpis [data-debt-quick="overdue"].active{
+  border-color:#F5A5AB!important;
+  background:linear-gradient(180deg,#FFF9F9 0%,#FFF2F3 100%)!important;
+  box-shadow:0 0 0 2px rgba(239,68,68,.09),0 4px 12px rgba(239,68,68,.055)!important;
+}
+#debts #v175DebtKpis [data-debt-quick="overdue"].active span,
+#debts #v175DebtKpis [data-debt-quick="overdue"].active strong,
+#debts #v175DebtKpis [data-debt-quick="overdue"].active small{
+  color:#DC2626!important;
+}
+
+/* ---------------------------------------------------------
+   GELİRLER
+   Seçili Ay Toplam = sarı, Özel Ders Geliri = turuncu.
+   Mevcut filtre/active davranışı kullanılır; yalnız görünüm standardize edilir.
+   --------------------------------------------------------- */
+#incomes .kpi-grid [data-income-main-filter="all"].active{
+  border-color:#F3D65A!important;
+  background:linear-gradient(180deg,#FFFDF5 0%,#FEFCE8 100%)!important;
+  box-shadow:0 0 0 2px rgba(234,179,8,.10),0 4px 12px rgba(234,179,8,.06)!important;
+}
+#incomes .kpi-grid [data-income-main-filter="all"].active span,
+#incomes .kpi-grid [data-income-main-filter="all"].active strong,
+#incomes .kpi-grid [data-income-main-filter="all"].active small{
+  color:#A16207!important;
+}
+
+#incomes .kpi-grid [data-income-main-filter="lesson"].active{
+  border-color:#F6C76B!important;
+  background:linear-gradient(180deg,#FFFCF5 0%,#FFF7E8 100%)!important;
+  box-shadow:0 0 0 2px rgba(245,158,11,.10),0 4px 12px rgba(245,158,11,.06)!important;
+}
+#incomes .kpi-grid [data-income-main-filter="lesson"].active span,
+#incomes .kpi-grid [data-income-main-filter="lesson"].active strong,
+#incomes .kpi-grid [data-income-main-filter="lesson"].active small{
+  color:#C2410C!important;
+}
+
+/* SOURCE: v257-foundation.css */
+/* BS OFİS BÜTÇE V2.5.7.4 - Tek temel mobil/marka katmanı
+   Final header, okunabilirlik, sabit uygulama kabuğu ve ortak dinamik UI yapıları. */
+
+:root{
+  --bs-shell-top-space:88px;
+  --bs-shell-bottom-space:78px;
+}
+
+html,body{
+  max-width:100%;
+  overflow-x:hidden!important;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+body{
+  font-size:14px!important;
+  line-height:1.42!important;
+}
+
+button,input,select,textarea{
+  font-size:14px!important;
+}
+
+/* Uygulama kabuğu tek kaynak: her cihazda ortalı ve en fazla 780 px. */
+.app-shell{
+  width:100%!important;
+  max-width:780px!important;
+  min-width:0!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  overflow-x:hidden!important;
+  padding-top:var(--bs-shell-top-space)!important;
+  padding-bottom:calc(var(--bs-shell-bottom-space) + 16px + env(safe-area-inset-bottom))!important;
+}
+
+.app-shell > main,
+.app-shell .view{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+
+.app-shell .summary-grid,
+.app-shell .kpi-grid,
+.app-shell .v175-quick-grid,
+.app-shell .v177-flow-grid,
+.app-shell .v178-quick-grid,
+.app-shell .toolbar,
+.app-shell .list,
+.app-shell #v203ExpenseCategorySummary{
+  max-width:100%!important;
+  min-width:0!important;
+}
+
+.app-shell > .topbar{
+  position:fixed!important;
+  top:0!important;
+  left:50%!important;
+  right:auto!important;
+  transform:translateX(-50%)!important;
+  width:min(calc(100vw - 24px),780px)!important;
+  max-width:780px!important;
+  min-height:72px!important;
+  margin:0!important;
+  padding:10px 14px 9px!important;
+  z-index:1000!important;
+  gap:10px!important;
+}
+
+.app-shell > .topbar > div:first-child{
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  min-width:0!important;
+  flex:1 1 auto!important;
+  overflow:hidden!important;
+}
+
+/* Eski pseudo-banner yaklaşımı tamamen kapalı. */
+.app-shell > .topbar > div:first-child::before{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
+
+.app-shell > .topbar .bs-brand-mark{
+  position:static!important;
+  display:block!important;
+  width:44px!important;
+  height:44px!important;
+  flex:0 0 44px!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+  clip:auto!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  object-fit:contain!important;
+}
+
+.app-shell > .topbar .bs-brand-copy{
+  position:static!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+  clip:auto!important;
+  white-space:normal!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  gap:3px!important;
+}
+
+.app-shell > .topbar #appTitle{
+  display:block!important;
+  margin:0!important;
+  font-size:17px!important;
+  line-height:1.08!important;
+  font-weight:850!important;
+  letter-spacing:-.025em!important;
+  color:#0F172A!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+
+.app-shell > .topbar #orgEyebrow{
+  display:block!important;
+  margin:0!important;
+  font-size:9px!important;
+  line-height:1!important;
+  font-weight:850!important;
+  letter-spacing:.16em!important;
+  color:#0F172A!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+.app-shell > .topbar #orgEyebrow:empty{
+  display:none!important;
+}
+
+/* Okunabilirlik tabanı. */
+.summary-card small,
+.v177-balance-main small,
+.v177-flow-card small,
+.v177-attention-card small,
+.v178-quick-head small,
+.v175-quick-card small,
+.kpi small,
+.list-card small,
+.panel .muted,
+.auth-banner span,
+.setting-head .muted,
+.cloud-summary{
+  font-size:11px!important;
+  line-height:1.35!important;
+}
+
+.list-card strong,
+.v177-attention-copy strong,
+.v178-quick-label{
+  font-size:12px!important;
+  line-height:1.3!important;
+}
+
+.v177-flow-card span,
+.v175-quick-card span,
+.summary-card span,
+.kpi span{
+  font-size:10.5px!important;
+  line-height:1.25!important;
+}
+
+.badge,.status-badge,.chip,.pill,.tag,.v177-balance-status{
+  font-size:10.5px!important;
+  line-height:1.15!important;
+}
+
+/* Özet KPI başlık/ikon yapısı artık statik CSS'te. */
+.bs-summary-head{
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin-bottom:9px!important;
+}
+.bs-summary-icon{
+  width:31px!important;
+  height:31px!important;
+  border-radius:10px!important;
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 31px!important;
+}
+.bs-summary-icon svg{width:17px!important;height:17px!important}
+.bs-summary-label{
+  color:#475569!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1.15!important;
+}
+.summary-card:nth-child(1) .bs-summary-icon{background:#ECFDF5!important;color:#0F8F83!important}
+.summary-card:nth-child(2) .bs-summary-icon{background:#FEF2F2!important;color:#DC4B4B!important}
+.summary-card:nth-child(3) .bs-summary-icon{background:#EFF6FF!important;color:#2563EB!important}
+.summary-card:nth-child(4) .bs-summary-icon{background:#FFF7ED!important;color:#D98400!important}
+
+/* Kompakt, güvenli alt navigasyon. */
+.app-shell > .bottom-nav{
+  position:fixed!important;
+  left:50%!important;
+  right:auto!important;
+  transform:translateX(-50%)!important;
+  bottom:6px!important;
+  width:min(calc(100% - 18px),780px)!important;
+  min-height:58px!important;
+  max-height:none!important;
+  padding:4px max(7px,env(safe-area-inset-left)) calc(3px + env(safe-area-inset-bottom))!important;
+  border-radius:18px!important;
+  align-items:flex-start!important;
+  z-index:1000!important;
+}
+.app-shell > .bottom-nav .nav-btn{
+  min-height:48px!important;
+  height:48px!important;
+  padding:3px!important;
+  gap:2px!important;
+  border-radius:15px!important;
+}
+.app-shell > .bottom-nav .nav-btn span{line-height:1!important}
+.app-shell > .bottom-nav .nav-btn small{
+  font-size:10.5px!important;
+  line-height:1.08!important;
+}
+.app-shell > .bottom-nav .nav-btn svg{
+  width:24px!important;
+  height:24px!important;
+}
+
+/* Uzun kayıt formlarında Kaydet daima erişilebilir. */
+#recordForm > button.primary[type="submit"]{
+  position:sticky!important;
+  bottom:0!important;
+  z-index:125!important;
+  width:100%!important;
+  min-height:46px!important;
+  margin-top:14px!important;
+  margin-bottom:0!important;
+  border-radius:12px!important;
+  box-shadow:0 -10px 22px -16px rgba(15,23,42,.45),0 8px 18px -12px rgba(37,99,235,.45)!important;
+}
+#recordForm > button.primary[type="submit"]::before{
+  content:"";
+  position:absolute;
+  left:-2px;
+  right:-2px;
+  top:-12px;
+  height:12px;
+  pointer-events:none;
+  background:linear-gradient(to bottom,rgba(255,255,255,0),#fff);
+}
+
+@media(max-width:520px){
+  /* iOS Safari 16 px altı form yazılarında otomatik zoom yapar. */
+  input,select,textarea,
+  #recordDialog input,
+  #recordDialog select,
+  #recordDialog textarea{
+    font-size:16px!important;
+  }
+
+  .app-shell{
+    width:100%!important;
+    max-width:100%!important;
+    padding-left:12px!important;
+    padding-right:12px!important;
+  }
+
+  .app-shell > .topbar{
+    width:calc(100vw - 16px)!important;
+    max-width:calc(100vw - 16px)!important;
+  }
+  .page-title h2{font-size:25px!important}
+  .section-head h2,
+  #dashboard .section-head h2,
+  #dashboard .v178-quick-head strong{font-size:15px!important}
+  .summary-card strong{font-size:22px!important}
+  .v177-balance-main strong{font-size:24px!important}
+  .v177-flow-card strong,.v175-quick-card strong,.kpi strong{font-size:16px!important}
+  #recordForm > button.primary[type="submit"]{
+    min-height:48px!important;
+    font-size:15px!important;
+  }
+}
+
+@media(max-width:380px){
+  .app-shell > .topbar .bs-brand-mark{
+    width:40px!important;
+    height:40px!important;
+    flex-basis:40px!important;
+  }
+  .app-shell > .topbar #appTitle{font-size:15.5px!important}
+  .app-shell > .topbar #orgEyebrow{font-size:8px!important}
+}
+
+/* SOURCE: v2471-mobile-polish.css */
+/* BS OFİS BÜTÇE V2.6.1.0 - Görsel yükleme zinciri + nötr renk standardı
+   Genel sistem V247, ekran polishleri V248-V252, ortak temel V257.4. */
+
+
+/* İlk boyamada yalnız final header mark görünür. */
+.app-shell > .topbar .bs-brand-mark{
+  content:url('./bs-budget-header-mark-v256.svg?v=257')!important;
+}
+
+/* V259.3: Üst bar ve alt sekme aynı floating bar standardında. */
+.app-shell > .topbar{
+  top:6px!important;
+  width:min(calc(100% - 18px),780px)!important;
+  max-width:780px!important;
+  border:1px solid var(--bs-line)!important;
+  border-radius:18px!important;
+  background:rgba(255,255,255,.97)!important;
+  box-shadow:0 4px 20px rgba(15,23,42,.07)!important;
+  backdrop-filter:blur(18px) saturate(150%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(150%)!important;
+}
+
+/* V260.4: Nötr yardımcı metin renklerini iki seviyede standardize eder.
+   Durum, gelir, borç, kişi/sahip ve aktif navigasyon renklerine dokunmaz. */
+:root{
+  --bs-text-secondary:#64748B;
+  --bs-text-tertiary:#94A3B8;
+}
+
+.summary-card span,
+.kpi span,
+.list-card small,
+.icon-btn,
+.nav-btn{
+  color:var(--bs-text-secondary)!important;
+}
+
+.summary-card small,
+.kpi small,
+input::placeholder,
+textarea::placeholder{
+  color:var(--bs-text-tertiary)!important;
+}
+
+@media(max-width:520px){
+  .app-shell > .topbar{
+    width:calc(100vw - 18px)!important;
+    max-width:calc(100vw - 18px)!important;
+  }
+}
+
+
+/* V278: ust marka alanini mobilde daha kompakt tut. */
+@media(max-width:520px){
+  .app-shell > .topbar{
+    padding:8px 10px!important;
+    border-radius:16px!important;
+  }
+  .app-shell > .topbar .bs-brand-mark{
+    width:34px!important;
+    height:34px!important;
+  }
+  .app-shell > .topbar .bs-brand-copy h1{
+    font-size:13px!important;
+  }
+  .app-shell > .topbar .bs-brand-copy .eyebrow{
+    font-size:7px!important;
+  }
+  .app-shell > .topbar .icon-btn{
+    width:34px!important;
+    height:34px!important;
+  }
+  .app-shell > .topbar .status-badge{
+    min-height:28px!important;
+    padding:5px 9px!important;
+  }
+}
+
+/* SOURCE: v2603-finance-typography.css */
+/* BS OFİS BÜTÇE V2.6.0.3 TEST - Finans tipografi standardı
+   Yalnızca yazı ailesi, ölçüsü, ağırlığı, satır yüksekliği ve rakam hizası.
+   Renk, yerleşim, boyutlandırma, görünürlük ve davranış değiştirmez. */
+
+:root{
+  --bs-type-page:28px;
+  --bs-type-section:18px;
+  --bs-type-card-title:16px;
+  --bs-type-body:14px;
+  --bs-type-meta:13px;
+  --bs-type-label:12px;
+  --bs-type-control:15px;
+  --bs-type-amount:18px;
+  --bs-type-kpi:24px;
+  --bs-weight-regular:400;
+  --bs-weight-medium:500;
+  --bs-weight-semibold:600;
+  --bs-weight-bold:700;
+}
+
+body,
+button,
+input,
+select,
+textarea{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif!important;
+}
+
+body{
+  font-size:var(--bs-type-body)!important;
+  line-height:1.45!important;
+  font-weight:var(--bs-weight-regular)!important;
+}
+
+button,
+input,
+select,
+textarea{
+  font-weight:var(--bs-weight-medium)!important;
+}
+
+.amount,
+.summary-card strong,
+.kpi strong,
+.v175-quick-card strong,
+.v177-balance-main strong,
+.v177-flow-card strong,
+.income-owner-kpi strong{
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+}
+
+/* Marka ve sayfa başlıkları */
+.app-shell > .topbar #appTitle{
+  font-size:17px!important;
+  line-height:1.12!important;
+  font-weight:var(--bs-weight-bold)!important;
+  letter-spacing:-.02em!important;
+}
+
+.app-shell > .topbar #orgEyebrow{
+  font-size:10px!important;
+  line-height:1.15!important;
+  font-weight:var(--bs-weight-bold)!important;
+  letter-spacing:.14em!important;
+}
+
+.status-badge{
+  font-size:12px!important;
+  line-height:1.2!important;
+  font-weight:var(--bs-weight-semibold)!important;
+}
+
+.page-title .eyebrow,
+#debts .page-title .eyebrow{
+  font-size:11px!important;
+  line-height:1.2!important;
+  font-weight:var(--bs-weight-bold)!important;
+  letter-spacing:.12em!important;
+}
+
+.page-title h2,
+#debts .page-title h2{
+  font-size:var(--bs-type-page)!important;
+  line-height:1.08!important;
+  font-weight:var(--bs-weight-bold)!important;
+  letter-spacing:-.035em!important;
+}
+
+.section-head h2,
+#dashboard .section-head h2,
+#dashboard .v178-quick-head strong,
+#dashboard .v177-attention-head strong{
+  font-size:var(--bs-type-section)!important;
+  line-height:1.2!important;
+  font-weight:var(--bs-weight-bold)!important;
+  letter-spacing:-.02em!important;
+}
+
+.section-head .link-btn,
+#dashboard .section-head .link-btn,
+#dashboard .v178-quick-head small,
+#dashboard .v177-attention-head small{
+  font-size:var(--bs-type-meta)!important;
+  line-height:1.3!important;
+  font-weight:var(--bs-weight-medium)!important;
+}
+
+/* Butonlar, filtreler ve formlar */
+.primary,
+.secondary,
+.danger-btn,
+.link-btn,
+.small,
+#debts #addDebtBtn,
+#payments .page-title .primary,
+#incomes .page-title .primary{
+  font-size:var(--bs-type-control)!important;
+  line-height:1.25!important;
+  font-weight:var(--bs-weight-semibold)!important;
+}
+
+label{
+  font-size:var(--bs-type-body)!important;
+  line-height:1.35!important;
+  font-weight:var(--bs-weight-semibold)!important;
+}
+
+input,
+select,
+textarea,
+#debts .debt-toolbar input,
+#debts .debt-toolbar select,
+#debts #debtSearch,
+#incomes .toolbar.debt-toolbar select{
+  font-size:var(--bs-type-control)!important;
+  line-height:1.3!important;
+  font-weight:var(--bs-weight-medium)!important;
+}
+
+/* Ana özet KPI kartları */
+.summary-card span,
+#dashboard .summary-card span,
+.bs-summary-label{
+  font-size:13px!important;
+  line-height:1.25!important;
+  font-weight:var(--bs-weight-semibold)!important;
+  letter-spacing:0!important;
+}
+
+.summary-card strong,
+#dashboard .summary-card strong{
+  font-size:var(--bs-type-kpi)!important;
+  line-height:1.1!important;
+  font-weight:var(--bs-weight-bold)!important;
+  letter-spacing:-.03em!important;
+}
+
+.summary-card small,
+#dashboard .summary-card small{
+  font-size:var(--bs-type-label)!important;
+  line-height:1.35!important;
+  font-weight:var(--bs-weight-regular)!important;
+}
+
+/* Hızlı işlemler */
+#dashboard .v178-quick-label{
+  font-size:14px!important;
+  line-height:1.25!important;
+  font-weight:var(--bs-weight-semibold)!important;
+}
+
+/* Üçlü KPI standartları */
+#debts #v175DebtKpis .v175-quick-card span,
+#payments #v176PaymentKpis .v175-quick-card span,
+#incomes #incomeOwnerKpis .income-owner-kpi span{
+  font-size:var(--bs-type-label)!important;
+  line-height:1.2!important;
+  font-weight:var(--bs-weight-semibold)!important;
+  letter-spacing:.025em!important;
+}
+
+#debts #v175DebtKpis .v175-quick-card strong,
+#payments #v176PaymentKpis .v175-quick-card strong{
+  font-size:20px!important;
+  line-height:1.08!important;
+  font-weight:var(--bs-weight-bold)!important;
+  letter-spacing:-.03em!important;
+}
+
+#debts #v175DebtKpis .v175-quick-card small,
+#payments #v176PaymentKpis .v175-quick-card small{
+  font-size:var(--bs-type-label)!important;
+  line-height:1.25!important;
+  font-weight:var(--bs-weight-regular)!important;
+}
+
+/* Ortak liste kartları */
+.list-card .main>strong,
+#dashboard #upcomingMini .list-card .main>strong,
+#dashboard #recentPayments .list-card .main>strong,
+#debts #debtList .list-card .main>strong,
+#payments #paymentList .main>strong,
+#incomes #incomeList .main>strong{
+  font-size:var(--bs-type-card-title)!important;
+  line-height:1.28!important;
+  font-weight:var(--bs-weight-semibold)!important;
+  letter-spacing:-.015em!important;
+}
+
+.list-card small,
+#dashboard #upcomingMini .list-card small,
+#dashboard #recentPayments .list-card small,
+#debts #debtList .list-card small,
+#payments #paymentList .main small,
+#incomes #incomeList .main small{
+  font-size:var(--bs-type-meta)!important;
+  line-height:1.4!important;
+  font-weight:var(--bs-weight-regular)!important;
+}
+
+.amount,
+#dashboard #upcomingMini .list-card .amount,
+#dashboard #recentPayments .list-card .amount,
+#debts #debtList .amount,
+#payments #paymentList .amount,
+#incomes #incomeList .amount{
+  font-size:var(--bs-type-amount)!important;
+  line-height:1.15!important;
+  font-weight:var(--bs-weight-bold)!important;
+  letter-spacing:-.02em!important;
+}
+
+.app-shell #debts #debtList .amount .bs-v2598-remaining{
+  font-size:var(--bs-type-amount)!important;
+  line-height:1.15!important;
+  font-weight:var(--bs-weight-bold)!important;
+  letter-spacing:-.02em!important;
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+}
+
+.amount small,
+#debts #debtList .amount small,
+#payments #paymentList .amount small,
+#debts #debtList .amount .bs-v2598-remaining-label{
+  font-size:var(--bs-type-label)!important;
+  line-height:1.3!important;
+  font-weight:var(--bs-weight-medium)!important;
+}
+
+/* Gelir ekranı */
+#incomes .kpi span{
+  font-size:13px!important;
+  line-height:1.25!important;
+  font-weight:var(--bs-weight-semibold)!important;
+}
+
+#incomes .kpi strong{
+  font-size:var(--bs-type-kpi)!important;
+  line-height:1.08!important;
+  font-weight:var(--bs-weight-bold)!important;
+}
+
+#incomes .kpi small{
+  font-size:var(--bs-type-meta)!important;
+  line-height:1.35!important;
+  font-weight:var(--bs-weight-regular)!important;
+}
+
+#incomes #incomeOwnerKpis .income-owner-kpi strong{
+  font-size:18px!important;
+  line-height:1.1!important;
+  font-weight:var(--bs-weight-bold)!important;
+}
+
+#incomes #incomeList .income-distribution{
+  font-size:var(--bs-type-meta)!important;
+  line-height:1.35!important;
+  font-weight:var(--bs-weight-medium)!important;
+}
+
+#incomes #incomeList .income-share-note{
+  font-size:var(--bs-type-label)!important;
+  line-height:1.2!important;
+  font-weight:var(--bs-weight-semibold)!important;
+}
+
+/* Durumlar ve rozetler */
+.badge,
+.chip,
+.pill,
+.tag,
+#payments #paymentList .badge.green,
+#payments #paymentList .badge.orange,
+#dashboard #upcomingMini .bs-upcoming-pay,
+.app-shell #debts #debtList .bs-v2598-pill{
+  font-size:var(--bs-type-label)!important;
+  line-height:1.2!important;
+  font-weight:var(--bs-weight-semibold)!important;
+}
+
+.app-shell #debts #debtList .bs-v2598-debt-status{
+  font-size:var(--bs-type-label)!important;
+  line-height:1.3!important;
+}
+
+/* Alt navigasyon */
+.app-shell > .bottom-nav .nav-btn small{
+  font-size:var(--bs-type-label)!important;
+  line-height:1.15!important;
+  font-weight:var(--bs-weight-semibold)!important;
+}
+
+.app-shell > .bottom-nav .nav-btn.active small{
+  font-weight:var(--bs-weight-bold)!important;
+}
+
+/* Rapor ve yardımcı metinler */
+#dashboard #v244MonthlyReport .v244-report-eyebrow{
+  font-size:var(--bs-type-label)!important;
+  line-height:1.2!important;
+  font-weight:var(--bs-weight-bold)!important;
+}
+
+#dashboard #v244MonthlyReport .v244-report-title{
+  font-size:20px!important;
+  line-height:1.2!important;
+  font-weight:var(--bs-weight-bold)!important;
+}
+
+#dashboard #v244MonthlyReport .v244-report-copy,
+#dashboard #v244MonthlyReport p,
+.muted,
+.panel .muted,
+.auth-banner span,
+.setting-head .muted,
+.cloud-summary{
+  font-size:var(--bs-type-meta)!important;
+  line-height:1.45!important;
+  font-weight:var(--bs-weight-regular)!important;
+}
+
+@media(max-width:520px){
+  input,
+  select,
+  textarea,
+  #recordDialog input,
+  #recordDialog select,
+  #recordDialog textarea{
+    font-size:16px!important;
+  }
+}
+
+
+/* V2.8.2: İlk çizimde ortak alt menü ölçüleri ve finans tipografisi. */
+:root{--bs-type-nav:11px;--bs-type-nav-mobile:10.5px;--bs-type-quick-kpi:20px}
+html body .app-shell > .bottom-nav .nav-btn{
+ flex:1 1 0!important;min-width:0!important;padding-inline:2px!important;min-height:48px!important
+}
+html body .app-shell > .bottom-nav .nav-btn small{
+ max-width:none!important;width:100%;font-size:var(--bs-type-nav)!important;
+ line-height:1.15!important;font-weight:var(--bs-weight-semibold)!important;
+ text-align:center;white-space:normal!important;overflow:visible!important;text-overflow:clip!important
+}
+html body .app-shell > .bottom-nav .nav-btn.active small{font-weight:var(--bs-weight-bold)!important}
+html body .app-shell > .bottom-nav .nav-btn svg{width:24px!important;height:24px!important}
+html body .app-shell #creditCards .page-title h2,
+html body .app-shell #debts .page-title h2,
+html body .app-shell #payments .page-title h2,
+html body .app-shell #incomes .page-title h2,
+html body .app-shell #expenses .page-title h2,
+html body .app-shell #settings .page-title h2{
+ font-size:var(--bs-type-page)!important;line-height:1.08!important;font-weight:var(--bs-weight-bold)!important;letter-spacing:-.035em!important
+}
+html body .app-shell .view .page-title .eyebrow{
+ font-size:11px!important;line-height:1.2!important;font-weight:var(--bs-weight-bold)!important;letter-spacing:.12em!important
+}
+html body .app-shell .view .page-title .primary,
+html body .app-shell .view .debt-toolbar input,
+html body .app-shell .view .debt-toolbar select{
+ font-size:var(--bs-type-control)!important;line-height:1.3!important;font-weight:var(--bs-weight-semibold)!important
+}
+html body .app-shell .view .v175-quick-card span,
+html body .app-shell .view .income-owner-kpi span,
+html body .app-shell #creditCards #v276CreditCardKpis .v175-quick-card span{
+ font-size:var(--bs-type-label)!important;line-height:1.2!important;font-weight:var(--bs-weight-semibold)!important;letter-spacing:.025em!important
+}
+html body .app-shell .view .v175-quick-card strong,
+html body .app-shell .view .income-owner-kpi strong,
+html body .app-shell #creditCards #v276CreditCardKpis .v175-quick-card strong{
+ font-size:var(--bs-type-quick-kpi)!important;line-height:1.12!important;font-weight:var(--bs-weight-bold)!important;
+ letter-spacing:-.03em!important;font-variant-numeric:tabular-nums lining-nums
+}
+html body .app-shell .view .v175-quick-card small,
+html body .app-shell .view .income-owner-kpi small,
+html body .app-shell #creditCards #v276CreditCardKpis .v175-quick-card small{
+ font-size:var(--bs-type-label)!important;line-height:1.25!important;font-weight:var(--bs-weight-medium)!important;overflow-wrap:anywhere
+}
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-name{
+ font-size:var(--bs-type-card-title)!important;line-height:1.28!important;font-weight:var(--bs-weight-semibold)!important;letter-spacing:-.015em!important;overflow-wrap:anywhere
+}
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-amount strong{
+ font-size:var(--bs-type-amount)!important;line-height:1.15!important;font-weight:var(--bs-weight-bold)!important;letter-spacing:-.02em!important;font-variant-numeric:tabular-nums lining-nums
+}
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-meta,
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-status,
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-summary{
+ font-size:var(--bs-type-meta)!important;line-height:1.4!important;font-weight:var(--bs-weight-regular)!important
+}
+html body .app-shell #creditCards #creditCardList .bs-v276-cc-amount small,
+html body .app-shell #creditCards #creditCardList .bs-v276-pill{
+ font-size:var(--bs-type-label)!important;line-height:1.2!important;font-weight:var(--bs-weight-medium)!important
+}
+@media(max-width:520px){
+ html body .app-shell > .bottom-nav .nav-btn small{font-size:var(--bs-type-nav-mobile)!important}
+ html body .app-shell .view .debt-toolbar input,
+ html body .app-shell .view .debt-toolbar select{font-size:16px!important}
+ html body .app-shell .view .v175-quick-card span,
+ html body .app-shell .view .income-owner-kpi span{overflow-wrap:anywhere}
+ html body .app-shell .view .v175-quick-card,
+ html body .app-shell .view .income-owner-kpi{min-width:0!important}
+}
+
+/* SOURCE: v276-credit-cards.css */
+/* V2.8.3: V276 kredi kartı görsel kuralları; eski JS bloğundan aynen taşındı. */
+#creditCards #v276CreditCardKpis{margin-bottom:14px}
+
+      #creditCards #creditCardList .bs-v276-cc-card{
+        display:grid!important;
+        grid-template-columns:minmax(0,1fr) auto!important;
+        align-items:start!important;
+        gap:8px 12px!important;
+        padding:14px 15px!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-main{min-width:0}
+      #creditCards #creditCardList .bs-v276-cc-name{
+        display:block;
+        color:#172033;
+        font-size:16px;
+        line-height:1.2;
+        font-weight:850;
+        letter-spacing:-.02em;
+      }
+      #creditCards #creditCardList .bs-v276-cc-meta{
+        display:flex;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:4px 7px;
+        margin-top:5px;
+        color:#748198;
+        font-size:11px!important;
+        line-height:1.25!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount{
+        min-width:105px;
+        text-align:right;
+        white-space:nowrap;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount strong{
+        display:block;
+        color:#172033;
+        font-size:20px;
+        line-height:1.05;
+        font-weight:850;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount small{
+        display:block;
+        margin-top:5px;
+        color:#64748B!important;
+        font-size:9.5px!important;
+        line-height:1.15!important;
+        font-weight:700!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-status,
+      #creditCards #creditCardList .bs-v276-cc-summary{
+        grid-column:1/-1;
+      }
+      #creditCards #creditCardList .bs-v276-cc-status{
+        display:flex;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:6px;
+        color:#748198;
+        font-size:10.5px;
+        line-height:1.2;
+      }
+      #creditCards #creditCardList .bs-v276-pill{
+        display:inline-flex;
+        align-items:center;
+        min-height:20px;
+        padding:3px 7px;
+        border-radius:999px;
+        border:1px solid #E2E8F0;
+        background:#F8FAFC;
+        color:#64748B;
+        font-size:9.5px!important;
+        line-height:1!important;
+        font-weight:800;
+        white-space:nowrap;
+      }
+      #creditCards #creditCardList .bs-v276-pill.green{
+        border-color:#BBF7D0;
+        background:#F0FDF4;
+        color:#15803D;
+      }
+      #creditCards #creditCardList .bs-v276-pill.orange{
+        border-color:#FED7AA;
+        background:#FFF7ED;
+        color:#C2410C;
+      }
+      #creditCards #creditCardList .bs-v276-pill.red{
+        border-color:#FECACA;
+        background:#FFF1F2;
+        color:#DC2626;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary{
+        display:flex;
+        flex-wrap:wrap;
+        gap:4px 8px;
+        padding-top:2px;
+        color:#748198;
+        font-size:10.5px;
+        line-height:1.3;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary strong{
+        color:#4C5B72;
+        font-weight:800;
+      }
+
+      /* V2.7.7: Kredi Kartları sekmesi, Borçlar ile aynı görsel standardı kullanır. */
+      #creditCards .page-title{
+        margin:7px 2px 13px!important;
+        min-height:50px!important;
+      }
+      #creditCards .page-title .eyebrow{
+        margin-bottom:4px!important;
+        color:#0f8f83!important;
+        font-size:9px!important;
+        font-weight:850!important;
+        letter-spacing:.14em!important;
+      }
+      #creditCards .page-title h2{
+        font-size:26px!important;
+        line-height:1.02!important;
+        font-weight:860!important;
+        letter-spacing:-.04em!important;
+      }
+      #creditCards #addCreditCardBtn{
+        min-height:36px!important;
+        padding:8px 12px!important;
+        border-radius:11px!important;
+        box-shadow:0 3px 9px rgba(37,99,235,.15)!important;
+      }
+
+      #creditCards #v276CreditCardKpis{
+        gap:8px!important;
+        margin:0 0 12px!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card{
+        position:relative!important;
+        overflow:hidden!important;
+        min-height:74px!important;
+        padding:10px 9px!important;
+        border-radius:15px!important;
+        background:#fff!important;
+        box-shadow:0 2px 8px rgba(15,23,42,.028)!important;
+        text-align:left!important;
+        align-content:center!important;
+        gap:3px!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card span{
+        font-size:8.5px!important;
+        line-height:1.1!important;
+        font-weight:850!important;
+        letter-spacing:.045em!important;
+        color:#6b7a90!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card strong{
+        font-size:19px!important;
+        line-height:1.08!important;
+        font-weight:870!important;
+        letter-spacing:-.035em!important;
+        color:#172033!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card small{
+        font-size:8.5px!important;
+        line-height:1.15!important;
+        font-weight:700!important;
+        color:#8592a6!important;
+      }
+
+      #creditCards [data-credit-quick="active"]{
+        border-color:#c7eee7!important;
+        border-top:3px solid #14b8a6!important;
+      }
+      #creditCards [data-credit-quick="month"]{
+        border-color:#d6e3ff!important;
+        border-top:3px solid #2563eb!important;
+      }
+      #creditCards [data-credit-quick="overdue"]{
+        border-color:#fbd5d8!important;
+        border-top:3px solid #ef4444!important;
+      }
+      #creditCards [data-credit-quick="active"] strong{color:#0f8f83!important}
+      #creditCards [data-credit-quick="month"] strong{color:#2563eb!important}
+      #creditCards [data-credit-quick="overdue"] strong{color:#dc2626!important}
+
+      #creditCards [data-credit-quick="active"].active{
+        border-color:#91DED3!important;
+        border-top-color:#14B8A6!important;
+        background:linear-gradient(180deg,#F7FFFD 0%,#EDFCF9 100%)!important;
+        box-shadow:0 0 0 2px rgba(20,184,166,.10),0 4px 12px rgba(20,184,166,.06)!important;
+      }
+      #creditCards [data-credit-quick="month"].active{
+        border-color:#9FBCFF!important;
+        border-top-color:#2563EB!important;
+        background:linear-gradient(180deg,#F8FBFF 0%,#F2F7FF 100%)!important;
+        box-shadow:0 0 0 2px rgba(37,99,235,.10),0 4px 12px rgba(37,99,235,.06)!important;
+      }
+      #creditCards [data-credit-quick="overdue"].active{
+        border-color:#F5A5AB!important;
+        border-top-color:#EF4444!important;
+        background:linear-gradient(180deg,#FFF9F9 0%,#FFF2F3 100%)!important;
+        box-shadow:0 0 0 2px rgba(239,68,68,.09),0 4px 12px rgba(239,68,68,.055)!important;
+      }
+      #creditCards [data-credit-quick="active"].active span,
+      #creditCards [data-credit-quick="active"].active strong,
+      #creditCards [data-credit-quick="active"].active small{color:#0F8F83!important}
+      #creditCards [data-credit-quick="month"].active span,
+      #creditCards [data-credit-quick="month"].active strong,
+      #creditCards [data-credit-quick="month"].active small{color:#2563EB!important}
+      #creditCards [data-credit-quick="overdue"].active span,
+      #creditCards [data-credit-quick="overdue"].active strong,
+      #creditCards [data-credit-quick="overdue"].active small{color:#DC2626!important}
+
+      #creditCards .debt-toolbar{
+        gap:8px!important;
+        margin:0 0 12px!important;
+      }
+      #creditCards .debt-toolbar input,
+      #creditCards .debt-toolbar select{
+        min-height:43px!important;
+        padding:9px 11px!important;
+        border-radius:12px!important;
+        border-color:#d9e1eb!important;
+        font-size:12px!important;
+        background:#fff!important;
+      }
+      #creditCards #creditCardSearch{
+        font-size:13px!important;
+      }
+      #creditCards #creditCardSearch::placeholder{
+        color:#9aa6b6!important;
+      }
+
+      #creditCards #creditCardList{
+        gap:8px!important;
+      }
+      #creditCards #creditCardList .list-card{
+        min-height:72px!important;
+        padding:12px 13px!important;
+        border-radius:15px!important;
+        border:1px solid #e2e8f0!important;
+        background:#fff!important;
+        box-shadow:none!important;
+        overflow:hidden!important;
+      }
+      #creditCards #creditCardList .list-card.debt-owner-basak{
+        border-left:3px solid #EC4899!important;
+      }
+      #creditCards #creditCardList .list-card.debt-owner-suleyman{
+        border-left:3px solid #2563EB!important;
+      }
+      #creditCards #creditCardList .list-card.debt-owner-kurum{
+        border-left:3px solid #14B8A6!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-main{
+        gap:4px!important;
+        min-width:0!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-name{
+        color:#172033!important;
+        font-size:13px!important;
+        line-height:1.23!important;
+        font-weight:820!important;
+        letter-spacing:-.018em!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-meta{
+        margin-top:4px!important;
+        color:#738197!important;
+        font-size:9px!important;
+        line-height:1.3!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount{
+        min-width:auto!important;
+        color:#172033!important;
+        font-size:14px!important;
+        line-height:1.15!important;
+        font-weight:870!important;
+        letter-spacing:-.025em!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount strong{
+        color:#172033!important;
+        font-size:14px!important;
+        line-height:1.15!important;
+        font-weight:870!important;
+        letter-spacing:-.025em!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount small{
+        margin-top:3px!important;
+        color:#7c899b!important;
+        font-size:8.5px!important;
+        font-weight:650!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-status{
+        gap:6px!important;
+        color:#738197!important;
+        font-size:9px!important;
+        line-height:1.3!important;
+      }
+      #creditCards #creditCardList .bs-v276-pill{
+        min-height:19px!important;
+        padding:3px 7px!important;
+        font-size:8.5px!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary{
+        gap:3px 7px!important;
+        padding-top:0!important;
+        color:#738197!important;
+        font-size:9px!important;
+        line-height:1.3!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary strong{
+        color:#4C5B72!important;
+        font-weight:800!important;
+      }
+      #creditCards #creditCardList .list-card.clickable:active{
+        transform:scale(.995)!important;
+      }
+
+      @media(max-width:520px){
+        #creditCards .page-title{
+          margin-bottom:11px!important;
+        }
+        #creditCards .page-title h2{
+          font-size:24px!important;
+        }
+        #creditCards #v276CreditCardKpis{
+          gap:7px!important;
+        }
+        #creditCards #v276CreditCardKpis .v175-quick-card{
+          min-height:70px!important;
+          padding:9px 8px!important;
+        }
+        #creditCards #v276CreditCardKpis .v175-quick-card strong{
+          font-size:17px!important;
+        }
+        #creditCards #v276CreditCardKpis .v175-quick-card span,
+        #creditCards #v276CreditCardKpis .v175-quick-card small{
+          font-size:8px!important;
+        }
+        #creditCards #creditCardList .list-card{
+          min-height:70px!important;
+          padding:11px 12px!important;
+        }
+        #creditCards #creditCardList .bs-v276-cc-name{
+          font-size:12.5px!important;
+        }
+        #creditCards #creditCardList .bs-v276-cc-amount strong{
+          font-size:13.5px!important;
+        }
+      }
+
+      @media(max-width:520px){
+        #creditCards #creditCardList .bs-v276-cc-card{
+          gap:7px 9px!important;
+          padding:13px!important;
+        }
+        #creditCards #creditCardList .bs-v276-cc-name{font-size:15px}
+        #creditCards #creditCardList .bs-v276-cc-amount{min-width:92px}
+        #creditCards #creditCardList .bs-v276-cc-amount strong{font-size:18px}
+        #creditCards #creditCardList .bs-v276-cc-summary{font-size:9.8px}
+      }

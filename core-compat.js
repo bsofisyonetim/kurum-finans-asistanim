@@ -274,7 +274,7 @@
       ['./v241-payment-modal-scroll-lock.js?v=241','__bsV241PaymentModalScrollLockLoaded'],
       ['./v242-payment-save-ui.js?v=242','__bsV242PaymentSaveUiLoaded'],
       ['./v275-credit-cards-view.js?v=282','__bsCreditCardsViewV275Loaded'],
-      ['./v276-section-standard.js?v=277','__bsSectionStandardV276Loaded']
+      ['./v276-section-standard.js?v=283','__bsSectionStandardV276Loaded']
     ];
 
     for(const [src,marker] of modules){
