@@ -756,173 +756,6 @@ function openIncomeDialog(income={}){
   $('#incomeDialog').showModal();
 }
 
-function assistantTip(){
-  const due=dueItems();
-  const overdue=due.filter(x=>x.days<0);
-  const income=monthlyIncomeTotal();
-  const debtLoad=monthlyDebtLoad();
-
-  const paid=currentMonthPayments()
-    .reduce((sum,p)=>sum+p.amount,0);
-
-  const exp=currentMonthExpenses()
-    .reduce((sum,x)=>sum+x.amount,0);
-
-  const remaining=Math.max(0,debtLoad-paid);
-  const projection=income-debtLoad-exp;
-
-  if(overdue.length){
-    return {
-      title:'Gecikmiş ödemeleri öne alın',
-      body:
-        `${overdue.length} gecikmiş ödeme var. `+
-        `Bilinen gecikmiş tutar ${
-          money(
-            overdue.reduce((s,x)=>s+x.amount,0)
-          )
-        }. `+
-        `Bu ay ${money(paid)} ödeme kaydedildi; `+
-        `planlanan aylık ödemeden ${money(remaining)} kaldı.`
-    };
-  }
-
-  const in7=due.filter(
-    x=>x.days>=0&&x.days<=7
-  );
-
-  if(in7.length){
-    return {
-      title:'Önümüzdeki 7 gün',
-      body:
-        `Yaklaşan bilinen ödeme ${
-          money(
-            in7.reduce((s,x)=>s+x.amount,0)
-          )
-        }. `+
-        `Bu ay şimdiye kadar ${money(paid)} ödendi. `+
-        `Ay sonu tahmini ${money(projection)}.`
-    };
-  }
-
-  if(debtLoad>income&&income>0){
-    return {
-      title:'Aylık ödeme yükü geliri aşıyor',
-      body:
-        `Planlanan aylık borç ödemeleri ${money(debtLoad)}, `+
-        `bu ay kaydedilen gelir ${money(income)}. `+
-        `Bu ay kalan ödeme ${money(remaining)}.`
-    };
-  }
-
-  if(income>0){
-    return {
-      title:'Bu ayın görünümü',
-      body:
-        `Bu ay kaydedilen gelir ${money(income)}. `+
-        `Bu ay ${money(paid)} ödendi, `+
-        `planlanan ödemeden ${money(remaining)} kaldı. `+
-        `Kayıtlı harcamalar sonrası ay sonu tahmini ${
-          money(projection)
-        }.`
-    };
-  }
-
-  return {
-    title:'Gelir kayıtlarını kontrol edin',
-    body:
-      'Gelir ve borç ödeme kayıtları güncel olduğunda '+
-      'asistan aylık nakit durumunu otomatik hesaplar.'
-  };
-}
-
-function dueCard(d){
-  const badge=
-    d.days<0
-      ?`<span class="badge red">${Math.abs(d.days)} gün gecikti</span>`
-      :d.days===0
-        ?'<span class="badge orange">Bugün</span>'
-        :`<span class="badge">${d.days} gün</span>`;
-
-  const owner=d.custom?.debt_owner||'';
-
-  return `
-    <article class="list-card clickable" data-debt="${d.id}">
-      <div class="main">
-        <strong>${esc(d.name)}</strong>
-        <small>
-          ${d.date.toLocaleDateString('tr-TR')} ·
-          ${badge}
-          ${owner?` · ${esc(owner)}`:''}
-        </small>
-      </div>
-
-      <div class="amount">
-        ${d.amount>0?money(d.amount):'Tutar girilecek'}
-        <small>${esc(d.type)}</small>
-      </div>
-    </article>
-  `;
-}
-
-function debtCard(d){
-  const owner=d.custom?.debt_owner||'';
-  const rem=d.custom?.remaining_installments;
-
-  const left=
-    rem!==''&&rem!=null
-      ?`${fmt(rem)} taksit`
-      :'';
-
-  return `
-    <article class="list-card clickable" data-debt="${d.id}">
-      <div class="main">
-        <strong>${esc(d.name)}</strong>
-        <small>
-          ${owner?`${esc(owner)} · `:''}
-          ${esc(d.type)}
-          ${left?` · ${esc(left)}`:''}
-          ${d.status==='closed'
-            ?' · <span class="badge green">Kapandı</span>'
-            :''
-          }
-        </small>
-      </div>
-
-      <div class="amount">
-        ${d.minimum>0?money(d.minimum):'Tutar girilecek'}
-        <small>
-          ${
-            d.dueDate
-              ?parseDate(d.dueDate)
-                .toLocaleDateString('tr-TR')
-              :'Tarih girilmedi'
-          }
-        </small>
-      </div>
-    </article>
-  `;
-}
-
-function expenseCard(x){
-  return `
-    <article class="list-card clickable" data-expense="${x.id}">
-      <div class="main">
-        <strong>${esc(x.description)}</strong>
-        <small>
-          ${parseDate(x.date).toLocaleDateString('tr-TR')} ·
-          ${esc(x.category)}
-          ${x.addedBy?` · ${esc(x.addedBy)}`:''}
-        </small>
-      </div>
-
-      <div class="amount">
-        ${money(x.amount)}
-        <small>${esc(x.method)}</small>
-      </div>
-    </article>
-  `;
-}
-
 function paymentCard(p){
   const d=state.debts
     .map(normalizeDebt)
@@ -964,16 +797,9 @@ function renderDashboard(){
   $('#monthPaid').textContent=money(paid);
   $('#monthRemaining').textContent=money(remaining);
 
-  const tip=assistantTip();
-
-  $('#assistantCard').innerHTML=`
-    <strong>${esc(tip.title)}</strong>
-    <p class="muted">${esc(tip.body)}</p>
-  `;
-
   $('#upcomingMini').innerHTML=
     due.length
-      ?due.slice(0,4).map(dueCard).join('')
+      ?due.slice(0,3).map(dueCard).join('')
       :empty('Yaklaşan borç ödemesi yok.');
 
   const recent=[...state.payments]
@@ -982,7 +808,7 @@ function renderDashboard(){
       `${b.date}${b.createdAt}`
         .localeCompare(`${a.date}${a.createdAt}`)
     )
-    .slice(0,5);
+    .slice(0,3);
 
   $('#recentPayments').innerHTML=
     recent.length

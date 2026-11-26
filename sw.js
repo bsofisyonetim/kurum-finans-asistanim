@@ -1,12 +1,12 @@
-// V278 - Sade finans ozeti ve mevcut kod konsolidasyonu
-const CACHE='bs-ofis-butce-v278-dashboard-simplify-20261126';
+// V279 - Dashboard kalinti temizligi ve acilis sadeleştirmesi
+const CACHE='bs-ofis-butce-v279-dashboard-clean-20261126';
 const ASSETS=[
-  './?v=278',
-  './index.html?v=278',
+  './?v=279',
+  './index.html?v=279',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
-  './v2471-mobile-polish.css?v=278',
-  './v248-dashboard-polish.css?v=278',
+  './v2471-mobile-polish.css?v=279',
+  './v248-dashboard-polish.css?v=279',
   './v249-debts-polish.css?v=249',
   './v2587-debt-owner-colors.css?v=2587',
   './v250-payments-polish.css?v=2608',
@@ -19,8 +19,8 @@ const ASSETS=[
   './v2588-selectable-kpi-standard.css?v=2608',
   './v257-foundation.css?v=2574',
   './v2603-finance-typography.css?v=26031',
-  './app.js?v=257',
-  './core-compat.js?v=278',
+  './app.js?v=279',
+  './core-compat.js?v=279',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
   './v2584-income-themes.js?v=2584',
@@ -30,11 +30,11 @@ const ASSETS=[
   './v17-ui.js?v=218',
   './v175-ui.js?v=175',
   './v176-ui.js?v=218',
-  './v177-ui.js?v=278',
-  './v178-ui.js?v=278',
+  './v177-ui.js?v=279',
+  './v178-ui.js?v=279',
   './v2611-cash-flow-detail.js?v=2611',
-  './v179-ui.js?v=278',
-  './ui.js?v=278',
+  './v179-ui.js?v=279',
+  './ui.js?v=279',
   './payment-plan.js?v=200',
   './payment-schedule.js?v=222',
   './exact-schedule.js?v=224',
@@ -52,7 +52,7 @@ const ASSETS=[
   './v26122-cloud-bootstrap.js?v=26122',
   './v241-payment-modal-scroll-lock.js?v=241',
   './v242-payment-save-ui.js?v=242',
-  './v244-monthly-report.js?v=278',
+  './v244-monthly-report.js?v=279',
   './v246-direct-pdf-report.js?v=2612',
   './manifest.webmanifest?v=257',
   './bs-budget-app-icon-v256.svg?v=257',
@@ -92,6 +92,6 @@ self.addEventListener('fetch',event => {
         return response;
       })
       .catch(() => caches.match(event.request)
-        .then(response => response || caches.match('./?v=278') || caches.match('./index.html?v=278')))
+        .then(response => response || caches.match('./?v=279') || caches.match('./index.html?v=279')))
   );
 });

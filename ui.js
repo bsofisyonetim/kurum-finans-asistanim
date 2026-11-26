@@ -32,8 +32,6 @@
       html.bs-finance-refresh-pending body #dashboard #monthPaid,
       html.bs-finance-refresh-pending body #dashboard #monthRemaining,
       html.bs-finance-refresh-pending body #dashboard #v177NetCash,
-      html.bs-finance-refresh-pending body #dashboard #v177Income,
-      html.bs-finance-refresh-pending body #dashboard #v177Payments,
       html.bs-finance-refresh-pending body #dashboard #v177Expenses{
         opacity:1!important;
       }
@@ -56,41 +54,6 @@
       head.innerHTML = `<span class="bs-summary-icon" aria-hidden="true">${ICONS[kinds[index]] || ICONS.income}</span><span class="bs-summary-label">${label.textContent}</span>`;
       label.replaceWith(head);
     });
-  }
-
-  function reorderDashboard(){
-    const summary = document.querySelector('#dashboard .summary-grid');
-    const quick = document.querySelector('#v178QuickActions');
-    const panel = document.querySelector('#v177DashboardPanel');
-    if(!summary || !quick || !panel) return;
-
-    if(summary.nextElementSibling !== quick){
-      summary.insertAdjacentElement('afterend',quick);
-    }
-    if(quick.nextElementSibling !== panel){
-      quick.insertAdjacentElement('afterend',panel);
-    }
-  }
-
-  function applyExpenseUx(){
-    const netCashLabel = document.querySelector('#v177BalanceCard .v177-balance-main > span');
-    if(netCashLabel){
-      netCashLabel.textContent = 'BU AY NET NAKİT AKIŞI';
-    }
-
-    const expenseFlow = document.querySelector('[data-v177-flow="expenses"]');
-    if(expenseFlow){
-      expenseFlow.title = 'Harcamaları görüntüle';
-      expenseFlow.setAttribute('aria-label','Bu ayın harcamalarını görüntüle');
-    }
-
-    const expenseCount = document.querySelector('#v177ExpenseCount');
-    if(expenseCount){
-      const base = expenseCount.textContent
-        .replace(/\s*·\s*Aç\s*›?\s*$/u,'')
-        .trim();
-      expenseCount.textContent = `${base} · Aç ›`;
-    }
   }
 
   function calendarGroupHtml(title,items){
@@ -346,23 +309,9 @@
     ensureCompatibilityMarker();
     installFastDashboardPaint();
     upgradeSummaryCards();
-    reorderDashboard();
-    applyExpenseUx();
     ensureCalendarSort();
     applyCalendarSort();
     installCreditCardCompact();
-
-    if(typeof renderDashboard === 'function' && !renderDashboard.__bsV257UiWrapped){
-      const original = renderDashboard;
-      const wrapped = function(){
-        original();
-        upgradeSummaryCards();
-        reorderDashboard();
-        applyExpenseUx();
-      };
-      wrapped.__bsV257UiWrapped = true;
-      renderDashboard = wrapped;
-    }
 
     if(typeof renderCalendar === 'function' && !renderCalendar.__bsV257UiWrapped){
       const original = renderCalendar;
