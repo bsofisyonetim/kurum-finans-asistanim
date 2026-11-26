@@ -34,6 +34,27 @@
     }
   }
 
+  function ensureStyle(){
+    if(document.getElementById('bsCreditCardsViewV275Style')) return;
+    const style=document.createElement('style');
+    style.id='bsCreditCardsViewV275Style';
+    style.textContent=`
+      @media(max-width:520px){
+        .app-shell > .bottom-nav .nav-btn{
+          flex:1 1 0!important;
+          min-width:52px!important;
+          padding-left:2px!important;
+          padding-right:2px!important;
+        }
+        .app-shell > .bottom-nav .nav-btn small{
+          max-width:62px!important;
+          font-size:8.5px!important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   function ensureView(){
     let section = document.getElementById(VIEW);
     if(section) return section;
@@ -192,6 +213,7 @@
     }
 
     ensureMenu();
+    ensureStyle();
     ensureView();
     installNavIcon();
     installRenderHooks();
