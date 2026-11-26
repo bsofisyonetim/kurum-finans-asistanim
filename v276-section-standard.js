@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.7.6 - Özet sadeleştirme ve sekme KPI standardı */
+/* BS OFİS BÜTÇE V2.7.7 - Özet sadeleştirme ve sekmeler arası görsel kart standardı */
 (() => {
   if(window.__bsSectionStandardV276Loaded) return;
   window.__bsSectionStandardV276Loaded = true;
@@ -218,6 +218,251 @@
         color:#4C5B72;
         font-weight:800;
       }
+
+      /* V2.7.7: Kredi Kartları sekmesi, Borçlar ile aynı görsel standardı kullanır. */
+      #creditCards .page-title{
+        margin:7px 2px 13px!important;
+        min-height:50px!important;
+      }
+      #creditCards .page-title .eyebrow{
+        margin-bottom:4px!important;
+        color:#0f8f83!important;
+        font-size:9px!important;
+        font-weight:850!important;
+        letter-spacing:.14em!important;
+      }
+      #creditCards .page-title h2{
+        font-size:26px!important;
+        line-height:1.02!important;
+        font-weight:860!important;
+        letter-spacing:-.04em!important;
+      }
+      #creditCards #addCreditCardBtn{
+        min-height:36px!important;
+        padding:8px 12px!important;
+        border-radius:11px!important;
+        box-shadow:0 3px 9px rgba(37,99,235,.15)!important;
+      }
+
+      #creditCards #v276CreditCardKpis{
+        gap:8px!important;
+        margin:0 0 12px!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card{
+        position:relative!important;
+        overflow:hidden!important;
+        min-height:74px!important;
+        padding:10px 9px!important;
+        border-radius:15px!important;
+        background:#fff!important;
+        box-shadow:0 2px 8px rgba(15,23,42,.028)!important;
+        text-align:left!important;
+        align-content:center!important;
+        gap:3px!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card span{
+        font-size:8.5px!important;
+        line-height:1.1!important;
+        font-weight:850!important;
+        letter-spacing:.045em!important;
+        color:#6b7a90!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card strong{
+        font-size:19px!important;
+        line-height:1.08!important;
+        font-weight:870!important;
+        letter-spacing:-.035em!important;
+        color:#172033!important;
+      }
+      #creditCards #v276CreditCardKpis .v175-quick-card small{
+        font-size:8.5px!important;
+        line-height:1.15!important;
+        font-weight:700!important;
+        color:#8592a6!important;
+      }
+
+      #creditCards [data-credit-quick="active"]{
+        border-color:#c7eee7!important;
+        border-top:3px solid #14b8a6!important;
+      }
+      #creditCards [data-credit-quick="month"]{
+        border-color:#d6e3ff!important;
+        border-top:3px solid #2563eb!important;
+      }
+      #creditCards [data-credit-quick="overdue"]{
+        border-color:#fbd5d8!important;
+        border-top:3px solid #ef4444!important;
+      }
+      #creditCards [data-credit-quick="active"] strong{color:#0f8f83!important}
+      #creditCards [data-credit-quick="month"] strong{color:#2563eb!important}
+      #creditCards [data-credit-quick="overdue"] strong{color:#dc2626!important}
+
+      #creditCards [data-credit-quick="active"].active{
+        border-color:#91DED3!important;
+        border-top-color:#14B8A6!important;
+        background:linear-gradient(180deg,#F7FFFD 0%,#EDFCF9 100%)!important;
+        box-shadow:0 0 0 2px rgba(20,184,166,.10),0 4px 12px rgba(20,184,166,.06)!important;
+      }
+      #creditCards [data-credit-quick="month"].active{
+        border-color:#9FBCFF!important;
+        border-top-color:#2563EB!important;
+        background:linear-gradient(180deg,#F8FBFF 0%,#F2F7FF 100%)!important;
+        box-shadow:0 0 0 2px rgba(37,99,235,.10),0 4px 12px rgba(37,99,235,.06)!important;
+      }
+      #creditCards [data-credit-quick="overdue"].active{
+        border-color:#F5A5AB!important;
+        border-top-color:#EF4444!important;
+        background:linear-gradient(180deg,#FFF9F9 0%,#FFF2F3 100%)!important;
+        box-shadow:0 0 0 2px rgba(239,68,68,.09),0 4px 12px rgba(239,68,68,.055)!important;
+      }
+      #creditCards [data-credit-quick="active"].active span,
+      #creditCards [data-credit-quick="active"].active strong,
+      #creditCards [data-credit-quick="active"].active small{color:#0F8F83!important}
+      #creditCards [data-credit-quick="month"].active span,
+      #creditCards [data-credit-quick="month"].active strong,
+      #creditCards [data-credit-quick="month"].active small{color:#2563EB!important}
+      #creditCards [data-credit-quick="overdue"].active span,
+      #creditCards [data-credit-quick="overdue"].active strong,
+      #creditCards [data-credit-quick="overdue"].active small{color:#DC2626!important}
+
+      #creditCards .debt-toolbar{
+        gap:8px!important;
+        margin:0 0 12px!important;
+      }
+      #creditCards .debt-toolbar input,
+      #creditCards .debt-toolbar select{
+        min-height:43px!important;
+        padding:9px 11px!important;
+        border-radius:12px!important;
+        border-color:#d9e1eb!important;
+        font-size:12px!important;
+        background:#fff!important;
+      }
+      #creditCards #creditCardSearch{
+        font-size:13px!important;
+      }
+      #creditCards #creditCardSearch::placeholder{
+        color:#9aa6b6!important;
+      }
+
+      #creditCards #creditCardList{
+        gap:8px!important;
+      }
+      #creditCards #creditCardList .list-card{
+        min-height:72px!important;
+        padding:12px 13px!important;
+        border-radius:15px!important;
+        border:1px solid #e2e8f0!important;
+        background:#fff!important;
+        box-shadow:none!important;
+        overflow:hidden!important;
+      }
+      #creditCards #creditCardList .list-card.debt-owner-basak{
+        border-left:3px solid #EC4899!important;
+      }
+      #creditCards #creditCardList .list-card.debt-owner-suleyman{
+        border-left:3px solid #2563EB!important;
+      }
+      #creditCards #creditCardList .list-card.debt-owner-kurum{
+        border-left:3px solid #14B8A6!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-main{
+        gap:4px!important;
+        min-width:0!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-name{
+        color:#172033!important;
+        font-size:13px!important;
+        line-height:1.23!important;
+        font-weight:820!important;
+        letter-spacing:-.018em!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-meta{
+        margin-top:4px!important;
+        color:#738197!important;
+        font-size:9px!important;
+        line-height:1.3!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount{
+        min-width:auto!important;
+        color:#172033!important;
+        font-size:14px!important;
+        line-height:1.15!important;
+        font-weight:870!important;
+        letter-spacing:-.025em!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount strong{
+        color:#172033!important;
+        font-size:14px!important;
+        line-height:1.15!important;
+        font-weight:870!important;
+        letter-spacing:-.025em!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-amount small{
+        margin-top:3px!important;
+        color:#7c899b!important;
+        font-size:8.5px!important;
+        font-weight:650!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-status{
+        gap:6px!important;
+        color:#738197!important;
+        font-size:9px!important;
+        line-height:1.3!important;
+      }
+      #creditCards #creditCardList .bs-v276-pill{
+        min-height:19px!important;
+        padding:3px 7px!important;
+        font-size:8.5px!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary{
+        gap:3px 7px!important;
+        padding-top:0!important;
+        color:#738197!important;
+        font-size:9px!important;
+        line-height:1.3!important;
+      }
+      #creditCards #creditCardList .bs-v276-cc-summary strong{
+        color:#4C5B72!important;
+        font-weight:800!important;
+      }
+      #creditCards #creditCardList .list-card.clickable:active{
+        transform:scale(.995)!important;
+      }
+
+      @media(max-width:520px){
+        #creditCards .page-title{
+          margin-bottom:11px!important;
+        }
+        #creditCards .page-title h2{
+          font-size:24px!important;
+        }
+        #creditCards #v276CreditCardKpis{
+          gap:7px!important;
+        }
+        #creditCards #v276CreditCardKpis .v175-quick-card{
+          min-height:70px!important;
+          padding:9px 8px!important;
+        }
+        #creditCards #v276CreditCardKpis .v175-quick-card strong{
+          font-size:17px!important;
+        }
+        #creditCards #v276CreditCardKpis .v175-quick-card span,
+        #creditCards #v276CreditCardKpis .v175-quick-card small{
+          font-size:8px!important;
+        }
+        #creditCards #creditCardList .list-card{
+          min-height:70px!important;
+          padding:11px 12px!important;
+        }
+        #creditCards #creditCardList .bs-v276-cc-name{
+          font-size:12.5px!important;
+        }
+        #creditCards #creditCardList .bs-v276-cc-amount strong{
+          font-size:13.5px!important;
+        }
+      }
+
       @media(max-width:520px){
         #creditCards #creditCardList .bs-v276-cc-card{
           gap:7px 9px!important;
@@ -332,6 +577,14 @@
     });
   }
 
+
+  function ownerClass(owner){
+    if(owner === 'Başak') return 'debt-owner-basak';
+    if(owner === 'Süleyman') return 'debt-owner-suleyman';
+    if(owner === 'Kurum Kasası' || owner === 'Kurum') return 'debt-owner-kurum';
+    return '';
+  }
+
   function creditStatus(raw,s){
     const d = normalizeDebt(raw);
     if(!s?.hasStatement) return {text:'Ekstre bilgisi girin',kind:'orange'};
@@ -350,6 +603,7 @@
     const s = snapshot(d) || {};
     const owner = String(d.custom?.debt_owner || '').trim();
     const status = creditStatus(d,s);
+    const ownerCss = ownerClass(owner);
 
     let amount = 0;
     let amountLabel = 'ekstre bekleniyor';
@@ -373,14 +627,14 @@
     const remainingLabel = (+s.carryover || 0) > EPS ? 'Devreden' : 'Kalan';
 
     return `
-      <article class="list-card clickable bs-v276-cc-card" data-debt="${esc(d.id)}">
-        <div class="bs-v276-cc-main">
+      <article class="list-card clickable bs-v276-cc-card ${esc(ownerCss)}" data-debt="${esc(d.id)}">
+        <div class="main bs-v276-cc-main">
           <strong class="bs-v276-cc-name">${esc(d.name)}</strong>
           <small class="bs-v276-cc-meta">
             ${owner ? `<span>${esc(owner)}</span>` : ''}
           </small>
         </div>
-        <div class="bs-v276-cc-amount">
+        <div class="amount bs-v276-cc-amount">
           <strong>${money(amount)}</strong>
           <small>${esc(amountLabel)}</small>
         </div>
