@@ -132,9 +132,7 @@ textarea,
 #debts .debt-toolbar input,
 #debts .debt-toolbar select,
 #debts #debtSearch,
-#incomes .toolbar.debt-toolbar select,
-#calendar select,
-.bs-calendar-sort-copy select{
+#incomes .toolbar.debt-toolbar select{
   font-size:var(--bs-type-control)!important;
   line-height:1.3!important;
   font-weight:var(--bs-weight-medium)!important;
@@ -175,7 +173,6 @@ textarea,
 /* Üçlü KPI standartları */
 #debts #v175DebtKpis .v175-quick-card span,
 #payments #v176PaymentKpis .v175-quick-card span,
-#calendar #v175CalendarKpis .v175-quick-card span,
 #incomes #incomeOwnerKpis .income-owner-kpi span{
   font-size:var(--bs-type-label)!important;
   line-height:1.2!important;
@@ -184,8 +181,7 @@ textarea,
 }
 
 #debts #v175DebtKpis .v175-quick-card strong,
-#payments #v176PaymentKpis .v175-quick-card strong,
-#calendar #v175CalendarKpis .v175-quick-card strong{
+#payments #v176PaymentKpis .v175-quick-card strong{
   font-size:20px!important;
   line-height:1.08!important;
   font-weight:var(--bs-weight-bold)!important;
@@ -193,8 +189,7 @@ textarea,
 }
 
 #debts #v175DebtKpis .v175-quick-card small,
-#payments #v176PaymentKpis .v175-quick-card small,
-#calendar #v175CalendarKpis .v175-quick-card small{
+#payments #v176PaymentKpis .v175-quick-card small{
   font-size:var(--bs-type-label)!important;
   line-height:1.25!important;
   font-weight:var(--bs-weight-regular)!important;
@@ -206,8 +201,7 @@ textarea,
 #dashboard #recentPayments .list-card .main>strong,
 #debts #debtList .list-card .main>strong,
 #payments #paymentList .main>strong,
-#incomes #incomeList .main>strong,
-#calendar .list-card .main>strong{
+#incomes #incomeList .main>strong{
   font-size:var(--bs-type-card-title)!important;
   line-height:1.28!important;
   font-weight:var(--bs-weight-semibold)!important;
@@ -219,8 +213,7 @@ textarea,
 #dashboard #recentPayments .list-card small,
 #debts #debtList .list-card small,
 #payments #paymentList .main small,
-#incomes #incomeList .main small,
-#calendar .list-card .main small{
+#incomes #incomeList .main small{
   font-size:var(--bs-type-meta)!important;
   line-height:1.4!important;
   font-weight:var(--bs-weight-regular)!important;
@@ -231,8 +224,7 @@ textarea,
 #dashboard #recentPayments .list-card .amount,
 #debts #debtList .amount,
 #payments #paymentList .amount,
-#incomes #incomeList .amount,
-#calendar .list-card .amount{
+#incomes #incomeList .amount{
   font-size:var(--bs-type-amount)!important;
   line-height:1.15!important;
   font-weight:var(--bs-weight-bold)!important;
