@@ -6,14 +6,13 @@ const APP_CONFIG_KEY='kurumFinansAsistanim.appConfig.v12';
 const defaultState={debts:[],expenses:[],payments:[],incomes:[],budget:{orgName:'',income:0,fixedExpenses:0,reserve:0},updatedAt:null};
 
 const defaultAppConfig={
-  schemaVersion:16,
+  schemaVersion:17,
   applicationName:'Borç ve Gelir Asistanım',
   menus:[
     {view:'dashboard',label:'Özet',icon:'⌂',visible:true,locked:false},
     {view:'debts',label:'Borçlar',icon:'▤',visible:true,locked:false},
     {view:'payments',label:'Ödemeler',icon:'✓₺',visible:true,locked:false},
     {view:'incomes',label:'Gelirler',icon:'＋₺',visible:true,locked:false},
-    {view:'calendar',label:'Takvim',icon:'◷',visible:true,locked:false},
     {view:'expenses',label:'Harcamalar',icon:'₺',visible:false,locked:false},
     {view:'settings',label:'Ayarlar',icon:'⚙',visible:true,locked:true}
   ],
@@ -151,7 +150,7 @@ function mergeAppConfig(raw={}){
   const base=clone(defaultAppConfig);
   const oldSchema=+(raw.schemaVersion||0);
 
-  base.schemaVersion=15;
+  base.schemaVersion=17;
 
   if(raw.applicationName){
     base.applicationName=raw.applicationName;
@@ -189,7 +188,6 @@ function mergeAppConfig(raw={}){
       'debts',
       'payments',
       'incomes',
-      'calendar',
       'expenses',
       'settings'
     ];
@@ -199,7 +197,6 @@ function mergeAppConfig(raw={}){
       debts:true,
       payments:true,
       incomes:true,
-      calendar:true,
       expenses:false,
       settings:true
     };
@@ -1068,14 +1065,6 @@ function renderPayments(){
       );
 }
 
-function renderCalendar(){
-  const due=dueItems();
-
-  $('#calendarList').innerHTML=
-    due.length
-      ?due.map(dueCard).join('')
-      :empty('Takvimde yaklaşan ödeme yok.');
-}
 function navIcon(view){
   const icons={
     dashboard:`
@@ -1111,16 +1100,6 @@ function navIcon(view){
         <circle cx="12" cy="12" r="9"/>
         <path d="M12 8v8"/>
         <path d="M8 12h8"/>
-      </svg>`,
-
-    calendar:`
-      <svg viewBox="0 0 24 24" width="21" height="21"
-           fill="none" stroke="currentColor" stroke-width="1.8"
-           stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="5" width="18" height="16" rx="2"/>
-        <path d="M8 3v4"/>
-        <path d="M16 3v4"/>
-        <path d="M3 10h18"/>
       </svg>`,
 
     expenses:`
@@ -1201,7 +1180,6 @@ function renderTitles(){
     ['debts','debtsPageTitle'],
     ['incomes','incomesPageTitle'],
     ['expenses','expensesPageTitle'],
-    ['calendar','calendarPageTitle'],
     ['payments','paymentsPageTitle'],
     ['settings','settingsPageTitle']
   ]){
@@ -1444,7 +1422,6 @@ function renderAll(){
   renderIncomes();
   renderExpenses();
   renderPayments();
-  renderCalendar();
   renderBudget();
   renderMenuManager();
   renderFieldManager();

@@ -44,7 +44,7 @@
 
   window.currentInstallmentRemaining=currentInstallmentRemaining;
 
-  // Takvimde tam taksit yerine, kısmi ödeme sonrası gerçekten kalan tutarı göster.
+  // Sıradaki Ödemeler'de tam taksit yerine, kısmi ödeme sonrası gerçekten kalan tutarı göster.
   dueItems=function(){
     const now=parseDate(todayISO());
 
@@ -65,12 +65,12 @@
       .sort((a,b)=>a.date-b.date);
   };
 
-  function ensureCalendarPayStyles(){
-    if(document.querySelector('#bsCalendarPayStyles')) return;
+  function ensureUpcomingPayStyles(){
+    if(document.querySelector('#bsUpcomingPayStyles')) return;
     const style=document.createElement('style');
-    style.id='bsCalendarPayStyles';
+    style.id='bsUpcomingPayStyles';
     style.textContent=`
-      #calendarList .amount .bs-calendar-pay{
+      #upcomingMini .amount .bs-upcoming-pay{
         appearance:none;
         display:block;
         margin:7px 0 0 auto;
@@ -83,17 +83,17 @@
         cursor:pointer;
         -webkit-tap-highlight-color:transparent;
       }
-      #calendarList .amount .bs-calendar-pay:active{
+      #upcomingMini .amount .bs-upcoming-pay:active{
         transform:scale(.97);
         background:#dfeaff;
       }
-      #calendarList .amount .bs-calendar-pay.partial{
+      #upcomingMini .amount .bs-upcoming-pay.partial{
         border-color:#f2d59e;
         background:#fff7e8;
         color:#c97800;
       }
       @media(max-width:520px){
-        #calendarList .amount .bs-calendar-pay{padding:6px 9px;font-size:9px}
+        #upcomingMini .amount .bs-upcoming-pay{padding:6px 9px;font-size:9px}
       }
     `;
     document.head.appendChild(style);
@@ -112,40 +112,14 @@
 
     const btn=document.createElement('button');
     btn.type='button';
-    btn.className=`bs-calendar-pay${(+d.installmentPaid||0)>EPS?' partial':''}`;
-    btn.dataset.calendarPay=d.id;
+    btn.className=`bs-upcoming-pay${(+d.installmentPaid||0)>EPS?' partial':''}`;
+    btn.dataset.upcomingPay=d.id;
     btn.setAttribute('aria-label',`${d.name||'Borç'} için ödeme yap`);
     btn.textContent=(+d.installmentPaid||0)>EPS?'Kalanı Öde':'Öde';
     amount.appendChild(btn);
 
     return card.outerHTML;
   };
-
-  function bindCalendarPay(){
-    const list=document.querySelector('#calendarList');
-    if(!list||list.dataset.bsCalendarPayBound==='1') return;
-    list.dataset.bsCalendarPayBound='1';
-
-    list.addEventListener('click',e=>{
-      const btn=e.target.closest('[data-calendar-pay]');
-      if(!btn) return;
-
-      e.preventDefault();
-      e.stopPropagation();
-
-      const debt=state.debts
-        .map(normalizeDebt)
-        .find(d=>d.id===btn.dataset.calendarPay);
-      if(!debt) return;
-
-      const remaining=currentInstallmentRemaining(debt);
-      openRecordDialog('payments',{
-        debtId:debt.id,
-        date:todayISO(),
-        amount:remaining>EPS?remaining:''
-      });
-    },true);
-  }
 
   function resolveLatestLocalPayment(debtId,paymentDate){
     for(let i=state.payments.length-1;i>=0;i--){
@@ -552,31 +526,18 @@
         renderDashboard();
         renderDebts();
         renderPayments();
-        renderCalendar();
       }catch(_e){}
     }
   }
 
-  ensureCalendarPayStyles();
-  bindCalendarPay();
+  ensureUpcomingPayStyles();
   setTimeout(enhancePaymentForm,0);
   setTimeout(refreshAfterRepair,0);
 
-  const originalRenderCalendarPaymentPlan=renderCalendar;
-  if(typeof originalRenderCalendarPaymentPlan==='function' && !originalRenderCalendarPaymentPlan.__bsCalendarPayWrapped){
-    const wrapped=function(){
-      originalRenderCalendarPaymentPlan();
-      bindCalendarPay();
-    };
-    wrapped.__bsCalendarPayWrapped=true;
-    renderCalendar=wrapped;
-  }
-
-  // Yeni dueItems / kart görünümü ekrana hemen yansısın.
+  // Yeni dueItems / Sıradaki Ödemeler görünümü ekrana hemen yansısın.
   try{
     renderDashboard();
     renderDebts();
     renderPayments();
-    renderCalendar();
   }catch(_e){}
 })();

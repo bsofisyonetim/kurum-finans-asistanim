@@ -155,7 +155,7 @@
 #dashboard #recentPayments .list-card .amount{
   font-size:13px!important;
 }
-#dashboard #upcomingMini .amount .bs-calendar-pay{
+#dashboard #upcomingMini .amount .bs-upcoming-pay{
   margin-top:5px!important;
   padding:5px 10px!important;
   font-size:9px!important;

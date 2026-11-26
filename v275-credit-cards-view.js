@@ -18,8 +18,14 @@
     if(!Array.isArray(target)) return false;
     if(target.some(item => item?.view === VIEW)) return false;
     const item = {view:VIEW,label:'Kredi Kartları',icon:'▣',visible:true,locked:false};
-    const debtIndex = target.findIndex(x => x?.view === 'debts');
-    target.splice(debtIndex >= 0 ? debtIndex + 1 : target.length,0,item);
+    const incomeIndex = target.findIndex(x => x?.view === 'incomes');
+    const settingsIndex = target.findIndex(x => x?.view === 'settings');
+    const insertAt = incomeIndex >= 0
+      ? incomeIndex + 1
+      : settingsIndex >= 0
+        ? settingsIndex
+        : target.length;
+    target.splice(insertAt,0,item);
     return true;
   }
 

@@ -49,8 +49,8 @@
 
   <link rel="stylesheet" href="styles.css?v=219" />
   <link rel="stylesheet" href="v247-design-system.css?v=247" />
-  <link rel="stylesheet" href="v2471-mobile-polish.css?v=279" />
-  <link rel="stylesheet" href="v2603-finance-typography.css?v=26031" />
+  <link rel="stylesheet" href="v2471-mobile-polish.css?v=281" />
+  <link rel="stylesheet" href="v2603-finance-typography.css?v=281" />
 </head>
 <body>
   <div class="app-shell">
@@ -92,7 +92,7 @@
           <article id="v177BalanceCard" class="summary-card net net-positive"><span>Net Nakit Akışı</span><strong id="v177NetCash">₺0</strong><small>gerçekleşen net nakit</small></article>
         </div>
 
-        <div class="section-head"><h2>Sıradaki Ödemeler</h2><button class="link-btn" data-open="calendar">Takvim</button></div>
+        <div class="section-head"><h2>Sıradaki Ödemeler</h2><button id="upcomingAllBtn" class="link-btn" type="button">Tümü</button></div>
         <div id="upcomingMini" class="list"></div>
 
         <div class="section-head"><h2>Son Ödemeler</h2><button class="link-btn" data-open="payments">Tümü</button></div>
@@ -136,11 +136,6 @@
         </div>
         <div class="toolbar"><input id="expenseSearch" placeholder="Harcama ara…" /><select id="expenseMonth"></select></div>
         <div id="expenseList" class="list"></div>
-      </section>
-
-      <section id="calendar" class="view">
-        <div class="page-title"><div><p class="eyebrow">ÖDEME TAKVİMİ</p><h2 id="calendarPageTitle">Takvim</h2></div></div>
-        <div id="calendarList" class="list"></div>
       </section>
 
       <section id="payments" class="view">
@@ -291,20 +286,20 @@
   <div id="toast" class="toast"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js?v=280"></script>
+  <script src="app.js?v=281"></script>
   <script src="v17-ui.js?v=218"></script>
-  <script src="v175-ui.js?v=175"></script>
+  <script src="v175-ui.js?v=281"></script>
   <script src="v176-ui.js?v=218"></script>
-  <script src="v177-ui.js?v=279"></script>
+  <script src="v177-ui.js?v=281"></script>
   <script src="v234-shell-lock.js?v=257"></script>
   <script src="v178-ui.js?v=279"></script>
-  <script src="v179-ui.js?v=279"></script>
+  <script src="v179-ui.js?v=281"></script>
   <script src="ui.js?v=279"></script>
-  <script src="payment-plan.js?v=200"></script>
-  <script src="payment-schedule.js?v=222"></script>
+  <script src="payment-plan.js?v=281"></script>
+  <script src="payment-schedule.js?v=281"></script>
   <script src="exact-schedule.js?v=224"></script>
   <script src="debt-balance.js?v=236"></script>
   <script src="schedule-editor.js?v=232"></script>
-  <script src="core-compat.js?v=279"></script>
+  <script src="core-compat.js?v=281"></script>
 </body>
 </html>

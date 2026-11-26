@@ -10,8 +10,7 @@
     paid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="m8.2 12.1 2.4 2.4 5.3-5.4"/></svg>',
     remaining:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10M7 20h10M8 4c0 4 8 4 8 8s-8 4-8 8"/></svg>',
     expense:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/></svg>',
-    net:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17 10 12l3 3 6-7"/><path d="M14 8h5v5"/></svg>',
-    sort:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h12M4 12h8M4 17h4"/><path d="m17 15 3 3 3-3"/></svg>'
+    net:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17 10 12l3 3 6-7"/><path d="M14 8h5v5"/></svg>'
   };
 
   function ensureCompatibilityMarker(){
@@ -54,79 +53,6 @@
       head.innerHTML = `<span class="bs-summary-icon" aria-hidden="true">${ICONS[kinds[index]] || ICONS.income}</span><span class="bs-summary-label">${label.textContent}</span>`;
       label.replaceWith(head);
     });
-  }
-
-  function calendarGroupHtml(title,items){
-    if(!items.length) return '';
-    const total = items.reduce((sum,item) => sum + (+item.amount || 0),0);
-    return `
-      <div class="v175-calendar-group">
-        <strong>${esc(title)}</strong>
-        <small>${items.length} kayıt · ${money(total)}</small>
-      </div>
-      ${items.map(dueCard).join('')}
-    `;
-  }
-
-  function sortCalendarItems(items,mode){
-    const list = [...items];
-    if(mode === 'amount'){
-      return list.sort((a,b) => (+b.amount || 0) - (+a.amount || 0) || a.days - b.days);
-    }
-    return list.sort((a,b) => a.days - b.days || (+b.amount || 0) - (+a.amount || 0));
-  }
-
-  function applyCalendarSort(){
-    const list = document.querySelector('#calendarList');
-    if(!list || typeof dueItems !== 'function' || typeof dueCard !== 'function') return;
-
-    const activeMode = document.querySelector('[data-calendar-quick].active')?.dataset.calendarQuick || 'all';
-    const sortMode = document.querySelector('#bsCalendarSortSelect')?.value || 'due';
-    const due = dueItems();
-
-    let filtered = due;
-    if(activeMode === 'overdue') filtered = due.filter(item => item.days < 0);
-    if(activeMode === 'week') filtered = due.filter(item => item.days >= 0 && item.days <= 7);
-    if(!filtered.length) return;
-
-    const overdue = sortCalendarItems(filtered.filter(item => item.days < 0),sortMode);
-    const today = sortCalendarItems(filtered.filter(item => item.days === 0),sortMode);
-    const week = sortCalendarItems(filtered.filter(item => item.days > 0 && item.days <= 7),sortMode);
-    const later = sortCalendarItems(filtered.filter(item => item.days > 7),sortMode);
-
-    list.innerHTML =
-      calendarGroupHtml('Geciken',overdue) +
-      calendarGroupHtml('Bugün',today) +
-      calendarGroupHtml('Önümüzdeki 7 Gün',week) +
-      calendarGroupHtml('Daha Sonra',later);
-  }
-
-  function ensureCalendarSort(){
-    const calendar = document.querySelector('#calendar');
-    const kpis = document.querySelector('#v175CalendarKpis');
-    if(!calendar || !kpis) return null;
-
-    let wrap = document.querySelector('#bsCalendarSort');
-    if(wrap) return wrap;
-
-    wrap = document.createElement('div');
-    wrap.id = 'bsCalendarSort';
-    wrap.className = 'bs-calendar-sort';
-    wrap.innerHTML = `
-      <label>
-        <span class="bs-calendar-sort-icon" aria-hidden="true">${ICONS.sort}</span>
-        <span class="bs-calendar-sort-copy">
-          <small>Sırala</small>
-          <select id="bsCalendarSortSelect" aria-label="Takvim sıralaması">
-            <option value="due">Vade Tarihine Göre</option>
-            <option value="amount">Tutara Göre</option>
-          </select>
-        </span>
-      </label>
-    `;
-    kpis.insertAdjacentElement('afterend',wrap);
-    wrap.querySelector('select')?.addEventListener('change',applyCalendarSort);
-    return wrap;
   }
 
   function installCreditCardCompact(){
@@ -309,20 +235,7 @@
     ensureCompatibilityMarker();
     installFastDashboardPaint();
     upgradeSummaryCards();
-    ensureCalendarSort();
-    applyCalendarSort();
     installCreditCardCompact();
-
-    if(typeof renderCalendar === 'function' && !renderCalendar.__bsV257UiWrapped){
-      const original = renderCalendar;
-      const wrapped = function(){
-        original();
-        ensureCalendarSort();
-        applyCalendarSort();
-      };
-      wrapped.__bsV257UiWrapped = true;
-      renderCalendar = wrapped;
-    }
 
     window.__bsCurrentUiReady = true;
   }

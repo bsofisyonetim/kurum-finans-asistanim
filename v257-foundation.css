@@ -214,58 +214,6 @@ button,input,select,textarea{
 .summary-card:nth-child(3) .bs-summary-icon{background:#EFF6FF!important;color:#2563EB!important}
 .summary-card:nth-child(4) .bs-summary-icon{background:#FFF7ED!important;color:#D98400!important}
 
-/* Takvim sıralama kontrolünün yapısal stili. */
-.bs-calendar-sort{
-  margin:0 0 14px!important;
-}
-.bs-calendar-sort label{
-  width:100%;
-  min-height:48px;
-  display:flex!important;
-  align-items:center!important;
-  gap:10px!important;
-  padding:8px 12px!important;
-  border:1px solid #E2E8F0!important;
-  border-radius:14px!important;
-  background:#fff!important;
-}
-.bs-calendar-sort-icon{
-  width:34px;
-  height:34px;
-  flex:0 0 34px;
-  display:grid;
-  place-items:center;
-  border-radius:10px;
-  background:#EFF6FF;
-  color:#2563EB;
-}
-.bs-calendar-sort-icon svg{width:18px;height:18px}
-.bs-calendar-sort-copy{
-  min-width:0;
-  flex:1;
-  display:grid;
-  gap:1px;
-}
-.bs-calendar-sort-copy small{
-  color:#94A3B8!important;
-  font-size:9px!important;
-  font-weight:850!important;
-  letter-spacing:.12em!important;
-  text-transform:uppercase;
-}
-.bs-calendar-sort-copy select{
-  min-height:0!important;
-  height:auto!important;
-  padding:0 22px 0 0!important;
-  border:0!important;
-  border-radius:0!important;
-  background-color:transparent!important;
-  box-shadow:none!important;
-  font-size:12px!important;
-  font-weight:780!important;
-  color:#475569!important;
-}
-
 /* Kompakt, güvenli alt navigasyon. */
 .app-shell > .bottom-nav{
   position:fixed!important;

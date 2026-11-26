@@ -316,5 +316,4 @@
   renderDebts();
   renderPayments();
   renderExpenses();
-  renderCalendar();
 })();
