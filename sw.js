@@ -1,12 +1,12 @@
-// V284 — Paralel ağ hazırlığı, sıralı çalışma ve güvenli ilk çizim
-const CACHE='bs-ofis-butce-v284-startup-order-20261126';
+// V285 — Ortak görsel standart ve sürüm uyumu
+const CACHE='bs-ofis-butce-v285-visual-standard-20261126';
 const ASSETS=[
-  './?v=284',
-  './index.html?v=284',
+  './?v=285',
+  './index.html?v=285',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
-  './v283-ui-bundle.css?v=283',
-  './app.js?v=284',
+  './v283-ui-bundle.css?v=285',
+  './app.js?v=285',
   './core-compat.js?v=284',
   './v265-shared-finance-access.js?v=265',
   './v258-education-income-sync.js?v=270',
@@ -93,7 +93,7 @@ self.addEventListener('fetch',event => {
       const hit=await cache.match(request);
       if(hit) return hit;
       if(isNavigation){
-        const shell=await cache.match('./?v=284') || await cache.match('./index.html?v=284');
+        const shell=await cache.match('./?v=285') || await cache.match('./index.html?v=285');
         if(shell) return shell;
       }
       return new Response('Çevrimdışı: dosya kullanılamıyor.',{

@@ -16,9 +16,10 @@ const order=[
   "v257-foundation.css",
   "v2471-mobile-polish.css",
   "v2603-finance-typography.css",
-  "v276-credit-cards.css"
+  "v276-credit-cards.css",
+  "v285-visual-standard.css"
 ];
-const header="/* GENERATED: BS Finans V2.8.3. Kaynak sırası korunur. Yenilemek için: node tools/build-ui-bundle.mjs */\n";
+const header="/* GENERATED: BS Finans V2.8.5. Kaynak sırası korunur. Yenilemek için: node tools/build-ui-bundle.mjs */\n";
 const sections=order.map(p=>{
  let s=readFileSync(resolve(root,p),'utf8');
  if(p==='v2471-mobile-polish.css')s=s.replace(/^@import[^\n]*\n/gm,'');
