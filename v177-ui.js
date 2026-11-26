@@ -58,6 +58,30 @@
     });
   }
 
+  function bindUpcomingAll(){
+    const btn=document.querySelector('#upcomingAllBtn');
+    if(!btn||btn.dataset.v281Bound==='1') return;
+    btn.dataset.v281Bound='1';
+
+    btn.addEventListener('click',()=>{
+      const filter=document.querySelector('#debtFilter');
+      const owner=document.querySelector('#debtOwnerFilter');
+      const search=document.querySelector('#debtSearch');
+
+      if(owner) owner.value='all';
+      if(search) search.value='';
+
+      if(filter){
+        filter.value='active';
+        filter.dispatchEvent(new Event('change'));
+      }else{
+        renderDebts();
+      }
+
+      openView('debts');
+    });
+  }
+
   function bindUpcomingPay(){
     const list=document.querySelector('#upcomingMini');
     if(!list||list.dataset.v279PayBound==='1') return;
@@ -102,6 +126,7 @@
     }
 
     bindExpenseCard();
+    bindUpcomingAll();
     bindUpcomingPay();
   }
 
