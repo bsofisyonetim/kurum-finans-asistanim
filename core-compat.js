@@ -1,4 +1,4 @@
-/* BS OFİS BÜTÇE V2.7.8 - Merkezi uyumluluk ve sade dashboard */
+/* BS OFİS BÜTÇE V2.7.9 - Merkezi uyumluluk; dashboard kalıntıları temiz */
 (() => {
   if(window.__bsCoreCompatLoaded) return;
   window.__bsCoreCompatLoaded = true;
@@ -273,8 +273,6 @@
       ['./v2595-atomic-payment-create.js?v=2595','__bsAtomicPaymentCreateV2595Loaded'],
       ['./v241-payment-modal-scroll-lock.js?v=241','__bsV241PaymentModalScrollLockLoaded'],
       ['./v242-payment-save-ui.js?v=242','__bsV242PaymentSaveUiLoaded'],
-      ['./v244-monthly-report.js?v=278','__bsMonthlyReportV244Loaded'],
-      ['./v246-direct-pdf-report.js?v=246','__bsDirectPdfReportV246Loaded'],
       ['./v275-credit-cards-view.js?v=275','__bsCreditCardsViewV275Loaded'],
       ['./v276-section-standard.js?v=277','__bsSectionStandardV276Loaded']
     ];
@@ -283,7 +281,7 @@
       try{
         await loadScript(src,marker);
       }catch(error){
-        console.error('V2.7.8 opsiyonel modül yükleme hatası:',error);
+        console.error('V2.7.9 opsiyonel modül yükleme hatası:',error);
       }
     }
 
