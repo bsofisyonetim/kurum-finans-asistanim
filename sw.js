@@ -1,15 +1,15 @@
-// V286 — Tek kredi kartı çizim akışı
-const CACHE='bs-ofis-butce-v286-credit-render-20261126';
+// V287 — Tek otomatik yenileme akışı
+const CACHE='bs-ofis-butce-v287-auto-refresh-20261127';
 const ASSETS=[
-  './?v=286',
-  './index.html?v=286',
+  './?v=287',
+  './index.html?v=287',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v283-ui-bundle.css?v=285',
-  './app.js?v=286',
-  './core-compat.js?v=286',
-  './v265-shared-finance-access.js?v=265',
-  './v258-education-income-sync.js?v=270',
+  './app.js?v=287',
+  './core-compat.js?v=287',
+  './v265-shared-finance-access.js?v=287',
+  './v258-education-income-sync.js?v=287',
   './v2584-income-themes.js?v=2584',
   './v2592-income-other-description.js?v=2592',
   './v2585-payment-owner-label.js?v=2586',
@@ -35,8 +35,8 @@ const ASSETS=[
   './v275-credit-cards-view.js?v=286',
   './v276-section-standard.js?v=286',
   './v230-mobile-dialog.js?v=2571',
-  './v234-shell-lock.js?v=284',
-  './v26122-cloud-bootstrap.js?v=26122',
+  './v234-shell-lock.js?v=287',
+  './v26122-cloud-bootstrap.js?v=287',
   './v241-payment-modal-scroll-lock.js?v=241',
   './v242-payment-save-ui.js?v=242',
   './v244-monthly-report.js?v=279',
@@ -93,7 +93,7 @@ self.addEventListener('fetch',event => {
       const hit=await cache.match(request);
       if(hit) return hit;
       if(isNavigation){
-        const shell=await cache.match('./?v=286') || await cache.match('./index.html?v=286');
+        const shell=await cache.match('./?v=287') || await cache.match('./index.html?v=287');
         if(shell) return shell;
       }
       return new Response('Çevrimdışı: dosya kullanılamıyor.',{

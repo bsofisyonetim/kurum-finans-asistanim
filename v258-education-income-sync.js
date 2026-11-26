@@ -127,6 +127,7 @@
   if (typeof pullCloud === 'function' && !pullCloud.__bsEducationIncomeSyncV258Wrapped) {
     const originalPullCloud = pullCloud;
     const wrapped = async function (...args) {
+      window.__bsCloudPullCountV287 = (window.__bsCloudPullCountV287 || 0) + 1;
       const initialRefresh = !firstCloudRefreshFinished;
       if (initialRefresh) setInitialRefreshPending(true);
 
@@ -138,6 +139,7 @@
         }
         return await originalPullCloud.apply(this, args);
       } finally {
+        window.__bsCloudPullCountV287 = Math.max(0,(window.__bsCloudPullCountV287 || 1)-1);
         if (initialRefresh) {
           firstCloudRefreshFinished = true;
           setInitialRefreshPending(false);
@@ -149,24 +151,11 @@
     pullCloud = wrapped;
   }
 
-  const refreshWhenVisible = () => {
-    if (document.visibilityState && document.visibilityState !== 'visible') return;
-    if (!session?.access_token) return;
-    if (Date.now() - lastAttemptAt < MIN_INTERVAL_MS) return;
-    if (typeof pullCloud === 'function') {
-      pullCloud().catch(error => console.warn(error));
-    }
-  };
-
-  window.addEventListener('focus', refreshWhenVisible, { passive: true });
-  document.addEventListener('visibilitychange', refreshWhenVisible, { passive: true });
-
-  // Modül, Supabase oturumu hazırlanmışsa ilk senkronu hemen tamamlar.
-  setTimeout(() => {
-    if (session?.access_token && typeof pullCloud === 'function') {
-      pullCloud().catch(error => console.warn(error));
-    }
-  }, 0);
+  // Passive focus, visibility and startup refreshes are owned by app.js.
+  // Manual pulls and the education sync throttle are unchanged.
+  if (session?.access_token && typeof requestAutomaticCloudRefresh === 'function') {
+    requestAutomaticCloudRefresh();
+  }
 
   // Tanılama / kontrollü test için; normal kullanıcı akışı bu fonksiyonu doğrudan çağırmaz.
   window.bsEducationIncomeSyncV258 = syncEducationIncome;

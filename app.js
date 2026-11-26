@@ -1986,7 +1986,34 @@ function renderCloud(){
   }
 }
 
-async function initSupabase(){
+// V287: only passive refreshes share a short debounce; explicit post-write pulls remain direct.
+let automaticCloudReady=false;
+let automaticCloudTimer=null;
+let automaticCloudRunning=false;
+
+function requestAutomaticCloudRefresh(){
+  if(!session || !automaticCloudReady || automaticCloudRunning ||
+    automaticCloudTimer!==null || syncing || window.__bsCloudPullCountV287>0) return;
+  if(document.visibilityState==='hidden') return;
+  automaticCloudTimer=setTimeout(async()=>{
+    automaticCloudTimer=null;
+    if(!session || automaticCloudRunning || syncing ||
+      window.__bsCloudPullCountV287>0 || document.visibilityState==='hidden') return;
+    automaticCloudRunning=true;
+    try{await pullCloud();}
+    catch(error){console.warn('Otomatik bulut yenileme:',error);}
+    finally{automaticCloudRunning=false;}
+  },120);
+}
+
+function enableAutomaticCloudRefresh(){
+  // Never run the initial passive pull through the legacy unguarded data path.
+  if(!window.__bsSharedFinanceAccessV265Loaded) return;
+  automaticCloudReady=true;
+  requestAutomaticCloudRefresh();
+}
+
+async function initSupabase({startup=false}={}){
   if(
     !cloud.url
     ||!cloud.key
@@ -2015,7 +2042,8 @@ async function initSupabase(){
     );
 
     if(session){
-      await pullCloud();
+      if(startup) requestAutomaticCloudRefresh();
+      else await pullCloud();
     }
   }catch(e){
     console.error(e);
@@ -3988,38 +4016,9 @@ $('#syncNowBtn').onclick=
 $('#cloudSyncButton').onclick=
   pushLocalToCloud;
 
-window.addEventListener(
-  'focus',
-  ()=>{
-    if(session){
-      pullCloud();
-    }
-  }
-);
-
-document.addEventListener(
-  'visibilitychange',
-  ()=>{
-    if(
-      document.visibilityState==='visible'
-      &&session
-    ){
-      pullCloud();
-    }
-  }
-);
-
-setInterval(
-  ()=>{
-    if(
-      session
-      &&document.visibilityState==='visible'
-    ){
-      pullCloud();
-    }
-  },
-  20000
-);
+window.addEventListener('focus',requestAutomaticCloudRefresh,{passive:true});
+document.addEventListener('visibilitychange',requestAutomaticCloudRefresh,{passive:true});
+setInterval(requestAutomaticCloudRefresh,20000);
 
 window.addEventListener(
   'beforeinstallprompt',
@@ -4065,7 +4064,7 @@ if(
 if('serviceWorker' in navigator){
   navigator.serviceWorker
     .register(
-      './sw.js?v=286',
+      './sw.js?v=287',
       {updateViaCache:'none'}
     )
     .then(reg=>reg.update())
@@ -4073,4 +4072,4 @@ if('serviceWorker' in navigator){
 }
 
 renderAll();
-initSupabase();
+initSupabase({startup:true});

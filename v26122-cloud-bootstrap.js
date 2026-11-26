@@ -90,7 +90,11 @@
 
         if(session && typeof pullCloud === 'function'){
           try{
-            await pullCloud();
+            if(silent && typeof requestAutomaticCloudRefresh==='function'){
+              requestAutomaticCloudRefresh();
+            }else{
+              await pullCloud();
+            }
           }catch(error){
             console.error('V261.2.2 bulut veri çekme hatası:',error);
             if(!silent && typeof toast === 'function'){

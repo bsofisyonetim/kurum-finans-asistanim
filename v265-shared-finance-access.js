@@ -229,11 +229,8 @@
 
   installAuthGuards();
 
-  if (session?.user?.email && isAllowedEmail(currentEmail())) {
-    setTimeout(() => {
-      if (typeof pullCloud === 'function') {
-        pullCloud().catch(error => console.warn(error));
-      }
-    }, 0);
+  if (session?.user?.email && isAllowedEmail(currentEmail()) &&
+      typeof requestAutomaticCloudRefresh === 'function') {
+    requestAutomaticCloudRefresh();
   }
 })();

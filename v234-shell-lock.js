@@ -38,7 +38,7 @@
   function loadCloudBootstrap(){
     if(window.__bsCloudBootstrapV26122Loaded || document.querySelector('script[data-v26122-cloud-bootstrap]')) return;
     const script = document.createElement('script');
-    script.src = './v26122-cloud-bootstrap.js?v=26122';
+    script.src = './v26122-cloud-bootstrap.js?v=287';
     script.dataset.v26122CloudBootstrap = '1';
     script.addEventListener('error',()=>console.error('V261.2.2 bulut başlangıç kurtarma modülü yüklenemedi.'),{once:true});
     document.body.appendChild(script);

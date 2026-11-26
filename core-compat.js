@@ -273,8 +273,8 @@
   async function loadOptionalModules(){
     const modules = [
       // Finans hesap motoru ilk çizimde hazır olsun: önce ortak veri, sonra dönem/borç motoru.
-      ['./v265-shared-finance-access.js?v=265','__bsSharedFinanceAccessV265Loaded'],
-      ['./v258-education-income-sync.js?v=270','__bsEducationIncomeSyncV258Loaded'],
+      ['./v265-shared-finance-access.js?v=287','__bsSharedFinanceAccessV265Loaded'],
+      ['./v258-education-income-sync.js?v=287','__bsEducationIncomeSyncV258Loaded'],
       ['./v2597-debt-monthly-view.js?v=273','__bsDebtMonthlyViewV2597Loaded'],
       ['./v2598-debt-card-status.js?v=273','__bsDebtCardStatusV2598Loaded'],
       ['./v262-credit-card-statement.js?v=273','__bsDebtPaymentStructureV263Loaded'],
@@ -301,6 +301,10 @@
         await loadScript(src,marker);
       }catch(error){
         console.error('V2.7.9 opsiyonel modül yükleme hatası:',error);
+      }
+      if(marker==='__bsEducationIncomeSyncV258Loaded' &&
+        typeof enableAutomaticCloudRefresh==='function'){
+        enableAutomaticCloudRefresh();
       }
     }
 
