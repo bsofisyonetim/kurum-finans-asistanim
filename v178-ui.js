@@ -208,8 +208,8 @@
 
   async function preloadReportModulesV2612(){
     try{
-      await loadScriptV2612('./v244-monthly-report.js?v=279','__bsMonthlyReportV244Loaded');
-      await loadScriptV2612('./v246-direct-pdf-report.js?v=2612','__bsDirectPdfReportV246Loaded');
+      await loadScriptV2612('./v244-monthly-report.js?v=289','__bsMonthlyReportV244Loaded');
+      await loadScriptV2612('./v246-direct-pdf-report.js?v=289','__bsDirectPdfReportV246Loaded');
     }catch(error){
       console.error('V261.2 rapor ön yükleme hatası:',error);
     }

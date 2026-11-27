@@ -1,12 +1,12 @@
-// V288 — Geciken taksitlerin tutarlı sayımı
-const CACHE='bs-ofis-butce-v288-overdue-consistency-20261127';
+// V289 — Gelir ve rapor toplamlarının tutarlılığı
+const CACHE='bs-ofis-butce-v289-report-consistency-20261127';
 const ASSETS=[
-  './?v=288',
-  './index.html?v=288',
+  './?v=289',
+  './index.html?v=289',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v283-ui-bundle.css?v=285',
-  './app.js?v=288',
+  './app.js?v=289',
   './core-compat.js?v=288',
   './v265-shared-finance-access.js?v=287',
   './v258-education-income-sync.js?v=287',
@@ -18,7 +18,7 @@ const ASSETS=[
   './v175-ui.js?v=288',
   './v176-ui.js?v=218',
   './v177-ui.js?v=281',
-  './v178-ui.js?v=284',
+  './v178-ui.js?v=289',
   './v2611-cash-flow-detail.js?v=2611',
   './v179-ui.js?v=281',
   './ui.js?v=281',
@@ -39,8 +39,8 @@ const ASSETS=[
   './v26122-cloud-bootstrap.js?v=287',
   './v241-payment-modal-scroll-lock.js?v=241',
   './v242-payment-save-ui.js?v=242',
-  './v244-monthly-report.js?v=279',
-  './v246-direct-pdf-report.js?v=2612',
+  './v244-monthly-report.js?v=289',
+  './v246-direct-pdf-report.js?v=289',
   './manifest.webmanifest?v=257',
   './bs-budget-app-icon-v256.svg?v=257',
   './bs-budget-header-mark-v256.svg?v=257',
@@ -93,7 +93,7 @@ self.addEventListener('fetch',event => {
       const hit=await cache.match(request);
       if(hit) return hit;
       if(isNavigation){
-        const shell=await cache.match('./?v=288') || await cache.match('./index.html?v=288');
+        const shell=await cache.match('./?v=289') || await cache.match('./index.html?v=289');
         if(shell) return shell;
       }
       return new Response('Çevrimdışı: dosya kullanılamıyor.',{

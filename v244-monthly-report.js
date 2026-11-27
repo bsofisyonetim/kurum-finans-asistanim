@@ -38,7 +38,8 @@
     const groups = new Map();
 
     rows.forEach((x,index) => {
-      const sourceId = x.sourceRecordId || '';
+      // Same origin rule as the income screen and cash-flow detail.
+      const sourceId = x.sourceRecordId && (x.automatic || x.source) ? x.sourceRecordId : '';
       const key = sourceId ? `bs:${sourceId}` : `manual:${x.id||index}`;
       if(!groups.has(key)){
         groups.set(key, {
@@ -49,7 +50,7 @@
           student:x.student || '',
           amount:0,
           source:sourceId ? 'BS Ofis' : 'Manuel',
-          owners:{},
+          owners:Object.create(null),
           rows:[]
         });
       }
@@ -74,9 +75,10 @@
       .sort((a,b) => `${b.date}${b.createdAt||''}`.localeCompare(`${a.date}${a.createdAt||''}`));
     const debts = new Map((state?.debts || []).map(normalizeDebt).map(d => [d.id,d]));
 
-    const ownerTotals = Object.fromEntries(OWNER_ORDER.map(x => [x,0]));
+    const ownerTotals = Object.assign(Object.create(null),Object.fromEntries(OWNER_ORDER.map(owner => [owner,0])));
     incomeRaw.forEach(x => {
-      if(Object.prototype.hasOwnProperty.call(ownerTotals,x.owner)) ownerTotals[x.owner] += Number(x.amount)||0;
+      const owner = x.owner || 'Sahip bilgisi yok';
+      ownerTotals[owner] = (ownerTotals[owner]||0) + (Number(x.amount)||0);
     });
 
     const typeTotals = {};
@@ -84,7 +86,7 @@
     const categoryTotals = {};
     expenses.forEach(x => { categoryTotals[x.category||'Diğer'] = (categoryTotals[x.category||'Diğer']||0) + (Number(x.amount)||0); });
 
-    const incomeTotal = sum(incomes,x=>x.amount);
+    const incomeTotal = sum(incomeRaw,x=>x.amount);
     const expenseTotal = sum(expenses,x=>x.amount);
     const paymentTotal = sum(payments,x=>x.amount);
 
@@ -97,8 +99,8 @@
   }
 
   function ownerText(g){
-    const parts = OWNER_ORDER
-      .filter(owner => (g.owners[owner]||0) > EPS)
+    const parts = [...new Set([...OWNER_ORDER,...Object.keys(g.owners)])]
+      .filter(owner => Math.abs(g.owners[owner]||0) > EPS)
       .map(owner => `${owner === 'Kurum Kasası' ? 'Kurum' : owner}: ${reportMoney(g.owners[owner])}`);
     return parts.length ? parts.join(' · ') : '—';
   }
@@ -113,7 +115,7 @@
 
   function simpleSummaryRows(obj, preferredOrder=[]){
     const keys = [...new Set([...preferredOrder, ...Object.keys(obj)])]
-      .filter(k => (Number(obj[k])||0) > EPS);
+      .filter(k => Math.abs(Number(obj[k])||0) > EPS);
     if(!keys.length) return '<tr><td colspan="2" class="empty">Kayıt yok</td></tr>';
     return keys.map(k => `<tr><td>${escReport(k)}</td><td class="num">${reportMoney(obj[k])}</td></tr>`).join('');
   }
