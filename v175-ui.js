@@ -262,7 +262,15 @@
         if(debtQuickMode === 'month'){
           modeOk = d.status === 'active' && !!d.dueDate && d.dueDate.startsWith(currentMonth);
         }else if(debtQuickMode === 'overdue'){
-          modeOk = d.status === 'active' && !!d.dueDate && d.dueDate < today;
+          if(typeof window.bsHasOverdueFixedDebtV288 === 'function'){
+            modeOk = window.bsHasOverdueFixedDebtV288(d);
+          }else{
+            const fixed = String(d.custom?.odeme_yapisi || 'Sabit').trim() !== 'Değişken';
+            const remaining = typeof window.currentInstallmentRemaining === 'function'
+              ? window.currentInstallmentRemaining(d)
+              : Math.max(0,(+d.minimum||0)-(+d.custom?.current_installment_paid||0));
+            modeOk = fixed && d.status === 'active' && !!d.dueDate && d.dueDate < today && remaining > .005;
+          }
         }else{
           modeOk = filter === 'all'
             || (filter === 'active' && d.status === 'active')

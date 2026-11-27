@@ -276,7 +276,7 @@
       ['./v265-shared-finance-access.js?v=287','__bsSharedFinanceAccessV265Loaded'],
       ['./v258-education-income-sync.js?v=287','__bsEducationIncomeSyncV258Loaded'],
       ['./v2597-debt-monthly-view.js?v=273','__bsDebtMonthlyViewV2597Loaded'],
-      ['./v2598-debt-card-status.js?v=273','__bsDebtCardStatusV2598Loaded'],
+      ['./v2598-debt-card-status.js?v=288','__bsDebtCardStatusV2598Loaded'],
       ['./v262-credit-card-statement.js?v=273','__bsDebtPaymentStructureV263Loaded'],
 
       // Sunum ve işlem yardımcıları finans motorundan sonra yüklenebilir.
@@ -290,7 +290,7 @@
       ['./v241-payment-modal-scroll-lock.js?v=241','__bsV241PaymentModalScrollLockLoaded'],
       ['./v242-payment-save-ui.js?v=242','__bsV242PaymentSaveUiLoaded'],
       ['./v275-credit-cards-view.js?v=286','__bsCreditCardsViewV275Loaded'],
-      ['./v276-section-standard.js?v=286','__bsSectionStandardV276Loaded']
+      ['./v276-section-standard.js?v=288','__bsSectionStandardV276Loaded']
     ];
 
     preloadOptionalModules(modules);

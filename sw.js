@@ -1,13 +1,13 @@
-// V287 — Tek otomatik yenileme akışı
-const CACHE='bs-ofis-butce-v287-auto-refresh-20261127';
+// V288 — Geciken taksitlerin tutarlı sayımı
+const CACHE='bs-ofis-butce-v288-overdue-consistency-20261127';
 const ASSETS=[
-  './?v=287',
-  './index.html?v=287',
+  './?v=288',
+  './index.html?v=288',
   './styles.css?v=219',
   './v247-design-system.css?v=247',
   './v283-ui-bundle.css?v=285',
-  './app.js?v=287',
-  './core-compat.js?v=287',
+  './app.js?v=288',
+  './core-compat.js?v=288',
   './v265-shared-finance-access.js?v=287',
   './v258-education-income-sync.js?v=287',
   './v2584-income-themes.js?v=2584',
@@ -15,7 +15,7 @@ const ASSETS=[
   './v2585-payment-owner-label.js?v=2586',
   './v2587-debt-owner-colors.js?v=2587',
   './v17-ui.js?v=218',
-  './v175-ui.js?v=281',
+  './v175-ui.js?v=288',
   './v176-ui.js?v=218',
   './v177-ui.js?v=281',
   './v178-ui.js?v=284',
@@ -30,10 +30,10 @@ const ASSETS=[
   './payment-editor-v240.js?v=240',
   './v2595-atomic-payment-create.js?v=2595',
   './v2597-debt-monthly-view.js?v=273',
-  './v2598-debt-card-status.js?v=273',
+  './v2598-debt-card-status.js?v=288',
   './v262-credit-card-statement.js?v=273',
   './v275-credit-cards-view.js?v=286',
-  './v276-section-standard.js?v=286',
+  './v276-section-standard.js?v=288',
   './v230-mobile-dialog.js?v=2571',
   './v234-shell-lock.js?v=287',
   './v26122-cloud-bootstrap.js?v=287',
@@ -93,7 +93,7 @@ self.addEventListener('fetch',event => {
       const hit=await cache.match(request);
       if(hit) return hit;
       if(isNavigation){
-        const shell=await cache.match('./?v=287') || await cache.match('./index.html?v=287');
+        const shell=await cache.match('./?v=288') || await cache.match('./index.html?v=288');
         if(shell) return shell;
       }
       return new Response('Çevrimdışı: dosya kullanılamıyor.',{

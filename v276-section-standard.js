@@ -46,7 +46,6 @@
 
   function fixedDebtSets(){
     const current = monthKey();
-    const today = todayISO();
     const nextMonth = nextMonthStart();
     const active = state.debts
       .map(normalizeDebt)
@@ -56,7 +55,7 @@
       active,
       open:active.filter(d => !!d.dueDate && d.dueDate < nextMonth),
       month:active.filter(d => !!d.dueDate && d.dueDate.startsWith(current)),
-      overdue:active.filter(d => !!d.dueDate && d.dueDate < today)
+      overdue:active
     };
   }
 
@@ -68,15 +67,18 @@
       if(typeof window.bsDebtOverdueSummary === 'function'){
         try{
           const summary = window.bsDebtOverdueSummary(d);
-          if(summary?.count > 0){
-            count += summary.count;
-            total += Math.max(0,+summary.total || 0);
+          if(summary && Number.isFinite(summary.count) && Number.isFinite(summary.total)){
+            count += Math.max(0,summary.count);
+            total += Math.max(0,summary.total);
             return;
           }
         }catch(_error){}
       }
-      count += 1;
-      total += fixedRemaining(d);
+      const remaining = fixedRemaining(d);
+      if(d.dueDate && d.dueDate < todayISO() && remaining > EPS){
+        count += 1;
+        total += remaining;
+      }
     });
 
     return {count,total:roundMoney(total)};

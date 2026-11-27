@@ -78,6 +78,8 @@
   }
 
   window.bsDebtOverdueSummary = overdueSummary;
+  // The overdue filter and the KPI use the same unpaid installment rows.
+  window.bsHasOverdueFixedDebtV288 = raw => overdueSummary(raw).count > 0;
 
   function dueState(raw){
     const d = normalizeDebt(raw);
@@ -105,6 +107,7 @@
     if(!today || !due) return {label:'Vade yok', kind:'neutral', overdue};
 
     const days = Math.round((due - today) / 86400000);
+    if(days < 0) return {label:'Gecikmiş taksit yok', kind:'neutral', overdue};
     if(days === 0) return {label:'Bugün vadeli', kind:'today', overdue};
     if(days <= 7) return {label:`${days} gün kaldı`, kind:'soon', overdue};
 

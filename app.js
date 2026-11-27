@@ -4064,7 +4064,7 @@ if(
 if('serviceWorker' in navigator){
   navigator.serviceWorker
     .register(
-      './sw.js?v=287',
+      './sw.js?v=288',
       {updateViaCache:'none'}
     )
     .then(reg=>reg.update())
