@@ -7,7 +7,9 @@
   const EPS = 0.005;
   const PDFMAKE_SRC = 'https://cdn.jsdelivr.net/npm/pdfmake@0.2/build/pdfmake.min.js';
   const VFS_SRC = 'https://cdn.jsdelivr.net/npm/pdfmake@0.2/build/vfs_fonts.js';
-  let legacyPassThrough = false;
+  let offerPrintFallback = false;
+  let reportBusy = false;
+  const libraryLoads = new Map();
 
   const money = n => new Intl.NumberFormat('tr-TR', {
     style:'currency', currency:'TRY', minimumFractionDigits:2, maximumFractionDigits:2
@@ -118,26 +120,38 @@
   }
 
   function loadScript(src, marker){
-    return new Promise((resolve,reject) => {
-      const selector = `script[data-bs-v246-lib="${marker}"]`;
-      const existing = document.querySelector(selector);
-      if(existing){
-        if(existing.dataset.loaded === '1') return resolve();
-        existing.addEventListener('load',()=>resolve(),{once:true});
-        existing.addEventListener('error',()=>reject(new Error(`${marker} yüklenemedi`)),{once:true});
-        return;
-      }
+    if(libraryLoads.has(marker)) return libraryLoads.get(marker);
+    const selector = `script[data-bs-v246-lib="${marker}"]`;
+    const existing = document.querySelector(selector);
+    if(existing?.dataset.loaded === '1') return Promise.resolve();
+    if(existing) existing.remove();
+
+    const pending = new Promise((resolve,reject) => {
       const script = document.createElement('script');
       script.src = src;
       script.async = true;
       script.dataset.bsV246Lib = marker;
-      script.addEventListener('load',()=>{
-        script.dataset.loaded = '1';
-        resolve();
-      },{once:true});
-      script.addEventListener('error',()=>reject(new Error(`${marker} yüklenemedi`)),{once:true});
+      let settled = false;
+      const finish = error => {
+        if(settled) return;
+        settled = true;
+        clearTimeout(timer);
+        if(error){
+          script.remove();
+          reject(error);
+        }else{
+          script.dataset.loaded = '1';
+          resolve();
+        }
+      };
+      const timer = setTimeout(()=>finish(new Error(`${marker} yükleme zaman aşımı`)),12000);
+      script.addEventListener('load',()=>finish(null),{once:true});
+      script.addEventListener('error',()=>finish(new Error(`${marker} yüklenemedi`)),{once:true});
       document.head.appendChild(script);
     });
+    libraryLoads.set(marker,pending);
+    pending.catch(()=>{if(libraryLoads.get(marker)===pending) libraryLoads.delete(marker);});
+    return pending;
   }
 
   async function ensurePdfMake(){
@@ -154,12 +168,17 @@
   }
 
   async function loadLogoSvg(){
+    const controller = new AbortController();
+    const timer = setTimeout(()=>controller.abort(),5000);
     try{
-      const response = await fetch('./bs-budget-mark-v194.svg?v=195',{cache:'force-cache'});
+      const response = await fetch('./bs-budget-mark-v194.svg?v=195',{cache:'force-cache',signal:controller.signal});
       if(!response.ok) return '';
-      return await response.text();
+      const svg = await response.text();
+      return /<svg[\s>]/i.test(svg) ? svg : '';
     }catch(_error){
       return '';
+    }finally{
+      clearTimeout(timer);
     }
   }
 
@@ -386,42 +405,66 @@
 
   function setButtonState(button,busy){
     if(!button) return;
-    if(!button.dataset.v246DefaultText) button.dataset.v246DefaultText = button.textContent || 'PDF Rapor Oluştur';
     button.disabled = !!busy;
-    button.textContent = busy ? 'PDF hazırlanıyor…' : 'PDF Rapor İndir';
+    button.setAttribute('aria-busy',busy?'true':'false');
+    button.textContent = busy ? 'PDF hazırlanıyor…' : offerPrintFallback ? 'Yazdır / PDF' : 'PDF Rapor İndir';
+  }
+
+  function downloadPdf(pdfMake,doc,filename){
+    return new Promise((resolve,reject)=>{
+      let settled = false;
+      const finish = error => {
+        if(settled) return;
+        settled = true;
+        clearTimeout(timer);
+        error ? reject(error) : resolve();
+      };
+      const timer = setTimeout(()=>finish(new Error('PDF üretimi zaman aşımına uğradı.')),45000);
+      try{
+        // pdfmake 0.2 uses a completion callback, not a Promise.
+        pdfMake.createPdf(doc).download(filename,()=>finish(null));
+      }catch(error){
+        finish(error);
+      }
+    });
   }
 
   async function generatePdf(month, button){
+    if(reportBusy) return;
+    reportBusy = true;
+    offerPrintFallback = false;
     setButtonState(button,true);
     try{
       const [pdfMake,logoSvg] = await Promise.all([ensurePdfMake(),loadLogoSvg()]);
       const doc = buildDocument(month,logoSvg);
       const filename = `${monthLabel(month)} Finans Raporu.pdf`;
-      pdfMake.createPdf(doc).download(filename);
-      if(typeof toast === 'function') toast('Kurumsal PDF raporu oluşturuldu.');
+      await downloadPdf(pdfMake,doc,filename);
+      if(typeof toast === 'function') toast('PDF hazır; indirme tarayıcıya iletildi.');
     }catch(error){
       console.error('V246 PDF üretim hatası',error);
-      if(typeof toast === 'function') toast('Doğrudan PDF oluşturulamadı; yazdırma görünümü açılıyor.');
-      legacyPassThrough = true;
-      setTimeout(()=>button?.click(),0);
+      offerPrintFallback = true;
+      if(typeof toast === 'function') toast('PDF oluşturulamadı. Alternatif rapor için Yazdır / PDF düğmesine dokunun.');
     }finally{
-      setTimeout(()=>setButtonState(button,false),150);
+      reportBusy = false;
+      setButtonState(button,false);
     }
   }
 
   document.addEventListener('click',event => {
     const button = event.target?.closest?.('#v244CreateReport');
     if(!button) return;
-    if(legacyPassThrough){
-      legacyPassThrough = false;
+    if(offerPrintFallback && !reportBusy){
+      // The next real click supplies browser user activation for window.open.
+      offerPrintFallback = false;
+      setButtonState(button,false);
       return;
     }
-
     event.preventDefault();
     event.stopImmediatePropagation();
+    if(reportBusy) return;
 
     const month = document.querySelector('#v244ReportMonth')?.value || '';
-    if(!/^\d{4}-\d{2}$/.test(month)){
+    if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)){
       if(typeof toast === 'function') toast('Geçerli bir rapor ayı seçin.');
       return;
     }
